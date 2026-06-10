@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>yohaku｜空間を、感情から設計する</title>
-  <meta name="description" content="ぼんやりした世界観や空間の理想を、感情・言葉・ビジュアルへ整理します。yohakuは、空間の方向性、居心地、余白、光、素材、世界観を整える空間提案の伴走者です。" />
+  <meta name="description" content="ぼんやりした世界観や空間の理想、まだ整理しきれていない違和感を、言葉・空間の方向性・ビジュアルへ整える空間提案の伴走者です。" />
   <meta name="theme-color" content="#f7f3ec" />
 
   <meta property="og:title" content="yohaku｜空間を、感情から設計する" />
-  <meta property="og:description" content="ぼんやりした世界観や空間の理想を、感情・言葉・ビジュアルへ整理します。" />
+  <meta property="og:description" content="ぼんやりした世界観や空間の理想を、言葉・空間の方向性・ビジュアルへ整理します。" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="ogp_yohaku.jpg" />
 
@@ -1013,6 +1013,68 @@ img {
   }
 }
 
+
+/* --------------------------------------------------
+   Brand / wording refinement update
+-------------------------------------------------- */
+
+.hero-brand {
+  margin-bottom: 2.1rem;
+}
+
+.hero-script-logo {
+  display: block;
+  width: min(360px, 78vw);
+  height: auto;
+  margin-bottom: 0.9rem;
+}
+
+.hero-brand-sub {
+  font-family: var(--font-en);
+  letter-spacing: 0.22em;
+  font-size: 0.76rem;
+  color: var(--brown);
+  margin: 0;
+}
+
+.sensory-note {
+  margin-top: 2.1rem;
+  padding: 1.4rem 1.55rem;
+  border-left: 1px solid var(--brown);
+  color: var(--muted);
+  background: rgba(255, 252, 246, 0.28);
+}
+
+@media (min-width: 901px) {
+  .translation-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-brand {
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-script-logo {
+    width: min(330px, 82vw);
+  }
+}
+
+@media (max-width: 430px) {
+  .hero-script-logo {
+    width: min(285px, 82vw);
+  }
+
+  .hero-brand-sub {
+    font-size: 0.7rem;
+  }
+
+  .sensory-note {
+    padding: 1.25rem 1.25rem;
+  }
+}
+
 </style>
 </head>
 
@@ -1033,17 +1095,20 @@ img {
     <section id="hero" class="section hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <p class="eyebrow">yohaku</p>
+          <div class="hero-brand">
+            <img class="hero-script-logo" src="yohaku_logo_handwritten.png" alt="yohaku" />
+            <p class="hero-brand-sub">MA / 間</p>
+          </div>
           <h1>空間を、<br />感情から<br class="sp-only" />設計する。</h1>
           <p class="hero-lead">
             ぼんやりした世界観や空間の理想を、<br />
-            感情・言葉・ビジュアルへ整理します。
+            言葉・空間の方向性・ビジュアルへ整理します。
           </p>
           <p class="hero-text">
             店舗や空間を整えたい。<br />
             でも、何から考えればいいか分からない。<br />
-            yohakuは、まだ形になる前の感覚を丁寧に読み解き、
-            空間の方向性へと翻訳していきます。
+            yohakuは、まだ整理しきれていない理想や違和感を、
+            空間づくりの方向性へと整えていきます。
           </p>
           <div class="button-row">
             <a class="button primary" href="#contact">空間の方向性を相談する</a>
@@ -1053,7 +1118,7 @@ img {
 
         <figure class="hero-visual">
           <img src="hero_yohaku_01.jpg" alt="光と余白のある作業机と本と植物" />
-          <figcaption>光と余白の中で、感情が静かに整っていく。</figcaption>
+          <figcaption>光と余白の中で、空間の印象が少しずつ整っていく。</figcaption>
         </figure>
       </div>
     </section>
@@ -1078,7 +1143,7 @@ img {
           <div class="card">世界観を空間に落とし込めない</div>
           <div class="card">参考画像が自分の店に合うか分からない</div>
           <div class="card">商品を並べただけの売場になっている</div>
-          <div class="card">居心地や滞在感まで設計したい</div>
+          <div class="card">居心地や滞在感、活気まで設計したい</div>
           <div class="card">内装会社に相談する前に、考えを整理したい</div>
           <div class="card">AIで画像は作れるが、提案としてまとまらない</div>
         </div>
@@ -1095,15 +1160,15 @@ img {
           </p>
           <p>
             人の呼吸、視線、歩く速さ、滞在時間、帰ったあとの記憶にまで、
-            静かに作用するものです。
+            目に見えにくいかたちで作用するものです。
           </p>
           <p>
             だから、家具や色を決める前に、まず「その空間で、
-            どんな感情が生まれるべきか」を考えます。
+            どんな状態が生まれるとよいか」を考えます。
           </p>
-          <p class="word-list">落ち着く。安心する。想像する。整う。また来たくなる。</p>
+          <p class="word-list">落ち着く。安心する。想像する。整う。にぎわう。また来たくなる。</p>
           <p>
-            yohakuは、そうした感情の輪郭を整理し、空間の方向性へと変えていきます。
+            yohakuは、理想や違和感の輪郭を整理し、空間の方向性へと変えていきます。
           </p>
         </div>
         <figure class="image-frame">
@@ -1115,11 +1180,11 @@ img {
     <section id="translation" class="section translation">
       <div class="container narrow center">
         <p class="section-label">Translation</p>
-        <h2>感情を、空間へ翻訳する。</h2>
+        <h2>感情や状態を、空間へ翻訳する。</h2>
         <p>
-          感情は、目に見えません。けれど、空間の中には必ず表れます。<br />
-          yohakuが行うのは、まだ言葉になっていない感覚を、
-          空間の判断基準へと翻訳することです。
+          yohakuが行うのは、感情を決めつけることではありません。<br />
+          まだ整理しきれていない理想や違和感を言葉にしながら、
+          光・素材・余白・距離・動線などの判断基準へ整えていくことです。
         </p>
       </div>
 
@@ -1139,6 +1204,11 @@ img {
           <h3>世界観を感じる</h3>
           <p>言葉 / 色 / 素材 / 写真 / 光 / 動線</p>
         </article>
+        <article class="translation-card">
+          <span>Direction 04</span>
+          <h3>五感の方向性</h3>
+          <p>音や香りは、具体選定ではなく、空間全体の印象を整える要素として扱います。</p>
+        </article>
       </div>
     </section>
 
@@ -1149,7 +1219,7 @@ img {
           <h2>できること</h2>
           <p>
             yohakuでは、空間の方向性を整えるために、
-            感情・世界観・ビジュアル・資料化を一貫してサポートします。
+            理想や違和感の整理、世界観、ビジュアル、資料化を一貫してサポートします。
           </p>
         </div>
 
@@ -1160,7 +1230,7 @@ img {
           <article class="service-card"><span>04</span><h3>レイアウト方針整理</h3><p>居心地、動線、距離感、滞在の仕方を整理します。</p></article>
           <article class="service-card"><span>05</span><h3>ビジュアル方針整理</h3><p>色、素材、光、影、写真、パースの方向性をまとめます。</p></article>
           <article class="service-card"><span>06</span><h3>空間提案資料作成</h3><p>感情・世界観・空間方針を、第三者に伝わる資料へまとめます。</p></article>
-          <article class="service-card muted-card"><span>07</span><h3>AI活用サポート</h3><p>必要に応じて、イメージの整理やビジュアル化の補助としてAIも活用します。</p></article>
+          <article class="service-card muted-card"><span>07</span><h3>イメージ可視化支援</h3><p>必要に応じて、AIも補助的に活用し、方向性やビジュアルの整理を支援します。</p></article>
         </div>
 
         <div class="price-note">
@@ -1184,7 +1254,7 @@ img {
           <h2>進め方</h2>
           <p>
             まだ具体的なイメージが固まっていない段階でも大丈夫です。<br />
-            感情や世界観の整理から、一緒に進めていきます。
+            理想や違和感、世界観の整理から、一緒に進めていきます。
           </p>
         </div>
         <div class="steps">
@@ -1214,11 +1284,19 @@ img {
             何を置くかだけではなく、何を置かないか。<br />
             どこを明るくするかだけではなく、どこに影を残すか。
           </p>
+          <p>
+            yohakuが扱うのは、静かな空間だけではありません。<br />
+            落ち着き、安心感、にぎわい、高揚感、回遊したくなる感覚など、
+            その空間に必要な状態を整理します。
+          </p>
+          <p class="sensory-note">
+            音や香りについては、具体的な選定ではなく、空間全体の印象を整えるための方向性として扱います。
+          </p>
         </div>
 
         <div class="image-grid">
           <img src="design_direction_01.jpg" alt="棚と照明がつくる静かな素材感" />
-          <img src="design_direction_02.jpg" alt="窓辺の植物と香りのある静かな時間" />
+          <img src="design_direction_02.jpg" alt="壁に落ちる光と影、余白のある椅子と植物" />
           <img src="design_direction_03.jpg" alt="コーヒーカップと影がつくる静かな余韻" />
         </div>
       </div>
@@ -1229,8 +1307,8 @@ img {
         <p class="section-label">Concept Works</p>
         <h2>感情を起点に、空間の方向性を整理したスタディ。</h2>
         <p>
-          カフェ、サロン、ショップを題材に、「どんな感情を起こすか」から、
-          空間の余白・光・素材・距離・動線を設計しています。
+          カフェ、サロン、ショップを題材に、「どんな状態を生みたいか」から、
+          空間の余白・光・素材・距離・動線を整理しています。
         </p>
       </div>
 
@@ -1334,7 +1412,7 @@ img {
           </p>
           <p>
             yohakuでは、空間を感情・居心地・世界観・余白から考えます。
-            まだ言葉になっていない理想も、一緒に整理することで、
+            まだ整理しきれていない理想や違和感も、一緒に言葉にすることで、
             空間の方向性へ変えていけます。
           </p>
         </div>
@@ -1358,7 +1436,7 @@ img {
         </p>
         <p>
           そんな段階から、相談できます。<br />
-          感情や世界観を整理し、空間の方向性・ビジュアル・提案資料へとつなげていきます。
+          理想や違和感、世界観を整理し、空間の方向性・ビジュアル・提案資料へとつなげていきます。
         </p>
 
         <div class="contact-buttons">
