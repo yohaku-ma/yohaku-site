@@ -359,6 +359,18 @@ h3 {
   aspect-ratio: 16 / 9;
 }
 
+
+.image-grid--two {
+  grid-template-columns: 1fr;
+}
+
+.image-grid--two img,
+.image-grid--two img:first-child {
+  grid-column: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
 .works-list {
   margin-top: 90px;
 }
@@ -1077,6 +1089,7 @@ img {
 
 </style>
 <!-- yohaku final wording polish: state / sensory / range update -->
+<!-- yohaku final public polish: design image removed / concept sheets state update -->
 </head>
 
 <body>
@@ -1295,8 +1308,7 @@ img {
           </p>
         </div>
 
-        <div class="image-grid">
-          <img src="design_direction_01.jpg" alt="棚と照明がつくる静かな素材感" />
+        <div class="image-grid image-grid--two">
           <img src="design_direction_02.jpg" alt="壁に落ちる光と影、余白のある椅子と植物" />
           <img src="design_direction_03.jpg" alt="コーヒーカップと影がつくる静かな余韻" />
         </div>
