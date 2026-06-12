@@ -11,11 +11,77 @@
 .journey-flow{display:grid;gap:10px}.journey-node{border:1px solid var(--line);background:#fffdf8;border-radius:18px;padding:12px}.journey-node-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px}.journey-stage{font-size:12px;color:var(--accent);letter-spacing:.08em}.journey-arrow{text-align:center;color:var(--accent2);font-size:18px;line-height:1}.journey-fields{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:720px){.journey-fields{grid-template-columns:1fr 1fr}}.journey-fields input{font-size:12px;padding:10px;border-radius:12px}.journey-preview{margin-top:12px;padding:12px;border-radius:18px;background:rgba(245,240,232,.5);border:1px solid rgba(228,217,201,.85)}.journey-preview-title{font-size:12px;color:var(--muted);margin-bottom:8px}.journey-preview-line{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:13px}.journey-chip{padding:7px 9px;border-radius:999px;background:#fffdf8;border:1px solid var(--line)}.journey-connector{color:var(--accent2)}
 
 .translation-map{display:grid;gap:10px}.translate-row{border:1px solid var(--line);background:#fffdf8;border-radius:18px;padding:12px}.translate-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}.translate-title{font-size:13px;font-weight:650}.translate-label{font-size:11px;color:var(--accent);letter-spacing:.08em}.translate-fields{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:720px){.translate-fields{grid-template-columns:1fr 1fr}}.translate-fields input,.translate-fields textarea{font-size:12px;padding:10px;border-radius:12px}.translate-fields textarea{min-height:70px}.connection-preview{margin-top:12px;padding:12px;border-radius:18px;background:rgba(245,240,232,.5);border:1px solid rgba(228,217,201,.85)}.connection-line{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:12px;margin-top:8px}.connection-chip{padding:7px 9px;border-radius:999px;background:#fffdf8;border:1px solid var(--line)}
+
+.proposal-form{
+  display:grid;
+  gap:10px;
+  margin-top:12px;
+}
+.proposal-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:10px;
+}
+@media (min-width:720px){
+  .proposal-grid{grid-template-columns:1fr 1fr}
+}
+.proposal-list{
+  display:grid;
+  gap:10px;
+  margin-top:14px;
+}
+.proposal-item{
+  border:1px solid var(--line);
+  background:#fffdf8;
+  border-radius:18px;
+  padding:13px;
+}
+.proposal-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+  margin-bottom:6px;
+}
+.proposal-title{
+  font-size:14px;
+  font-weight:560;
+}
+.proposal-meta{
+  font-size:11px;
+  color:var(--muted);
+}
+.proposal-body{
+  font-size:12px;
+  color:#4b4339;
+  line-height:1.65;
+  white-space:pre-wrap;
+}
+.proposal-status{
+  display:inline-flex;
+  border-radius:999px;
+  padding:5px 9px;
+  border:1px solid var(--line);
+  background:#f7efe4;
+  font-size:11px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+.proposal-delete{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  font-size:18px;
+  cursor:pointer;
+  padding:0 4px;
+}
+
 .bottom-nav{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(620px,calc(100% - 26px));background:rgba(255,250,241,.9);border:1px solid rgba(228,217,201,.9);border-radius:999px;box-shadow:0 20px 60px rgba(47,43,37,.18);backdrop-filter:blur(18px);display:grid;grid-template-columns:repeat(6,1fr);padding:6px;z-index:30}.bottom-nav a{text-decoration:none;color:var(--muted);text-align:center;font-size:10px;padding:8px 4px;border-radius:999px}.bottom-nav a:active,.bottom-nav a:hover{background:#f2e8d9;color:var(--ink)}.export-box{white-space:pre-wrap;font-size:12px;background:#fffdf8;border:1px solid var(--line);border-radius:16px;padding:12px;min-height:120px;color:#4b4339}.hidden{display:none!important}
   </style>
 <!-- yohaku Progress App v2: completion criteria / blockers / deliverables -->
 <!-- yohaku Progress App v3: state journey map -->
 <!-- yohaku Progress App v4: space translation connection map -->
+<!-- yohaku Progress App v5: proposal history / design version log -->
 </head>
 <body>
 <header class="topbar"><div class="topbar-inner"><div class="brand"><div class="mark">y</div><div><div class="brand-title">yohaku Progress</div><div class="brand-sub">空間提案の現在地を可視化する</div></div></div><div class="mini-actions"><button class="ghost-btn" id="saveBtn">保存</button><button class="primary-btn" id="exportBtnTop">共有文</button></div></div></header>
@@ -26,10 +92,51 @@
 <section class="card" id="phases"><div class="section-title"><h2>フェーズマップ</h2><span class="small">完了条件 / 停滞理由 / 成果物</span></div><div class="phase-map" id="phaseMap"></div></section>
 <section class="card" id="journey"><div class="section-title"><h2>状態遷移マップ</h2><span class="small">空間で人がどう変わるか</span></div><p class="small" style="margin-top:-4px">来る前から帰った後まで、利用者の状態変化と、それを支える空間要素を整理します。</p><div class="journey-flow" id="journeyFlow"></div><div class="journey-preview"><div class="journey-preview-title">状態の流れ</div><div class="journey-preview-line" id="journeyPreview"></div></div></section>
 <section class="card" id="translationMap"><div class="section-title"><h2>空間翻訳マップ</h2><span class="small">状態を空間要素へ接続する</span></div><p class="small" style="margin-top:-4px">生みたい状態を、光・素材・余白・距離・動線などの判断基準へつなげます。</p><div class="translation-map" id="translationRows"></div><div class="connection-preview"><div class="journey-preview-title">接続の見立て</div><div class="connection-line" id="translationPreview"></div></div></section>
+
+<section class="card" id="proposalLog">
+  <div class="section-title">
+    <h2>提案履歴</h2>
+    <span class="small">案の変化を残す</span>
+  </div>
+  <p class="small" style="margin-top:-4px">AI案・自分の案・修正案を履歴として残し、「なぜ変えたか」まで追えるようにします。</p>
+
+  <div class="proposal-form">
+    <div class="proposal-grid">
+      <div>
+        <label>案の名前</label>
+        <input id="proposalTitle" placeholder="例：Ver.1 静けさ重視案" />
+      </div>
+      <div>
+        <label>状態</label>
+        <select id="proposalStatus">
+          <option value="検討中">検討中</option>
+          <option value="採用候補">採用候補</option>
+          <option value="採用">採用</option>
+          <option value="保留">保留</option>
+          <option value="不採用">不採用</option>
+        </select>
+      </div>
+    </div>
+    <div>
+      <label>案の内容</label>
+      <textarea id="proposalContent" placeholder="例：落ち着きを軸に、入口から奥へ向かって徐々に光を弱める。"></textarea>
+    </div>
+    <div>
+      <label>判断理由 / 修正理由</label>
+      <textarea id="proposalReason" placeholder="例：静かすぎる印象を避けるため、中央には少し活動感を残す。"></textarea>
+    </div>
+    <div class="btn-row">
+      <button class="primary-btn" id="addProposalBtn">提案履歴を追加</button>
+    </div>
+  </div>
+
+  <div class="proposal-list" id="proposalList"></div>
+</section>
+
 <section class="grid two"><div class="card" id="maturity"><div class="section-title"><h2>提案成熟度</h2><span class="small">弱い部分を見つける</span></div><div id="maturitySliders"></div></div><div class="card" id="tasks"><div class="section-title"><h2>次にやること</h2><span class="small">チェックリスト</span></div><div class="task-form"><input id="taskInput" placeholder="例：参考写真を5枚集める"><button class="primary-btn" id="addTaskBtn">追加</button></div><div class="task-list" id="taskList"></div></div></section>
 <section class="grid two"><div class="card" id="decisions"><div class="section-title"><h2>判断ログ</h2><span class="small">なぜそう決めたか</span></div><textarea id="decisionInput" placeholder="例：静かな雰囲気だけでなく、回遊したくなる軽さも残す方向にした。"></textarea><div class="btn-row"><button class="primary-btn" id="addDecisionBtn">判断を残す</button></div><div class="log" id="decisionLog" style="margin-top:12px"></div></div><div class="card" id="share"><div class="section-title"><h2>共有文</h2><span class="small">依頼者への説明に使う</span></div><div class="export-box" id="summaryText"></div><div class="btn-row"><button class="ghost-btn" id="copyBtn">コピー</button><button class="ghost-btn" id="downloadBtn">データ保存</button><label class="ghost-btn" for="importFile" style="cursor:pointer">データ読込</label><input type="file" id="importFile" accept=".json" class="hidden"><button class="danger-btn" id="resetBtn">リセット</button></div><p class="small">入力内容はこのスマホ・ブラウザ内に保存されます。別端末で使う場合は「データ保存」「データ読込」を使います。</p></div></section>
 </main>
-<nav class="bottom-nav"><a href="#project">現在地</a><a href="#phases">フェーズ</a><a href="#journey">遷移</a><a href="#translationMap">翻訳</a><a href="#tasks">タスク</a><a href="#share">共有</a></nav>
+<nav class="bottom-nav"><a href="#project">現在地</a><a href="#phases">フェーズ</a><a href="#journey">遷移</a><a href="#translationMap">翻訳</a><a href="#proposalLog">履歴</a><a href="#tasks">タスク</a><a href="#share">共有</a></nav>
 <script>
 const phases=[
 {id:0,name:"相談・要件整理",desc:"目的、依頼範囲、成果物、判断基準を決める",checks:["目的が整理できている","依頼範囲が決まっている","最終成果物が決まっている","判断基準が言葉になっている"],deliverable:"要件整理メモ"},
@@ -52,21 +159,73 @@ const translationTemplates=[
   {label:"State 05",title:"余韻が残る",element:"帰り際の景色・光・香りの方向性・記憶に残る一場面",direction:"強く主張せず、帰ったあとに思い出せる印象を残す",avoid:"演出過多 / 印象を押しつける"}
 ];
 const maturityItems=["要件整理","感情・状態","世界観","空間方針","レイアウト","ビジュアル","提案資料"];
-const defaultState={projectName:"",clientName:"",currentPhase:0,projectStatus:"順調",nextAction:"",phases:phases.map((p,i)=>({id:i,status:i===0?"進行中":"未着手",checks:p.checks.map(()=>false),blocker:"",deliverable:p.deliverable||""})),maturity:Object.fromEntries(maturityItems.map(x=>[x,0])),journey:journeyStages.map((stage,i)=>({stage,state:["期待・不安","安心","没入・回遊","納得","余韻・記憶"][i],space:["入口の印象・案内","視線の抜け・距離","光・素材・動線","比較しやすさ・居心地","記憶に残る一場面"][i]})),translation:translationTemplates.map(x=>({...x})),tasks:[],decisions:[]};
+const defaultState={projectName:"",clientName:"",currentPhase:0,projectStatus:"順調",nextAction:"",phases:phases.map((p,i)=>({id:i,status:i===0?"進行中":"未着手",checks:p.checks.map(()=>false),blocker:"",deliverable:p.deliverable||""})),maturity:Object.fromEntries(maturityItems.map(x=>[x,0])),journey:journeyStages.map((stage,i)=>({stage,state:["期待・不安","安心","没入・回遊","納得","余韻・記憶"][i],space:["入口の印象・案内","視線の抜け・距離","光・素材・動線","比較しやすさ・居心地","記憶に残る一場面"][i]})),translation:translationTemplates.map(x=>({...x})),proposalHistory:[],tasks:[],decisions:[]};
 let state=loadState();
 function clone(o){return JSON.parse(JSON.stringify(o))} function normalize(st){st={...clone(defaultState),...st};st.phases=phases.map((p,i)=>{let old=(st.phases||[])[i]||{};return {id:i,status:old.status||(i===0?"進行中":"未着手"),checks:Array.isArray(old.checks)?p.checks.map((_,j)=>!!old.checks[j]):p.checks.map(()=>false),blocker:old.blocker||"",deliverable:old.deliverable||p.deliverable||""}});st.journey=journeyStages.map((stage,i)=>{const old=(st.journey||[])[i]||{};return {stage,state:old.state||["期待・不安","安心","没入・回遊","納得","余韻・記憶"][i],space:old.space||["入口の印象・案内","視線の抜け・距離","光・素材・動線","比較しやすさ・居心地","記憶に残る一場面"][i]}});
 st.translation=translationTemplates.map((tpl,i)=>{const old=(st.translation||[])[i]||{};return {label:old.label||tpl.label,title:old.title||tpl.title,element:old.element||tpl.element,direction:old.direction||tpl.direction,avoid:old.avoid||tpl.avoid}});
-return st} function loadState(){try{return normalize(JSON.parse(localStorage.getItem("yohakuProgressAppV1")||"{}"))}catch(e){return clone(defaultState)}} function saveState(){localStorage.setItem("yohakuProgressAppV1",JSON.stringify(state));render()} function statusToProgress(s){return s==="完了"?100:s==="進行中"?50:s==="確認待ち"?60:s==="要判断"?55:0} function phaseCheckRate(p){return !p.checks||!p.checks.length?0:Math.round(p.checks.filter(Boolean).length/p.checks.length*100)} function calcOverall(){const p=state.phases.reduce((a,x)=>a+Math.max(statusToProgress(x.status),phaseCheckRate(x)),0)/phases.length;const m=Object.values(state.maturity).reduce((a,v)=>a+Number(v),0)/maturityItems.length;return Math.round(p*.65+m*.35)} function statusClass(s){return s==="完了"?"done":s==="確認待ち"?"waiting":s==="要判断"?"risk":""} function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]))}
-function render(){projectName.value=state.projectName;clientName.value=state.clientName;projectStatus.value=state.projectStatus;nextAction.value=state.nextAction;currentPhase.innerHTML=phases.map(p=>`<option value="${p.id}">${p.id}. ${p.name}</option>`).join("");currentPhase.value=state.currentPhase;const overall=calcOverall();overallPercent.textContent=overall+"%";progressCircle.style.setProperty("--p",overall);overallBar.style.width=overall+"%";const cur=phases.find(p=>p.id==state.currentPhase);currentPhaseLabel.textContent=cur?cur.name:"未設定";doneCount.textContent=`${state.phases.filter(p=>p.status==="完了").length} / ${phases.length}`;waitCount.textContent=`${state.phases.filter(p=>p.status==="確認待ち"||p.status==="要判断").length}件`;openTaskCount.textContent=`${state.tasks.filter(t=>!t.done).length}件`;nextActionPreview.textContent=state.nextAction||"次に進めることを入力してください。";statusText.textContent=state.projectStatus;statusDot.className="dot"+(state.projectStatus==="順調"?" good":state.projectStatus==="確認待ち"?" wait":state.projectStatus==="要判断"||state.projectStatus==="停滞"?" risk":"");renderPhases();renderJourney();renderTranslationMap();renderMaturity();renderTasks();renderDecisions();renderSummary()}
+st.proposalHistory=Array.isArray(st.proposalHistory)?st.proposalHistory:[];return st} function loadState(){try{return normalize(JSON.parse(localStorage.getItem("yohakuProgressAppV1")||"{}"))}catch(e){return clone(defaultState)}} function saveState(){localStorage.setItem("yohakuProgressAppV1",JSON.stringify(state));render()} function statusToProgress(s){return s==="完了"?100:s==="進行中"?50:s==="確認待ち"?60:s==="要判断"?55:0} function phaseCheckRate(p){return !p.checks||!p.checks.length?0:Math.round(p.checks.filter(Boolean).length/p.checks.length*100)} function calcOverall(){const p=state.phases.reduce((a,x)=>a+Math.max(statusToProgress(x.status),phaseCheckRate(x)),0)/phases.length;const m=Object.values(state.maturity).reduce((a,v)=>a+Number(v),0)/maturityItems.length;return Math.round(p*.65+m*.35)} function statusClass(s){return s==="完了"?"done":s==="確認待ち"?"waiting":s==="要判断"?"risk":""} function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]))}
+function render(){projectName.value=state.projectName;clientName.value=state.clientName;projectStatus.value=state.projectStatus;nextAction.value=state.nextAction;currentPhase.innerHTML=phases.map(p=>`<option value="${p.id}">${p.id}. ${p.name}</option>`).join("");currentPhase.value=state.currentPhase;const overall=calcOverall();overallPercent.textContent=overall+"%";progressCircle.style.setProperty("--p",overall);overallBar.style.width=overall+"%";const cur=phases.find(p=>p.id==state.currentPhase);currentPhaseLabel.textContent=cur?cur.name:"未設定";doneCount.textContent=`${state.phases.filter(p=>p.status==="完了").length} / ${phases.length}`;waitCount.textContent=`${state.phases.filter(p=>p.status==="確認待ち"||p.status==="要判断").length}件`;openTaskCount.textContent=`${state.tasks.filter(t=>!t.done).length}件`;nextActionPreview.textContent=state.nextAction||"次に進めることを入力してください。";statusText.textContent=state.projectStatus;statusDot.className="dot"+(state.projectStatus==="順調"?" good":state.projectStatus==="確認待ち"?" wait":state.projectStatus==="要判断"||state.projectStatus==="停滞"?" risk":"");renderPhases();renderJourney();renderTranslationMap();renderProposalHistory();renderMaturity();renderTasks();renderDecisions();renderSummary()}
 function renderPhases(){phaseMap.innerHTML=state.phases.map(p=>{const meta=phases[p.id],cls=[statusClass(p.status),Number(state.currentPhase)===p.id?"current":""].join(" "),rate=phaseCheckRate(p);return `<div class="phase ${cls}"><div class="phase-num">${p.id}</div><div><div class="phase-title">${meta.name}</div><div class="phase-desc">${meta.desc}</div><div class="phase-complete-rate">完了条件 ${rate}% / 成果物：${esc(p.deliverable||meta.deliverable||"未設定")}</div><div class="progress-line"><i style="width:${Math.max(statusToProgress(p.status),rate)}%"></i></div><details class="phase-detail"><summary class="small">完了条件・停滞理由・成果物を確認する</summary><div class="check-grid">${meta.checks.map((c,idx)=>`<label class="check-item"><input type="checkbox" ${p.checks&&p.checks[idx]?"checked":""} data-phase-check="${p.id}" data-check-index="${idx}" /> <span>${esc(c)}</span></label>`).join("")}</div><div class="phase-note-grid"><div class="mini-field"><label>停滞理由 / 判断待ち</label><textarea data-phase-blocker="${p.id}" placeholder="例：参考画像が不足している、施主判断待ち">${esc(p.blocker||"")}</textarea></div><div class="mini-field"><label>このフェーズの成果物</label><input data-phase-deliverable="${p.id}" value="${esc(p.deliverable||meta.deliverable||"")}" placeholder="例：世界観キーワード" /></div></div></details></div><select data-phase-status="${p.id}">${["未着手","進行中","確認待ち","要判断","完了"].map(s=>`<option ${p.status===s?"selected":""}>${s}</option>`).join("")}</select></div>`}).join("");document.querySelectorAll("[data-phase-status]").forEach(s=>s.onchange=e=>{const id=+e.target.dataset.phaseStatus;state.phases[id].status=e.target.value;if(e.target.value==="進行中")state.currentPhase=id;saveState()});document.querySelectorAll("[data-phase-check]").forEach(c=>c.onchange=e=>{const id=+e.target.dataset.phaseCheck,idx=+e.target.dataset.checkIndex;state.phases[id].checks[idx]=e.target.checked;if(phaseCheckRate(state.phases[id])===100&&state.phases[id].status!=="完了")state.phases[id].status="確認待ち";saveState()});document.querySelectorAll("[data-phase-blocker]").forEach(a=>a.oninput=e=>{const id=+e.target.dataset.phaseBlocker;state.phases[id].blocker=e.target.value;if(e.target.value.trim()&&state.phases[id].status!=="完了")state.phases[id].status="要判断";saveState()});document.querySelectorAll("[data-phase-deliverable]").forEach(i=>i.oninput=e=>{const id=+e.target.dataset.phaseDeliverable;state.phases[id].deliverable=e.target.value;saveState()})}
 function renderJourney(){journeyFlow.innerHTML=state.journey.map((j,i)=>`<div class="journey-node"><div class="journey-node-head"><div class="journey-stage">${i+1}. ${esc(j.stage)}</div><span class="small">状態 → 空間要素</span></div><div class="journey-fields"><div><label>この段階の状態</label><input data-journey-state="${i}" value="${esc(j.state||"")}" placeholder="例：緊張、不安、期待"></div><div><label>効かせる空間要素</label><input data-journey-space="${i}" value="${esc(j.space||"")}" placeholder="例：入口の明るさ、視線の抜け"></div></div></div>${i<state.journey.length-1?`<div class="journey-arrow">↓</div>`:""}`).join("");journeyPreview.innerHTML=state.journey.map((j,i)=>`<span class="journey-chip">${esc(j.state||j.stage)}</span>${i<state.journey.length-1?`<span class="journey-connector">→</span>`:""}`).join("");document.querySelectorAll("[data-journey-state]").forEach(inp=>inp.oninput=e=>{state.journey[+e.target.dataset.journeyState].state=e.target.value;saveState()});document.querySelectorAll("[data-journey-space]").forEach(inp=>inp.oninput=e=>{state.journey[+e.target.dataset.journeySpace].space=e.target.value;saveState()})}
 function renderTranslationMap(){translationRows.innerHTML=(state.translation||[]).map((r,i)=>`<div class="translate-row"><div class="translate-head"><div><div class="translate-label">${esc(r.label||`State ${i+1}`)}</div><div class="translate-title">${esc(r.title||"")}</div></div><span class="small">状態 → 判断基準</span></div><div class="translate-fields"><div><label>効かせる空間要素</label><textarea data-translation-element="${i}" placeholder="例：光、素材、余白、距離">${esc(r.element||"")}</textarea></div><div><label>空間の方向性</label><textarea data-translation-direction="${i}" placeholder="例：圧を抑え、呼吸が整う余白を残す">${esc(r.direction||"")}</textarea></div><div><label>避けたい印象</label><input data-translation-avoid="${i}" value="${esc(r.avoid||"")}" placeholder="例：雑多、暗すぎる、演出過多"></div><div><label>状態名</label><input data-translation-title="${i}" value="${esc(r.title||"")}" placeholder="例：安心する"></div></div></div>`).join("");translationPreview.innerHTML=(state.translation||[]).map((r,i)=>`<span class="connection-chip">${esc(r.title||`State ${i+1}`)}</span><span class="journey-connector">→</span><span class="connection-chip">${esc(r.element||"空間要素")}</span>`).join("");document.querySelectorAll("[data-translation-title]").forEach(inp=>inp.oninput=e=>{state.translation[+e.target.dataset.translationTitle].title=e.target.value;saveState()});document.querySelectorAll("[data-translation-element]").forEach(inp=>inp.oninput=e=>{state.translation[+e.target.dataset.translationElement].element=e.target.value;saveState()});document.querySelectorAll("[data-translation-direction]").forEach(inp=>inp.oninput=e=>{state.translation[+e.target.dataset.translationDirection].direction=e.target.value;saveState()});document.querySelectorAll("[data-translation-avoid]").forEach(inp=>inp.oninput=e=>{state.translation[+e.target.dataset.translationAvoid].avoid=e.target.value;saveState()})}
+
+function renderProposalHistory(){
+  const root=document.getElementById("proposalList");
+  if(!root) return;
+  if(!state.proposalHistory || !state.proposalHistory.length){
+    root.innerHTML=`<p class="small">まだ提案履歴がありません。AI案・自分の案・修正案を追加してください。</p>`;
+    return;
+  }
+  root.innerHTML=state.proposalHistory.slice().reverse().map(item=>`<div class="proposal-item">
+    <div class="proposal-head">
+      <div>
+        <div class="proposal-title">${esc(item.title||"無題の案")}</div>
+        <div class="proposal-meta">${esc(item.date||"")} / ${esc(item.phase||"フェーズ未設定")}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px">
+        <span class="proposal-status">${esc(item.status||"検討中")}</span>
+        <button class="proposal-delete" data-proposal-delete="${esc(item.id)}">×</button>
+      </div>
+    </div>
+    <div class="proposal-body">案の内容：${esc(item.content||"未入力")}
+
+判断理由：${esc(item.reason||"未入力")}</div>
+  </div>`).join("");
+  document.querySelectorAll("[data-proposal-delete]").forEach(btn=>btn.onclick=e=>{
+    state.proposalHistory=state.proposalHistory.filter(x=>x.id!==e.target.dataset.proposalDelete);
+    saveState();
+  });
+}
+function addProposal(){
+  const title=(document.getElementById("proposalTitle")||{}).value?.trim();
+  const content=(document.getElementById("proposalContent")||{}).value?.trim();
+  const reason=(document.getElementById("proposalReason")||{}).value?.trim();
+  const status=(document.getElementById("proposalStatus")||{}).value || "検討中";
+  if(!title && !content && !reason) return;
+  const d=new Date();
+  const cur=phases.find(p=>p.id==state.currentPhase);
+  state.proposalHistory.push({
+    id:String(Date.now()),
+    date:`${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,"0")}/${String(d.getDate()).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`,
+    phase:cur?cur.name:"未設定",
+    title:title||`提案案 ${state.proposalHistory.length+1}`,
+    status,
+    content,
+    reason
+  });
+  document.getElementById("proposalTitle").value="";
+  document.getElementById("proposalContent").value="";
+  document.getElementById("proposalReason").value="";
+  document.getElementById("proposalStatus").value="検討中";
+  saveState();
+}
+
 function renderMaturity(){maturitySliders.innerHTML=maturityItems.map(name=>{const v=Number(state.maturity[name]||0);return `<div class="slider-row"><div class="slider-head"><span>${name}</span><strong>${v}%</strong></div><input type="range" min="0" max="100" step="5" value="${v}" data-maturity="${name}"></div>`}).join("");document.querySelectorAll("[data-maturity]").forEach(inp=>inp.oninput=e=>{state.maturity[e.target.dataset.maturity]=Number(e.target.value);saveState()})}
 function renderTasks(){if(!state.tasks.length){taskList.innerHTML=`<p class="small">まだタスクがありません。次にやることを追加してください。</p>`;return}taskList.innerHTML=state.tasks.map(t=>`<div class="task ${t.done?"done":""}"><input type="checkbox" ${t.done?"checked":""} data-task-check="${t.id}"><div class="task-text">${esc(t.text)}</div><button data-task-delete="${t.id}">×</button></div>`).join("");document.querySelectorAll("[data-task-check]").forEach(chk=>chk.onchange=e=>{const t=state.tasks.find(x=>x.id===e.target.dataset.taskCheck);if(t)t.done=e.target.checked;saveState()});document.querySelectorAll("[data-task-delete]").forEach(btn=>btn.onclick=e=>{state.tasks=state.tasks.filter(t=>t.id!==e.target.dataset.taskDelete);saveState()})}
 function renderDecisions(){decisionLog.innerHTML=state.decisions.length?state.decisions.slice().reverse().map(d=>`<div class="log-item"><div class="log-date">${d.date}</div><div>${esc(d.text)}</div></div>`).join(""):`<p class="small">まだ判断ログがありません。</p>`}
-function renderSummary(){const cur=phases.find(p=>p.id==state.currentPhase),overall=calcOverall(),open=state.tasks.filter(t=>!t.done).map(t=>"・"+t.text).join("\n")||"・未登録";const curPhaseState=state.phases[Number(state.currentPhase)]||{};const blocker=curPhaseState.blocker||"特になし";const deliverable=curPhaseState.deliverable||(cur?cur.deliverable:"未設定");const journeyText=(state.journey||[]).map(j=>`・${j.stage}：${j.state||"未入力"}（${j.space||"空間要素未入力"}）`).join("\n");const translationText=(state.translation||[]).map(r=>`・${r.title||"状態未入力"} → ${r.element||"空間要素未入力"} / ${r.direction||"方向性未入力"}`).join("\n");summaryText.textContent=`【yohaku 進捗共有】\n\n案件名：${state.projectName||"未入力"}\n依頼者：${state.clientName||"未入力"}\n\n現在フェーズ：${cur?cur.name:"未設定"}\n全体進捗：${overall}%\n案件状態：${state.projectStatus}\n\n状態遷移：\n${journeyText}\n\n次に進めること：\n${state.nextAction||"未入力"}\n\n未完了タスク：\n${open}\n\n停滞理由 / 判断待ち：\n${blocker}\n\nこのフェーズの成果物：\n${deliverable}\n\n現在の見立て：\n今は「${cur?cur.name:"未設定"}」の段階です。状態の流れと空間要素を確認しながら、次工程へ進むための整理を進めます。`}
+function renderSummary(){const cur=phases.find(p=>p.id==state.currentPhase),overall=calcOverall(),open=state.tasks.filter(t=>!t.done).map(t=>"・"+t.text).join("\n")||"・未登録";const curPhaseState=state.phases[Number(state.currentPhase)]||{};const blocker=curPhaseState.blocker||"特になし";const deliverable=curPhaseState.deliverable||(cur?cur.deliverable:"未設定");const journeyText=(state.journey||[]).map(j=>`・${j.stage}：${j.state||"未入力"}（${j.space||"空間要素未入力"}）`).join("\n");const translationText=(state.translation||[]).map(r=>`・${r.title||"状態未入力"} → ${r.element||"空間要素未入力"} / ${r.direction||"方向性未入力"}`).join("\n");const proposalText=(state.proposalHistory||[]).slice(-3).map(p=>`・${p.title||"無題の案"}（${p.status||"検討中"}）：${p.reason||p.content||"理由未入力"}`).join("\n")||"・未登録";summaryText.textContent=`【yohaku 進捗共有】\n\n案件名：${state.projectName||"未入力"}\n依頼者：${state.clientName||"未入力"}\n\n現在フェーズ：${cur?cur.name:"未設定"}\n全体進捗：${overall}%\n案件状態：${state.projectStatus}\n\n状態遷移：\n${journeyText}\n\n直近の提案履歴：\n${proposalText}\n\n次に進めること：\n${state.nextAction||"未入力"}\n\n未完了タスク：\n${open}\n\n停滞理由 / 判断待ち：\n${blocker}\n\nこのフェーズの成果物：\n${deliverable}\n\n現在の見立て：\n今は「${cur?cur.name:"未設定"}」の段階です。状態の流れと空間要素を確認しながら、次工程へ進むための整理を進めます。`}
 function addTask(){const text=taskInput.value.trim();if(!text)return;state.tasks.push({id:String(Date.now()),text,done:false});taskInput.value="";saveState()} function addDecision(){const text=decisionInput.value.trim();if(!text)return;const d=new Date();state.decisions.push({date:`${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,"0")}/${String(d.getDate()).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`,text});decisionInput.value="";saveState()}
-projectName.oninput=e=>{state.projectName=e.target.value;saveState()};clientName.oninput=e=>{state.clientName=e.target.value;saveState()};currentPhase.onchange=e=>{state.currentPhase=Number(e.target.value);state.phases.forEach((p,i)=>{if(i<state.currentPhase&&p.status==="未着手")p.status="完了";if(i===state.currentPhase&&p.status==="未着手")p.status="進行中"});saveState()};projectStatus.onchange=e=>{state.projectStatus=e.target.value;saveState()};nextAction.oninput=e=>{state.nextAction=e.target.value;saveState()};addTaskBtn.onclick=addTask;taskInput.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addTask()}};addDecisionBtn.onclick=addDecision;saveBtn.onclick=saveState;exportBtnTop.onclick=()=>share.scrollIntoView({behavior:"smooth"});copyBtn.onclick=async()=>{await navigator.clipboard.writeText(summaryText.textContent);alert("共有文をコピーしました。")};downloadBtn.onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`yohaku-progress-${Date.now()}.json`;a.click();URL.revokeObjectURL(a.href)};importFile.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{state=normalize(JSON.parse(r.result));saveState();alert("データを読み込みました。")}catch(err){alert("読み込みに失敗しました。")}};r.readAsText(file)};resetBtn.onclick=()=>{if(confirm("入力内容をリセットしますか？")){state=clone(defaultState);saveState()}};render();
+projectName.oninput=e=>{state.projectName=e.target.value;saveState()};clientName.oninput=e=>{state.clientName=e.target.value;saveState()};currentPhase.onchange=e=>{state.currentPhase=Number(e.target.value);state.phases.forEach((p,i)=>{if(i<state.currentPhase&&p.status==="未着手")p.status="完了";if(i===state.currentPhase&&p.status==="未着手")p.status="進行中"});saveState()};projectStatus.onchange=e=>{state.projectStatus=e.target.value;saveState()};nextAction.oninput=e=>{state.nextAction=e.target.value;saveState()};addProposalBtn.onclick=addProposal;addTaskBtn.onclick=addTask;taskInput.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addTask()}};addDecisionBtn.onclick=addDecision;saveBtn.onclick=saveState;exportBtnTop.onclick=()=>share.scrollIntoView({behavior:"smooth"});copyBtn.onclick=async()=>{await navigator.clipboard.writeText(summaryText.textContent);alert("共有文をコピーしました。")};downloadBtn.onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`yohaku-progress-${Date.now()}.json`;a.click();URL.revokeObjectURL(a.href)};importFile.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{state=normalize(JSON.parse(r.result));saveState();alert("データを読み込みました。")}catch(err){alert("読み込みに失敗しました。")}};r.readAsText(file)};resetBtn.onclick=()=>{if(confirm("入力内容をリセットしますか？")){state=clone(defaultState);saveState()}};render();
 </script>
 </body>
 </html>
