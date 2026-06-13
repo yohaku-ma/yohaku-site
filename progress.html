@@ -2,2752 +2,414 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>yohaku Progress App</title>
-  <meta name="theme-color" content="#efe8dc" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>yohaku Progress</title>
   <style>
-    :root{--bg:#f5f0e8;--card:#fffaf1;--ink:#2f2b25;--muted:#80766a;--line:#e4d9c9;--accent:#8f7b62;--accent2:#b9a486;--good:#6c8b72;--wait:#b08a51;--risk:#a56458;--shadow:0 18px 40px rgba(47,43,37,.08);--radius:24px}
-    *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:linear-gradient(180deg,#f8f3eb,#f2ece3);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",YuGothic,Meiryo,sans-serif;line-height:1.75;letter-spacing:.03em} button,input,select,textarea{font:inherit}.app{width:min(980px,100%);margin:0 auto;padding:18px 16px 110px}.topbar{position:sticky;top:0;z-index:20;margin:-18px -16px 16px;padding:12px 16px 10px;backdrop-filter:blur(18px);background:rgba(245,240,232,.82);border-bottom:1px solid rgba(228,217,201,.7)}.topbar-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;width:min(980px,100%);margin:0 auto}.brand{display:flex;align-items:center;gap:10px;min-width:0}.mark{width:34px;height:34px;border-radius:999px;border:1px solid var(--accent2);display:grid;place-items:center;color:var(--accent);font-family:Georgia,serif;font-style:italic;background:rgba(255,250,241,.75)}.brand-title{font-size:14px;font-weight:650;letter-spacing:.08em;white-space:nowrap}.brand-sub{font-size:10px;color:var(--muted);margin-top:-4px}.mini-actions,.btn-row{display:flex;gap:8px;flex-wrap:wrap}.ghost-btn,.primary-btn,.danger-btn{border:0;border-radius:999px;padding:10px 13px;cursor:pointer;white-space:nowrap;font-size:12px}.ghost-btn{background:rgba(255,250,241,.8);border:1px solid var(--line);color:var(--ink)}.primary-btn{background:var(--ink);color:#fffaf1}.danger-btn{background:#fff3ef;color:var(--risk);border:1px solid #e2c4bd}.hero{padding:26px 0 18px}.eyebrow{color:var(--accent);font-size:12px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}h1{font-size:clamp(28px,8vw,54px);line-height:1.15;margin:0 0 12px;font-weight:500}.lead{color:var(--muted);font-size:14px;max-width:620px;margin:0}.grid{display:grid;grid-template-columns:1fr;gap:14px}@media (min-width:780px){.grid.two{grid-template-columns:1fr 1fr}.dashboard-row{grid-template-columns:220px 1fr}}.card{background:rgba(255,250,241,.86);border:1px solid rgba(228,217,201,.9);border-radius:var(--radius);box-shadow:var(--shadow);padding:18px;margin-top:14px}.section-title{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin-bottom:14px}h2{margin:0;font-size:18px;font-weight:560;letter-spacing:.04em}.small{font-size:12px;color:var(--muted)}label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}input,select,textarea{width:100%;border:1px solid var(--line);background:#fffdf8;color:var(--ink);border-radius:14px;padding:12px 13px;outline:none}textarea{min-height:96px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--accent2);box-shadow:0 0 0 4px rgba(185,164,134,.16)}.field-grid{display:grid;grid-template-columns:1fr;gap:12px}@media (min-width:620px){.field-grid.two{grid-template-columns:1fr 1fr}}.dashboard-row{display:grid;gap:14px}.circle-wrap{display:flex;justify-content:center;align-items:center;min-height:210px}.circle{--p:0;width:172px;height:172px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at center,var(--card) 0 58%,transparent 59%),conic-gradient(var(--accent) calc(var(--p)*1%),#e7ddce 0);box-shadow:inset 0 0 0 1px rgba(228,217,201,.9)}.circle strong{display:block;font-size:34px;line-height:1;font-weight:560;text-align:center}.circle span{display:block;font-size:11px;color:var(--muted);text-align:center;margin-top:5px}.status-pill{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;background:#f6efe5;border:1px solid var(--line);font-size:12px;color:var(--muted)}.dot{width:8px;height:8px;border-radius:999px;background:var(--accent)}.dot.good{background:var(--good)}.dot.wait{background:var(--wait)}.dot.risk{background:var(--risk)}.summary-list{display:grid;gap:8px;margin-top:12px}.summary-item{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(228,217,201,.65);padding-bottom:8px;font-size:13px}.summary-item span:first-child{color:var(--muted)}.phase-map{display:grid;gap:10px}.phase{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:12px;border-radius:18px;border:1px solid var(--line);background:#fffdf8}.phase.current{border-color:var(--accent2);background:#fff8ed;box-shadow:0 10px 28px rgba(143,123,98,.13)}.phase.done{background:#f6f8f2;border-color:#d3decf}.phase.waiting{background:#fff8ed;border-color:#ead6b8}.phase.risk{background:#fff3ef;border-color:#e2c4bd}.phase-num{width:34px;height:34px;border-radius:999px;display:grid;place-items:center;border:1px solid var(--line);font-size:12px;color:var(--muted);background:rgba(245,240,232,.65)}.phase-title{font-size:14px;font-weight:560;line-height:1.4}.phase-desc{font-size:11px;color:var(--muted);line-height:1.4;margin-top:2px}.phase select{width:auto;max-width:118px;padding:8px 9px;font-size:11px;border-radius:999px}.progress-line{height:8px;background:#eee5d8;border-radius:999px;overflow:hidden;margin-top:8px}.progress-line>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:999px}.slider-row{margin:14px 0 0}.slider-head{display:flex;justify-content:space-between;gap:8px;font-size:13px;margin-bottom:6px}input[type=range]{padding:0;accent-color:var(--accent);border:0;background:transparent}.task-form{display:grid;grid-template-columns:1fr auto;gap:8px;margin-bottom:12px}.task-list,.log{display:grid;gap:8px}.task{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:start;padding:12px;border-radius:16px;background:#fffdf8;border:1px solid var(--line)}.task input[type=checkbox]{width:18px;height:18px;margin-top:3px;accent-color:var(--accent)}.task.done .task-text{text-decoration:line-through;color:var(--muted)}.task-text{font-size:13px}.task button{border:0;background:transparent;color:var(--muted);font-size:18px;padding:0 4px;cursor:pointer}.log-item{border:1px solid var(--line);background:#fffdf8;border-radius:16px;padding:12px;font-size:13px}.log-date{font-size:11px;color:var(--muted);margin-bottom:4px}.phase-detail{margin-top:10px;display:grid;gap:10px;padding:12px;border-radius:16px;background:rgba(245,240,232,.45);border:1px solid rgba(228,217,201,.75)}.phase-detail summary{cursor:pointer}.check-grid{display:grid;gap:7px;margin-top:8px}.check-item{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start;font-size:12px;color:#4b4339;line-height:1.55}.check-item input{width:16px;height:16px;margin-top:2px;accent-color:var(--accent)}.phase-note-grid{display:grid;grid-template-columns:1fr;gap:8px}.mini-field label{font-size:11px;margin-bottom:4px}.mini-field textarea,.mini-field input{font-size:12px;padding:10px;min-height:44px;border-radius:12px}.mini-field textarea{min-height:70px}.phase-complete-rate{font-size:11px;color:var(--muted);margin-top:4px}@media (min-width:720px){.phase-note-grid{grid-template-columns:1fr 1fr}}
-.journey-flow{display:grid;gap:10px}.journey-node{border:1px solid var(--line);background:#fffdf8;border-radius:18px;padding:12px}.journey-node-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:8px}.journey-stage{font-size:12px;color:var(--accent);letter-spacing:.08em}.journey-arrow{text-align:center;color:var(--accent2);font-size:18px;line-height:1}.journey-fields{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:720px){.journey-fields{grid-template-columns:1fr 1fr}}.journey-fields input{font-size:12px;padding:10px;border-radius:12px}.journey-preview{margin-top:12px;padding:12px;border-radius:18px;background:rgba(245,240,232,.5);border:1px solid rgba(228,217,201,.85)}.journey-preview-title{font-size:12px;color:var(--muted);margin-bottom:8px}.journey-preview-line{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:13px}.journey-chip{padding:7px 9px;border-radius:999px;background:#fffdf8;border:1px solid var(--line)}.journey-connector{color:var(--accent2)}
-
-.translation-map{display:grid;gap:10px}.translate-row{border:1px solid var(--line);background:#fffdf8;border-radius:18px;padding:12px}.translate-head{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:10px}.translate-title{font-size:13px;font-weight:650}.translate-label{font-size:11px;color:var(--accent);letter-spacing:.08em}.translate-fields{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:720px){.translate-fields{grid-template-columns:1fr 1fr}}.translate-fields input,.translate-fields textarea{font-size:12px;padding:10px;border-radius:12px}.translate-fields textarea{min-height:70px}.connection-preview{margin-top:12px;padding:12px;border-radius:18px;background:rgba(245,240,232,.5);border:1px solid rgba(228,217,201,.85)}.connection-line{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:12px;margin-top:8px}.connection-chip{padding:7px 9px;border-radius:999px;background:#fffdf8;border:1px solid var(--line)}
-
-
-
-
-
-
-
-
-.portfolio-stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:12px;
-}
-@media (min-width:760px){
-  .portfolio-stats{grid-template-columns:repeat(4,1fr)}
-}
-.portfolio-stat{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:13px;
-}
-.portfolio-stat .label{
-  font-size:11px;
-  color:var(--muted);
-  margin-bottom:6px;
-}
-.portfolio-stat .value{
-  font-size:22px;
-  line-height:1;
-  font-weight:560;
-}
-.portfolio-list{
-  display:grid;
-  gap:9px;
-}
-.portfolio-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:12px;
-}
-.portfolio-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-}
-.portfolio-title{
-  font-size:14px;
-  font-weight:560;
-  line-height:1.45;
-}
-.portfolio-meta{
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.55;
-  margin-top:3px;
-}
-.portfolio-badge{
-  display:inline-flex;
-  border-radius:999px;
-  padding:5px 9px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:11px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.portfolio-badge.risk{
-  background:#fff3ef;
-  border-color:#e2c4bd;
-  color:var(--risk);
-}
-.portfolio-badge.wait{
-  background:#fff8ed;
-  border-color:#ead6b8;
-  color:var(--wait);
-}
-.portfolio-metrics{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-  margin-top:10px;
-}
-@media (min-width:760px){
-  .portfolio-metrics{grid-template-columns:repeat(4,1fr)}
-}
-.portfolio-metric{
-  border:1px solid rgba(228,217,201,.85);
-  border-radius:14px;
-  padding:8px;
-  font-size:11px;
-  color:var(--muted);
-  background:#fffaf1;
-}
-.portfolio-metric strong{
-  display:block;
-  font-size:15px;
-  color:var(--ink);
-  margin-top:2px;
-}
-.portfolio-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:10px;
-}
-.portfolio-buttons button{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  color:var(--ink);
-  border-radius:999px;
-  padding:7px 10px;
-  font-size:11px;
-  cursor:pointer;
-}
-
-.home-overview{
-  display:grid;
-  gap:12px;
-}
-.home-cards{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-@media (min-width:760px){
-  .home-cards{grid-template-columns:repeat(4,1fr)}
-}
-.home-card{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:13px;
-  min-height:112px;
-}
-.home-label{
-  font-size:11px;
-  color:var(--muted);
-  margin-bottom:8px;
-}
-.home-value{
-  font-size:20px;
-  line-height:1.35;
-  font-weight:560;
-}
-.home-sub{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:6px;
-  line-height:1.45;
-}
-.home-focus{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  border-radius:18px;
-  padding:14px;
-}
-.home-focus-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:8px;
-}
-.home-focus-title strong{
-  font-size:15px;
-}
-.home-focus-list{
-  display:grid;
-  gap:8px;
-  margin-top:10px;
-}
-.home-focus-item{
-  border:1px solid rgba(228,217,201,.8);
-  background:#fffdf8;
-  border-radius:14px;
-  padding:10px;
-  font-size:12px;
-  line-height:1.6;
-}
-.home-quick{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-@media (min-width:760px){
-  .home-quick{grid-template-columns:repeat(5,1fr)}
-}
-.home-quick button{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  color:var(--ink);
-  border-radius:999px;
-  padding:10px 8px;
-  font-size:12px;
-  cursor:pointer;
-}
-.home-quick button.primary{
-  background:var(--ink);
-  color:#fffaf1;
-}
-
-.project-library-grid{
-  display:grid;
-  gap:10px;
-}
-.library-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:10px;
-}
-.library-list{
-  display:grid;
-  gap:9px;
-  margin-top:12px;
-}
-.library-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:12px;
-}
-.library-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-}
-.library-title{
-  font-size:14px;
-  font-weight:560;
-  line-height:1.45;
-}
-.library-meta{
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.55;
-  margin-top:3px;
-}
-.library-badge{
-  display:inline-flex;
-  border-radius:999px;
-  padding:5px 9px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:11px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.library-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:10px;
-}
-.library-buttons button{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  color:var(--ink);
-  border-radius:999px;
-  padding:7px 10px;
-  font-size:11px;
-  cursor:pointer;
-}
-.library-buttons .delete{
-  color:var(--risk);
-  background:#fff3ef;
-  border-color:#e2c4bd;
-}
-
-.quality-grid{
-  display:grid;
-  gap:10px;
-}
-.quality-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:16px;
-  padding:12px;
-}
-.quality-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-  margin-bottom:6px;
-  font-size:13px;
-}
-.quality-head strong{
-  font-size:18px;
-  font-weight:560;
-}
-.quality-note{
-  margin-top:8px;
-}
-.quality-note textarea{
-  min-height:58px;
-  font-size:12px;
-  padding:10px;
-}
-.quality-result{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  border-radius:16px;
-  padding:12px;
-  margin-bottom:12px;
-}
-.quality-main{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-}
-.quality-score{
-  font-size:30px;
-  line-height:1;
-  font-weight:560;
-}
-.quality-label{
-  display:inline-flex;
-  border-radius:999px;
-  padding:6px 10px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:12px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.quality-issues{
-  display:grid;
-  gap:7px;
-  margin-top:10px;
-}
-.quality-issue{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:14px;
-  padding:9px 10px;
-  font-size:12px;
-  line-height:1.55;
-}
-
-.next-nav-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:12px;
-}
-@media (min-width:760px){
-  
-
-
-
-.portfolio-stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:12px;
-}
-@media (min-width:760px){
-  .portfolio-stats{grid-template-columns:repeat(4,1fr)}
-}
-.portfolio-stat{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:13px;
-}
-.portfolio-stat .label{
-  font-size:11px;
-  color:var(--muted);
-  margin-bottom:6px;
-}
-.portfolio-stat .value{
-  font-size:22px;
-  line-height:1;
-  font-weight:560;
-}
-.portfolio-list{
-  display:grid;
-  gap:9px;
-}
-.portfolio-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:12px;
-}
-.portfolio-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-}
-.portfolio-title{
-  font-size:14px;
-  font-weight:560;
-  line-height:1.45;
-}
-.portfolio-meta{
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.55;
-  margin-top:3px;
-}
-.portfolio-badge{
-  display:inline-flex;
-  border-radius:999px;
-  padding:5px 9px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:11px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.portfolio-badge.risk{
-  background:#fff3ef;
-  border-color:#e2c4bd;
-  color:var(--risk);
-}
-.portfolio-badge.wait{
-  background:#fff8ed;
-  border-color:#ead6b8;
-  color:var(--wait);
-}
-.portfolio-metrics{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-  margin-top:10px;
-}
-@media (min-width:760px){
-  .portfolio-metrics{grid-template-columns:repeat(4,1fr)}
-}
-.portfolio-metric{
-  border:1px solid rgba(228,217,201,.85);
-  border-radius:14px;
-  padding:8px;
-  font-size:11px;
-  color:var(--muted);
-  background:#fffaf1;
-}
-.portfolio-metric strong{
-  display:block;
-  font-size:15px;
-  color:var(--ink);
-  margin-top:2px;
-}
-.portfolio-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:10px;
-}
-.portfolio-buttons button{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  color:var(--ink);
-  border-radius:999px;
-  padding:7px 10px;
-  font-size:11px;
-  cursor:pointer;
-}
-
-.home-overview{
-  display:grid;
-  gap:12px;
-}
-.home-cards{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-@media (min-width:760px){
-  .home-cards{grid-template-columns:repeat(4,1fr)}
-}
-.home-card{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:13px;
-  min-height:112px;
-}
-.home-label{
-  font-size:11px;
-  color:var(--muted);
-  margin-bottom:8px;
-}
-.home-value{
-  font-size:20px;
-  line-height:1.35;
-  font-weight:560;
-}
-.home-sub{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:6px;
-  line-height:1.45;
-}
-.home-focus{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  border-radius:18px;
-  padding:14px;
-}
-.home-focus-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:8px;
-}
-.home-focus-title strong{
-  font-size:15px;
-}
-.home-focus-list{
-  display:grid;
-  gap:8px;
-  margin-top:10px;
-}
-.home-focus-item{
-  border:1px solid rgba(228,217,201,.8);
-  background:#fffdf8;
-  border-radius:14px;
-  padding:10px;
-  font-size:12px;
-  line-height:1.6;
-}
-.home-quick{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-@media (min-width:760px){
-  .home-quick{grid-template-columns:repeat(5,1fr)}
-}
-.home-quick button{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  color:var(--ink);
-  border-radius:999px;
-  padding:10px 8px;
-  font-size:12px;
-  cursor:pointer;
-}
-.home-quick button.primary{
-  background:var(--ink);
-  color:#fffaf1;
-}
-
-.project-library-grid{
-  display:grid;
-  gap:10px;
-}
-.library-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:10px;
-}
-.library-list{
-  display:grid;
-  gap:9px;
-  margin-top:12px;
-}
-.library-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:12px;
-}
-.library-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-}
-.library-title{
-  font-size:14px;
-  font-weight:560;
-  line-height:1.45;
-}
-.library-meta{
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.55;
-  margin-top:3px;
-}
-.library-badge{
-  display:inline-flex;
-  border-radius:999px;
-  padding:5px 9px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:11px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.library-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:10px;
-}
-.library-buttons button{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  color:var(--ink);
-  border-radius:999px;
-  padding:7px 10px;
-  font-size:11px;
-  cursor:pointer;
-}
-.library-buttons .delete{
-  color:var(--risk);
-  background:#fff3ef;
-  border-color:#e2c4bd;
-}
-
-.quality-grid{
-  display:grid;
-  gap:10px;
-}
-.quality-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:16px;
-  padding:12px;
-}
-.quality-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-  margin-bottom:6px;
-  font-size:13px;
-}
-.quality-head strong{
-  font-size:18px;
-  font-weight:560;
-}
-.quality-note{
-  margin-top:8px;
-}
-.quality-note textarea{
-  min-height:58px;
-  font-size:12px;
-  padding:10px;
-}
-.quality-result{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  border-radius:16px;
-  padding:12px;
-  margin-bottom:12px;
-}
-.quality-main{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-}
-.quality-score{
-  font-size:30px;
-  line-height:1;
-  font-weight:560;
-}
-.quality-label{
-  display:inline-flex;
-  border-radius:999px;
-  padding:6px 10px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:12px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.quality-issues{
-  display:grid;
-  gap:7px;
-  margin-top:10px;
-}
-.quality-issue{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:14px;
-  padding:9px 10px;
-  font-size:12px;
-  line-height:1.55;
-}
-
-.next-nav-grid{grid-template-columns:.9fr 1.1fr}
-}
-.readiness-card{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:14px;
-}
-.readiness-main{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-  margin-bottom:10px;
-}
-.readiness-score{
-  font-size:34px;
-  line-height:1;
-  font-weight:560;
-}
-.readiness-label{
-  display:inline-flex;
-  border-radius:999px;
-  padding:6px 10px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:12px;
-  color:var(--muted);
-}
-.next-list{
-  display:grid;
-  gap:8px;
-}
-.next-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:16px;
-  padding:10px 11px;
-  font-size:12px;
-  line-height:1.6;
-}
-.next-item strong{
-  display:block;
-  font-size:12px;
-  margin-bottom:2px;
-}
-.next-action-box{
-  white-space:pre-wrap;
-  font-size:12px;
-  line-height:1.75;
-  background:#fffaf1;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:12px;
-  color:#4b4339;
-}
-
-.share-report-box{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:14px;
-  margin-top:12px;
-}
-.report-mode-row{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-}
-@media (min-width:720px){
-  .report-mode-row{grid-template-columns:1fr 1fr}
-}
-.report-preview{
-  white-space:pre-wrap;
-  font-size:12px;
-  line-height:1.75;
-  background:#fffaf1;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:13px;
-  color:#4b4339;
-  min-height:190px;
-}
-.agenda-list{
-  display:grid;
-  gap:8px;
-  margin-top:10px;
-}
-.agenda-item{
-  display:grid;
-  grid-template-columns:auto 1fr auto;
-  gap:9px;
-  align-items:start;
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:16px;
-  padding:10px;
-  font-size:12px;
-}
-.agenda-item input[type=checkbox]{
-  width:17px;
-  height:17px;
-  margin-top:3px;
-  accent-color:var(--accent);
-}
-.agenda-item.done .agenda-text{
-  text-decoration:line-through;
-  color:var(--muted);
-}
-.agenda-item button{
-  border:0;
-  background:transparent;
-  color:var(--muted);
-  font-size:18px;
-  cursor:pointer;
-  padding:0 4px;
-}
-
-.client-pulse-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:12px;
-}
-@media (min-width:720px){
-  
-
-
-
-
-
-.portfolio-stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:12px;
-}
-@media (min-width:760px){
-  .portfolio-stats{grid-template-columns:repeat(4,1fr)}
-}
-.portfolio-stat{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:13px;
-}
-.portfolio-stat .label{
-  font-size:11px;
-  color:var(--muted);
-  margin-bottom:6px;
-}
-.portfolio-stat .value{
-  font-size:22px;
-  line-height:1;
-  font-weight:560;
-}
-.portfolio-list{
-  display:grid;
-  gap:9px;
-}
-.portfolio-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:12px;
-}
-.portfolio-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-}
-.portfolio-title{
-  font-size:14px;
-  font-weight:560;
-  line-height:1.45;
-}
-.portfolio-meta{
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.55;
-  margin-top:3px;
-}
-.portfolio-badge{
-  display:inline-flex;
-  border-radius:999px;
-  padding:5px 9px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:11px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.portfolio-badge.risk{
-  background:#fff3ef;
-  border-color:#e2c4bd;
-  color:var(--risk);
-}
-.portfolio-badge.wait{
-  background:#fff8ed;
-  border-color:#ead6b8;
-  color:var(--wait);
-}
-.portfolio-metrics{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-  margin-top:10px;
-}
-@media (min-width:760px){
-  .portfolio-metrics{grid-template-columns:repeat(4,1fr)}
-}
-.portfolio-metric{
-  border:1px solid rgba(228,217,201,.85);
-  border-radius:14px;
-  padding:8px;
-  font-size:11px;
-  color:var(--muted);
-  background:#fffaf1;
-}
-.portfolio-metric strong{
-  display:block;
-  font-size:15px;
-  color:var(--ink);
-  margin-top:2px;
-}
-.portfolio-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:10px;
-}
-.portfolio-buttons button{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  color:var(--ink);
-  border-radius:999px;
-  padding:7px 10px;
-  font-size:11px;
-  cursor:pointer;
-}
-
-.home-overview{
-  display:grid;
-  gap:12px;
-}
-.home-cards{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-@media (min-width:760px){
-  .home-cards{grid-template-columns:repeat(4,1fr)}
-}
-.home-card{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:13px;
-  min-height:112px;
-}
-.home-label{
-  font-size:11px;
-  color:var(--muted);
-  margin-bottom:8px;
-}
-.home-value{
-  font-size:20px;
-  line-height:1.35;
-  font-weight:560;
-}
-.home-sub{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:6px;
-  line-height:1.45;
-}
-.home-focus{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  border-radius:18px;
-  padding:14px;
-}
-.home-focus-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:8px;
-}
-.home-focus-title strong{
-  font-size:15px;
-}
-.home-focus-list{
-  display:grid;
-  gap:8px;
-  margin-top:10px;
-}
-.home-focus-item{
-  border:1px solid rgba(228,217,201,.8);
-  background:#fffdf8;
-  border-radius:14px;
-  padding:10px;
-  font-size:12px;
-  line-height:1.6;
-}
-.home-quick{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-@media (min-width:760px){
-  .home-quick{grid-template-columns:repeat(5,1fr)}
-}
-.home-quick button{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  color:var(--ink);
-  border-radius:999px;
-  padding:10px 8px;
-  font-size:12px;
-  cursor:pointer;
-}
-.home-quick button.primary{
-  background:var(--ink);
-  color:#fffaf1;
-}
-
-.project-library-grid{
-  display:grid;
-  gap:10px;
-}
-.library-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:10px;
-}
-.library-list{
-  display:grid;
-  gap:9px;
-  margin-top:12px;
-}
-.library-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:12px;
-}
-.library-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-}
-.library-title{
-  font-size:14px;
-  font-weight:560;
-  line-height:1.45;
-}
-.library-meta{
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.55;
-  margin-top:3px;
-}
-.library-badge{
-  display:inline-flex;
-  border-radius:999px;
-  padding:5px 9px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:11px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.library-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:10px;
-}
-.library-buttons button{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  color:var(--ink);
-  border-radius:999px;
-  padding:7px 10px;
-  font-size:11px;
-  cursor:pointer;
-}
-.library-buttons .delete{
-  color:var(--risk);
-  background:#fff3ef;
-  border-color:#e2c4bd;
-}
-
-.quality-grid{
-  display:grid;
-  gap:10px;
-}
-.quality-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:16px;
-  padding:12px;
-}
-.quality-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-  margin-bottom:6px;
-  font-size:13px;
-}
-.quality-head strong{
-  font-size:18px;
-  font-weight:560;
-}
-.quality-note{
-  margin-top:8px;
-}
-.quality-note textarea{
-  min-height:58px;
-  font-size:12px;
-  padding:10px;
-}
-.quality-result{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  border-radius:16px;
-  padding:12px;
-  margin-bottom:12px;
-}
-.quality-main{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-}
-.quality-score{
-  font-size:30px;
-  line-height:1;
-  font-weight:560;
-}
-.quality-label{
-  display:inline-flex;
-  border-radius:999px;
-  padding:6px 10px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:12px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.quality-issues{
-  display:grid;
-  gap:7px;
-  margin-top:10px;
-}
-.quality-issue{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:14px;
-  padding:9px 10px;
-  font-size:12px;
-  line-height:1.55;
-}
-
-.next-nav-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:12px;
-}
-@media (min-width:760px){
-  
-
-
-
-.portfolio-stats{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin-bottom:12px;
-}
-@media (min-width:760px){
-  .portfolio-stats{grid-template-columns:repeat(4,1fr)}
-}
-.portfolio-stat{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:13px;
-}
-.portfolio-stat .label{
-  font-size:11px;
-  color:var(--muted);
-  margin-bottom:6px;
-}
-.portfolio-stat .value{
-  font-size:22px;
-  line-height:1;
-  font-weight:560;
-}
-.portfolio-list{
-  display:grid;
-  gap:9px;
-}
-.portfolio-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:12px;
-}
-.portfolio-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-}
-.portfolio-title{
-  font-size:14px;
-  font-weight:560;
-  line-height:1.45;
-}
-.portfolio-meta{
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.55;
-  margin-top:3px;
-}
-.portfolio-badge{
-  display:inline-flex;
-  border-radius:999px;
-  padding:5px 9px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:11px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.portfolio-badge.risk{
-  background:#fff3ef;
-  border-color:#e2c4bd;
-  color:var(--risk);
-}
-.portfolio-badge.wait{
-  background:#fff8ed;
-  border-color:#ead6b8;
-  color:var(--wait);
-}
-.portfolio-metrics{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:7px;
-  margin-top:10px;
-}
-@media (min-width:760px){
-  .portfolio-metrics{grid-template-columns:repeat(4,1fr)}
-}
-.portfolio-metric{
-  border:1px solid rgba(228,217,201,.85);
-  border-radius:14px;
-  padding:8px;
-  font-size:11px;
-  color:var(--muted);
-  background:#fffaf1;
-}
-.portfolio-metric strong{
-  display:block;
-  font-size:15px;
-  color:var(--ink);
-  margin-top:2px;
-}
-.portfolio-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:10px;
-}
-.portfolio-buttons button{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  color:var(--ink);
-  border-radius:999px;
-  padding:7px 10px;
-  font-size:11px;
-  cursor:pointer;
-}
-
-.home-overview{
-  display:grid;
-  gap:12px;
-}
-.home-cards{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-@media (min-width:760px){
-  .home-cards{grid-template-columns:repeat(4,1fr)}
-}
-.home-card{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:13px;
-  min-height:112px;
-}
-.home-label{
-  font-size:11px;
-  color:var(--muted);
-  margin-bottom:8px;
-}
-.home-value{
-  font-size:20px;
-  line-height:1.35;
-  font-weight:560;
-}
-.home-sub{
-  font-size:11px;
-  color:var(--muted);
-  margin-top:6px;
-  line-height:1.45;
-}
-.home-focus{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  border-radius:18px;
-  padding:14px;
-}
-.home-focus-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  margin-bottom:8px;
-}
-.home-focus-title strong{
-  font-size:15px;
-}
-.home-focus-list{
-  display:grid;
-  gap:8px;
-  margin-top:10px;
-}
-.home-focus-item{
-  border:1px solid rgba(228,217,201,.8);
-  background:#fffdf8;
-  border-radius:14px;
-  padding:10px;
-  font-size:12px;
-  line-height:1.6;
-}
-.home-quick{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-}
-@media (min-width:760px){
-  .home-quick{grid-template-columns:repeat(5,1fr)}
-}
-.home-quick button{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  color:var(--ink);
-  border-radius:999px;
-  padding:10px 8px;
-  font-size:12px;
-  cursor:pointer;
-}
-.home-quick button.primary{
-  background:var(--ink);
-  color:#fffaf1;
-}
-
-.project-library-grid{
-  display:grid;
-  gap:10px;
-}
-.library-actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-  margin-top:10px;
-}
-.library-list{
-  display:grid;
-  gap:9px;
-  margin-top:12px;
-}
-.library-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:12px;
-}
-.library-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-}
-.library-title{
-  font-size:14px;
-  font-weight:560;
-  line-height:1.45;
-}
-.library-meta{
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.55;
-  margin-top:3px;
-}
-.library-badge{
-  display:inline-flex;
-  border-radius:999px;
-  padding:5px 9px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:11px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.library-buttons{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:10px;
-}
-.library-buttons button{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  color:var(--ink);
-  border-radius:999px;
-  padding:7px 10px;
-  font-size:11px;
-  cursor:pointer;
-}
-.library-buttons .delete{
-  color:var(--risk);
-  background:#fff3ef;
-  border-color:#e2c4bd;
-}
-
-.quality-grid{
-  display:grid;
-  gap:10px;
-}
-.quality-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:16px;
-  padding:12px;
-}
-.quality-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-  margin-bottom:6px;
-  font-size:13px;
-}
-.quality-head strong{
-  font-size:18px;
-  font-weight:560;
-}
-.quality-note{
-  margin-top:8px;
-}
-.quality-note textarea{
-  min-height:58px;
-  font-size:12px;
-  padding:10px;
-}
-.quality-result{
-  border:1px solid var(--line);
-  background:#fffaf1;
-  border-radius:16px;
-  padding:12px;
-  margin-bottom:12px;
-}
-.quality-main{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-}
-.quality-score{
-  font-size:30px;
-  line-height:1;
-  font-weight:560;
-}
-.quality-label{
-  display:inline-flex;
-  border-radius:999px;
-  padding:6px 10px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:12px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.quality-issues{
-  display:grid;
-  gap:7px;
-  margin-top:10px;
-}
-.quality-issue{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:14px;
-  padding:9px 10px;
-  font-size:12px;
-  line-height:1.55;
-}
-
-.next-nav-grid{grid-template-columns:.9fr 1.1fr}
-}
-.readiness-card{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:14px;
-}
-.readiness-main{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-  margin-bottom:10px;
-}
-.readiness-score{
-  font-size:34px;
-  line-height:1;
-  font-weight:560;
-}
-.readiness-label{
-  display:inline-flex;
-  border-radius:999px;
-  padding:6px 10px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:12px;
-  color:var(--muted);
-}
-.next-list{
-  display:grid;
-  gap:8px;
-}
-.next-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:16px;
-  padding:10px 11px;
-  font-size:12px;
-  line-height:1.6;
-}
-.next-item strong{
-  display:block;
-  font-size:12px;
-  margin-bottom:2px;
-}
-.next-action-box{
-  white-space:pre-wrap;
-  font-size:12px;
-  line-height:1.75;
-  background:#fffaf1;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:12px;
-  color:#4b4339;
-}
-
-.share-report-box{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:14px;
-  margin-top:12px;
-}
-.report-mode-row{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-}
-@media (min-width:720px){
-  .report-mode-row{grid-template-columns:1fr 1fr}
-}
-.report-preview{
-  white-space:pre-wrap;
-  font-size:12px;
-  line-height:1.75;
-  background:#fffaf1;
-  border:1px solid var(--line);
-  border-radius:16px;
-  padding:13px;
-  color:#4b4339;
-  min-height:190px;
-}
-.agenda-list{
-  display:grid;
-  gap:8px;
-  margin-top:10px;
-}
-.agenda-item{
-  display:grid;
-  grid-template-columns:auto 1fr auto;
-  gap:9px;
-  align-items:start;
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:16px;
-  padding:10px;
-  font-size:12px;
-}
-.agenda-item input[type=checkbox]{
-  width:17px;
-  height:17px;
-  margin-top:3px;
-  accent-color:var(--accent);
-}
-.agenda-item.done .agenda-text{
-  text-decoration:line-through;
-  color:var(--muted);
-}
-.agenda-item button{
-  border:0;
-  background:transparent;
-  color:var(--muted);
-  font-size:18px;
-  cursor:pointer;
-  padding:0 4px;
-}
-
-.client-pulse-grid{grid-template-columns:1fr 1fr}
-}
-.pulse-card{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:13px;
-}
-.pulse-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:center;
-  margin-bottom:6px;
-  font-size:13px;
-}
-.pulse-head strong{
-  font-size:18px;
-  font-weight:560;
-}
-.pulse-comment{
-  font-size:11px;
-  color:var(--muted);
-  line-height:1.5;
-  margin-top:5px;
-}
-.pulse-result{
-  display:grid;
-  gap:8px;
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:13px;
-  margin-top:12px;
-}
-.pulse-result-main{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:center;
-}
-.pulse-score{
-  font-size:28px;
-  line-height:1;
-  font-weight:560;
-}
-.pulse-status{
-  display:inline-flex;
-  border-radius:999px;
-  padding:6px 10px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:12px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-
-.proposal-form{
-  display:grid;
-  gap:10px;
-  margin-top:12px;
-}
-.proposal-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:10px;
-}
-@media (min-width:720px){
-  .proposal-grid{grid-template-columns:1fr 1fr}
-}
-.proposal-list{
-  display:grid;
-  gap:10px;
-  margin-top:14px;
-}
-.proposal-item{
-  border:1px solid var(--line);
-  background:#fffdf8;
-  border-radius:18px;
-  padding:13px;
-}
-.proposal-head{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  align-items:flex-start;
-  margin-bottom:6px;
-}
-.proposal-title{
-  font-size:14px;
-  font-weight:560;
-}
-.proposal-meta{
-  font-size:11px;
-  color:var(--muted);
-}
-.proposal-body{
-  font-size:12px;
-  color:#4b4339;
-  line-height:1.65;
-  white-space:pre-wrap;
-}
-.proposal-status{
-  display:inline-flex;
-  border-radius:999px;
-  padding:5px 9px;
-  border:1px solid var(--line);
-  background:#f7efe4;
-  font-size:11px;
-  color:var(--muted);
-  white-space:nowrap;
-}
-.proposal-delete{
-  border:0;
-  background:transparent;
-  color:var(--muted);
-  font-size:18px;
-  cursor:pointer;
-  padding:0 4px;
-}
-
-.bottom-nav{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(620px,calc(100% - 26px));background:rgba(255,250,241,.9);border:1px solid rgba(228,217,201,.9);border-radius:999px;box-shadow:0 20px 60px rgba(47,43,37,.18);backdrop-filter:blur(18px);display:grid;grid-template-columns:repeat(6,1fr);padding:6px;z-index:30}.bottom-nav a{text-decoration:none;color:var(--muted);text-align:center;font-size:10px;padding:8px 4px;border-radius:999px}.bottom-nav a:active,.bottom-nav a:hover{background:#f2e8d9;color:var(--ink)}.export-box{white-space:pre-wrap;font-size:12px;background:#fffdf8;border:1px solid var(--line);border-radius:16px;padding:12px;min-height:120px;color:#4b4339}.hidden{display:none!important}
+    :root{
+      --bg:#f6f0e7;
+      --bg2:#eee5d9;
+      --card:#fffaf1;
+      --card2:#fffdf8;
+      --ink:#2f2b25;
+      --muted:#84796b;
+      --soft:#b9a486;
+      --line:#e2d7c6;
+      --accent:#8f7b62;
+      --human:#6f8b68;
+      --human-bg:#edf4ea;
+      --ai:#647da4;
+      --ai-bg:#edf2f8;
+      --joint:#b08355;
+      --joint-bg:#fbf0df;
+      --risk:#b66a5d;
+      --risk-bg:#fff0ec;
+      --good:#6d8e75;
+      --wait:#c49a5f;
+      --shadow:0 24px 60px rgba(64,55,43,.10);
+      --radius:28px;
+      --navH:76px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 12% 0%,rgba(255,250,241,.95),transparent 34%),
+        linear-gradient(180deg,var(--bg),var(--bg2));
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",YuGothic,Meiryo,sans-serif;
+      line-height:1.75;
+      letter-spacing:.035em;
+    }
+    button,input,select,textarea{font:inherit}
+    button{touch-action:manipulation}
+    .app{width:min(980px,100%);margin:0 auto;padding:16px 16px calc(var(--navH) + 46px)}
+    section[id],.card[id]{scroll-margin-top:92px}
+    .topbar{
+      position:sticky;top:0;z-index:30;
+      margin:-16px -16px 18px;padding:calc(10px + env(safe-area-inset-top)) 16px 10px;
+      backdrop-filter:blur(18px);
+      background:rgba(246,240,231,.86);
+      border-bottom:1px solid rgba(226,215,198,.78);
+    }
+    .topbar-inner{width:min(980px,100%);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px;min-width:0}
+    .mark{width:36px;height:36px;border-radius:999px;border:1px solid var(--soft);display:grid;place-items:center;color:var(--accent);font-family:Georgia,serif;font-style:italic;background:rgba(255,250,241,.75);flex:0 0 auto}
+    .brand-title{font-size:15px;font-weight:720;letter-spacing:.08em;white-space:nowrap}
+    .brand-sub{font-size:10px;color:var(--muted);margin-top:-5px;white-space:nowrap}
+    .mini-actions,.btn-row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .ghost-btn,.primary-btn,.danger-btn,.soft-btn{
+      border:0;border-radius:999px;padding:10px 14px;cursor:pointer;white-space:nowrap;font-size:12px;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;
+    }
+    .primary-btn{background:var(--ink);color:#fffaf1}
+    .ghost-btn{background:rgba(255,250,241,.82);border:1px solid var(--line);color:var(--ink)}
+    .soft-btn{background:#f2e8d9;border:1px solid var(--line);color:#5a4f43}
+    .danger-btn{background:var(--risk-bg);color:var(--risk);border:1px solid #e3c5bd}
+    .hero{padding:28px 0 18px}.eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:10px}
+    h1{font-size:clamp(30px,8vw,56px);line-height:1.15;margin:0 0 14px;font-weight:760;letter-spacing:.04em}
+    .lead{font-size:14px;color:var(--muted);max-width:720px;margin:0}.lead strong{color:var(--ink);font-weight:650}
+    h2{font-size:20px;line-height:1.35;margin:0;font-weight:760;letter-spacing:.02em}.section-title{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:16px}.small{font-size:12px;color:var(--muted)}
+    .card{background:rgba(255,250,241,.88);border:1px solid rgba(226,215,198,.9);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px;margin-top:14px;overflow:hidden}
+    .card.subtle{background:rgba(255,253,248,.75)}
+    .grid{display:grid;grid-template-columns:1fr;gap:14px}@media(min-width:780px){.grid.two{grid-template-columns:1fr 1fr}.grid.three{grid-template-columns:repeat(3,1fr)}}
+    label{display:block;font-size:12px;color:var(--muted);margin:0 0 6px}
+    input,select,textarea{width:100%;border:1px solid var(--line);background:#fffdf8;color:var(--ink);border-radius:16px;padding:12px 14px;outline:none;box-shadow:none}
+    textarea{min-height:96px;resize:vertical}input:focus,select:focus,textarea:focus{border-color:var(--soft);box-shadow:0 0 0 4px rgba(185,164,134,.16)}
+    .field-grid{display:grid;grid-template-columns:1fr;gap:12px}@media(min-width:640px){.field-grid.two{grid-template-columns:1fr 1fr}}
+    .pill{display:inline-flex;align-items:center;gap:6px;padding:7px 10px;border-radius:999px;border:1px solid var(--line);background:rgba(255,253,248,.72);font-size:12px;color:#5b5148;line-height:1.2}.pill.human{background:var(--human-bg);border-color:#cfdcc9;color:#506a4b}.pill.ai{background:var(--ai-bg);border-color:#cbd7e7;color:#4e6384}.pill.joint{background:var(--joint-bg);border-color:#ead4b7;color:#7e5b36}.pill.risk{background:var(--risk-bg);border-color:#e6c7bf;color:#8b4f46}.pill.good{background:#eef5ec;border-color:#cfdcc9;color:#547358}
+    .dot{width:8px;height:8px;border-radius:999px;background:var(--soft);display:inline-block}.dot.good{background:var(--good)}.dot.wait{background:var(--wait)}.dot.risk{background:var(--risk)}.dot.ai{background:var(--ai)}.dot.human{background:var(--human)}.dot.joint{background:var(--joint)}
+    .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.home-metric{background:#fffdf8;border:1px solid var(--line);border-radius:22px;padding:14px;min-height:116px;display:flex;flex-direction:column;justify-content:space-between}.home-metric .label{font-size:12px;color:var(--muted)}.home-metric .value{font-size:26px;line-height:1.25;font-weight:760;margin-top:8px}.home-metric .note{font-size:11px;color:var(--muted)}
+    .focus-box{border:1px solid var(--line);background:rgba(255,253,248,.75);border-radius:18px;padding:12px;margin-top:12px;font-size:12px;color:#51483e}.focus-box strong{display:block;margin-bottom:6px;color:var(--ink)}
+    .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}@media(min-width:720px){.quick-grid{grid-template-columns:repeat(5,1fr)}}.quick-grid .ghost-btn,.quick-grid .primary-btn{width:100%}
+    .circle-wrap{display:flex;justify-content:center;align-items:center;min-height:210px}.circle{--p:0;width:176px;height:176px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at center,var(--card) 0 58%,transparent 59%),conic-gradient(var(--accent) calc(var(--p)*1%),#e8dfd1 0)}.circle strong{display:block;text-align:center;font-size:38px;line-height:1;font-weight:760}.circle span{display:block;font-size:11px;color:var(--muted);text-align:center;margin-top:5px}
+    .summary-list{display:grid;gap:8px;margin-top:12px}.summary-item{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;border-bottom:1px solid rgba(226,215,198,.68);padding:0 0 8px;font-size:13px}.summary-item span:first-child{color:var(--muted)}.summary-item strong{text-align:right}
+    .progress-line{height:8px;background:#eee6da;border-radius:999px;overflow:hidden}.progress-line>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--soft),var(--accent));border-radius:999px}.progress-line.ai>i{background:linear-gradient(90deg,#9db0ca,var(--ai))}.progress-line.human>i{background:linear-gradient(90deg,#a9c3a1,var(--human))}.progress-line.joint>i{background:linear-gradient(90deg,#d2a870,var(--joint))}
+    .role-now{display:grid;gap:10px}.role-card{border-radius:20px;border:1px solid var(--line);padding:14px;background:#fffdf8}.role-card.human{border-color:#cad8c4;background:var(--human-bg)}.role-card.ai{border-color:#cbd7e7;background:var(--ai-bg)}.role-card.joint{border-color:#ead4b7;background:var(--joint-bg)}.role-card h3{font-size:14px;margin:0 0 6px}.role-card p{margin:0;font-size:12px;color:#51483e}
+    .phase-map,.role-map,.task-list,.log,.project-list{display:grid;gap:10px}.phase{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;border:1px solid var(--line);background:#fffdf8;border-radius:20px;padding:13px;position:relative}.phase:before{content:"";position:absolute;left:0;top:16px;bottom:16px;width:4px;border-radius:0 999px 999px 0;background:#ddd0bf}.phase.current{background:#fff7eb;border-color:#cdb692;box-shadow:0 18px 34px rgba(143,123,98,.13)}.phase.done{background:#f4f8f1;border-color:#ceddc8}.phase.waiting{background:#fff8ed;border-color:#ead0aa}.phase.risk{background:#fff2ee;border-color:#e0bfb7}.phase.current:before{background:var(--accent)}.phase.done:before{background:var(--good)}.phase.waiting:before{background:var(--wait)}.phase.risk:before{background:var(--risk)}.phase-num{width:34px;height:34px;border-radius:999px;display:grid;place-items:center;background:rgba(245,240,232,.7);border:1px solid var(--line);font-size:12px;color:var(--muted);flex:0 0 auto}.phase-title{font-weight:760;font-size:14px;line-height:1.35}.phase-desc{font-size:11px;color:var(--muted);line-height:1.45;margin-top:2px}.phase select{width:auto;max-width:120px;border-radius:999px;padding:8px 8px;font-size:11px}.phase-status-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.phase-detail{margin-top:10px;padding:12px;border:1px solid rgba(226,215,198,.78);background:rgba(246,240,231,.44);border-radius:16px}.phase-detail summary{cursor:pointer}.check-grid{display:grid;gap:8px;margin-top:10px}.check-item{display:grid;grid-template-columns:auto 1fr;gap:8px;font-size:12px;color:#4e463d;line-height:1.55}.check-item input{width:16px;height:16px;margin-top:2px;accent-color:var(--accent)}.phase-note-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:12px}@media(min-width:720px){.phase-note-grid{grid-template-columns:1fr 1fr}}.mini-field textarea,.mini-field input{font-size:12px;min-height:48px;padding:10px;border-radius:13px}.mini-field textarea{min-height:78px}.phase-complete-rate{font-size:11px;color:var(--muted);margin-top:6px}
+    .role-phase{border:1px solid var(--line);background:#fffdf8;border-radius:20px;padding:14px}.role-phase-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}.role-columns{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:720px){.role-columns{grid-template-columns:repeat(3,1fr)}}.role-mini{border-radius:16px;padding:12px;font-size:12px;line-height:1.65;border:1px solid var(--line)}.role-mini.human{background:var(--human-bg);border-color:#cad8c4}.role-mini.ai{background:var(--ai-bg);border-color:#cbd7e7}.role-mini.joint{background:var(--joint-bg);border-color:#ead4b7}.role-mini b{display:block;margin-bottom:4px}.role-mini ul{margin:0;padding-left:1.2em}
+    .journey-flow,.translation-map{display:grid;gap:10px}.journey-node,.translate-row{border:1px solid var(--line);background:#fffdf8;border-radius:20px;padding:14px}.journey-head,.translate-head{display:flex;justify-content:space-between;gap:8px;margin-bottom:8px}.journey-stage,.translate-label{font-size:11px;color:var(--accent);letter-spacing:.08em}.journey-fields,.translate-fields{display:grid;grid-template-columns:1fr;gap:8px}@media(min-width:720px){.journey-fields,.translate-fields{grid-template-columns:1fr 1fr}}.journey-fields input,.translate-fields input,.translate-fields textarea{font-size:12px;padding:10px;border-radius:13px}.translate-fields textarea{min-height:70px}.flow-preview,.connection-preview{margin-top:12px;padding:12px;border-radius:18px;background:rgba(246,240,231,.54);border:1px solid rgba(226,215,198,.88)}.chip-line{display:flex;flex-wrap:wrap;gap:7px;align-items:center;font-size:12px}.chip{padding:7px 9px;border-radius:999px;background:#fffdf8;border:1px solid var(--line)}.arrow{color:var(--soft)}
+    .proposal-grid{display:grid;gap:10px}.proposal-item{border:1px solid var(--line);background:#fffdf8;border-radius:18px;padding:12px;font-size:12px}.proposal-title-row{display:flex;justify-content:space-between;gap:8px}.proposal-title{font-size:14px;font-weight:760}.proposal-meta{font-size:11px;color:var(--muted)}
+    .slider-card{border:1px solid var(--line);border-radius:18px;background:#fffdf8;padding:12px;margin-top:10px}.slider-head{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:14px;font-weight:650}.slider-head strong{font-size:22px}input[type=range]{padding:0;border:0;background:transparent;accent-color:var(--accent)}.slider-card textarea{margin-top:8px;min-height:66px;font-size:12px}
+    .task-form{display:grid;grid-template-columns:1fr auto;gap:8px;margin:12px 0}.task{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:start;background:#fffdf8;border:1px solid var(--line);border-radius:18px;padding:12px}.task input[type=checkbox]{width:18px;height:18px;margin-top:3px;accent-color:var(--accent)}.task.done .task-text{text-decoration:line-through;color:var(--muted)}.task-text{font-size:13px}.task button,.plain-x{border:0;background:transparent;color:var(--muted);font-size:18px;padding:0 4px;cursor:pointer}.log-item{border:1px solid var(--line);background:#fffdf8;border-radius:18px;padding:12px;font-size:12px}.log-date{font-size:11px;color:var(--muted);margin-bottom:4px}
+    .quality-list,.issue-list{display:grid;gap:8px}.quality-item,.issue-item{border:1px solid var(--line);background:#fffdf8;border-radius:16px;padding:12px;font-size:12px}.quality-item b,.issue-item b{display:block;font-size:13px;margin-bottom:2px}
+    .next-nav-grid{display:grid;grid-template-columns:1fr;gap:14px}@media(min-width:820px){.next-nav-grid{grid-template-columns:.9fr 1.1fr}}
+    .export-box{white-space:pre-wrap;font-size:12px;background:#fffdf8;border:1px solid var(--line);border-radius:18px;padding:14px;min-height:150px;color:#4d443b;line-height:1.8}.hidden{display:none!important}.muted-line{height:1px;background:rgba(226,215,198,.7);margin:16px 0}.hint{font-size:11px;color:var(--muted);margin-top:8px}.bottom-nav{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:40;width:min(520px,calc(100% - 26px));height:58px;background:rgba(255,250,241,.92);border:1px solid rgba(226,215,198,.92);box-shadow:0 20px 60px rgba(47,43,37,.18);backdrop-filter:blur(20px);border-radius:999px;display:grid;grid-template-columns:repeat(5,1fr);padding:6px}.bottom-nav a{text-decoration:none;color:var(--muted);font-size:11px;border-radius:999px;display:grid;place-items:center}.bottom-nav a.active,.bottom-nav a:hover,.bottom-nav a:active{background:#f2e8d9;color:var(--ink);font-weight:650}
+    @media(max-width:520px){.app{padding-left:14px;padding-right:14px}.card{padding:17px;border-radius:24px}.topbar{padding-left:14px;padding-right:14px}.brand-title{font-size:14px}.ghost-btn,.primary-btn,.danger-btn,.soft-btn{padding:9px 12px}.home-grid{grid-template-columns:1fr 1fr}.phase{grid-template-columns:32px 1fr}.phase select{grid-column:2 / 3;width:100%;max-width:none}.circle{width:164px;height:164px}.bottom-nav{height:56px}.bottom-nav a{font-size:10px}}
   </style>
-<!-- yohaku Progress App v2: completion criteria / blockers / deliverables -->
-<!-- yohaku Progress App v3: state journey map -->
-<!-- yohaku Progress App v4: space translation connection map -->
-<!-- yohaku Progress App v5: proposal history / design version log -->
-<!-- yohaku Progress App v6: client alignment pulse -->
-<!-- yohaku Progress App v7: client share report and meeting agenda -->
-<!-- yohaku Progress App v8: next phase navigator -->
-<!-- yohaku Progress App v9: proposal quality audit -->
-<!-- yohaku Progress App v10: project library / multi project management -->
-<!-- yohaku Progress App v10.1: project library anchor fix -->
-<!-- yohaku Progress App v11: home dashboard / hierarchy organization -->
-<!-- yohaku Progress App v11.1: home section and navigation fix -->
-<!-- yohaku Progress App v12: portfolio comparison board -->
 </head>
 <body>
-<header class="topbar"><div class="topbar-inner"><div class="brand"><div class="mark">y</div><div><div class="brand-title">yohaku Progress</div><div class="brand-sub">空間提案の現在地を可視化する</div></div></div><div class="mini-actions"><button class="ghost-btn" id="saveBtn">保存</button><button class="primary-btn" id="exportBtnTop">共有文</button></div></div></header>
-<main class="app">
-<section class="hero" id="top"><div class="eyebrow">Project map</div><h1>今どこにいるかを、<br>見えるようにする。</h1><p class="lead">依頼ごとに、現在フェーズ・全体進捗・次にやること・判断待ちを整理する、yohaku用の進捗管理アプリです。</p></section>
-
-<section class="card" id="homeDashboard" style="margin-top:14px">
-  <div class="section-title">
-    <h2>ホーム</h2>
-    <span class="small">毎回ここを見る</span>
-  </div>
-  <div class="home-overview">
-    <div class="home-cards">
-      <div class="home-card">
-        <div class="home-label">現在フェーズ</div>
-        <div class="home-value" id="homePhase">未設定</div>
-        <div class="home-sub" id="homePhaseSub">案件情報を入力してください</div>
+  <div class="app">
+    <header class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="mark">y</div>
+          <div><div class="brand-title">yohaku Progress</div><div class="brand-sub">空間提案の現在地を可視化する</div></div>
+        </div>
+        <div class="mini-actions"><button class="ghost-btn" id="saveBtn">保存</button><button class="primary-btn" id="shareTopBtn">共有文</button></div>
       </div>
-      <div class="home-card">
-        <div class="home-label">次工程判定</div>
-        <div class="home-value" id="homeReadiness">0%</div>
-        <div class="home-sub" id="homeReadinessSub">未判定</div>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="eyebrow">Project map</div>
+      <h1>今どこにいるかを、<br>見えるようにする。</h1>
+      <p class="lead">依頼ごとに、現在フェーズ・役割分担・次にやること・判断待ちを整理する、<strong>yohaku用の進捗管理アプリ</strong>です。</p>
+    </section>
+
+    <section class="card" id="homeDashboard">
+      <div class="section-title"><h2>ホーム</h2><span class="small">毎回ここを見る</span></div>
+      <div class="home-grid">
+        <div class="home-metric"><div><div class="label">現在フェーズ</div><div class="value" id="homePhase">未設定</div></div><div class="note" id="homePhaseSub">案件名は未入力</div></div>
+        <div class="home-metric"><div><div class="label">次工程判定</div><div class="value" id="homeReadiness">0%</div></div><div class="note" id="homeReadinessSub">まだ進まない</div></div>
+        <div class="home-metric"><div><div class="label">担当の重心</div><div class="value" id="homeRole">自分</div></div><div class="note" id="homeRoleSub">判断軸を決める</div></div>
+        <div class="home-metric"><div><div class="label">提案品質</div><div class="value" id="homeQuality">0%</div></div><div class="note" id="homeQualitySub">未判定</div></div>
       </div>
-      <div class="home-card">
-        <div class="home-label">顧客温度感</div>
-        <div class="home-value" id="homeAlignment">0%</div>
-        <div class="home-sub" id="homeAlignmentSub">未判定</div>
+      <div class="focus-box" id="homeFocus"><strong>今日見ること</strong><span>入力内容をもとに自動整理します。</span></div>
+      <div class="quick-grid">
+        <button class="primary-btn" data-jump="nextNavigator">次へ判定</button>
+        <button class="ghost-btn" data-jump="project">案件管理</button>
+        <button class="ghost-btn" data-jump="roles">役割分担</button>
+        <button class="ghost-btn" data-jump="clientPulse">顧客確認</button>
+        <button class="ghost-btn" data-jump="tasks">タスク</button>
       </div>
-      <div class="home-card">
-        <div class="home-label">提案品質</div>
-        <div class="home-value" id="homeQuality">0%</div>
-        <div class="home-sub" id="homeQualitySub">未判定</div>
+    </section>
+
+    <section class="grid two" id="project">
+      <div class="card">
+        <div class="section-title"><h2>案件情報</h2><span class="small">自動保存</span></div>
+        <div class="field-grid two">
+          <div><label>案件名</label><input id="projectName" placeholder="例：〇〇カフェ 空間方向性整理"></div>
+          <div><label>依頼者 / 店舗名</label><input id="clientName" placeholder="例：〇〇様"></div>
+          <div><label>現在フェーズ</label><select id="currentPhase"></select></div>
+          <div><label>案件状態</label><select id="projectStatus"><option>順調</option><option>確認待ち</option><option>要判断</option><option>停滞</option></select></div>
+        </div>
+        <div style="margin-top:12px"><label>次に進めること</label><textarea id="nextAction" placeholder="例：参考写真を分類し、避けたい印象を3つ整理する"></textarea></div>
       </div>
-    </div>
-
-    <div class="home-focus">
-      <div class="home-focus-title">
-        <strong>今日見ること</strong>
-        <span class="small">自動整理</span>
+      <div class="card" id="currentStatus">
+        <div class="section-title"><h2>現在地</h2><span class="pill" id="statusPill"><i class="dot"></i><span>順調</span></span></div>
+        <div class="circle-wrap"><div class="circle" id="progressCircle"><div><strong id="overallPercent">0%</strong><span>全体進捗</span></div></div></div>
+        <div class="summary-list">
+          <div class="summary-item"><span>現在フェーズ</span><strong id="currentPhaseLabel">未設定</strong></div>
+          <div class="summary-item"><span>完了フェーズ</span><strong id="doneCount">0 / 10</strong></div>
+          <div class="summary-item"><span>未完了タスク</span><strong id="openTaskCount">0件</strong></div>
+          <div class="summary-item"><span>確認・判断待ち</span><strong id="waitCount">0件</strong></div>
+        </div>
+        <div class="progress-line" style="margin-top:12px"><i id="overallBar"></i></div>
+        <p class="small" id="nextActionPreview" style="margin-top:12px">次に進めることを入力してください。</p>
       </div>
-      <div class="home-focus-list" id="homeFocusList"></div>
-    </div>
+    </section>
 
-    <div class="home-quick">
-      <button class="primary" data-home-scroll="nextNavigator">次へ判定</button>
-      <button data-home-scroll="projectLibrary">案件管理</button>
-      <button data-home-scroll="portfolioDashboard">案件比較</button>
-      <button data-home-scroll="clientPulse">顧客確認</button>
-      <button data-home-scroll="tasks">タスク</button>
-      <button data-home-scroll="clientReport">共有</button>
-    </div>
-  </div>
-</section>
+    <section class="card" id="projectLibrary">
+      <div class="section-title"><h2>案件ライブラリ</h2><span class="small">複数案件を保存・切替</span></div>
+      <p class="small">案件ごとに進捗データを保存できます。複数の依頼を受ける時に、案件を切り替えて使います。</p>
+      <div class="btn-row"><button class="primary-btn" id="saveProjectBtn">この案件を保存</button><button class="ghost-btn" id="newProjectBtn">新規案件を作る</button><button class="ghost-btn" id="duplicateProjectBtn">複製して別案件にする</button></div>
+      <div class="project-list" id="projectList" style="margin-top:12px"></div>
+    </section>
 
-<section class="grid two" id="project"><div class="card"><div class="section-title"><h2>案件情報</h2><span class="small">自動保存</span></div><div class="field-grid two"><div><label>案件名</label><input id="projectName" placeholder="例：〇〇カフェ 空間方向性整理"></div><div><label>依頼者 / 店舗名</label><input id="clientName" placeholder="例：〇〇様"></div><div><label>現在フェーズ</label><select id="currentPhase"></select></div><div><label>案件状態</label><select id="projectStatus"><option>順調</option><option>確認待ち</option><option>要判断</option><option>停滞</option></select></div></div><div style="margin-top:12px"><label>次に進めること</label><textarea id="nextAction" placeholder="例：参考写真を分類し、避けたい印象を3つ整理する"></textarea></div></div>
-<div class="card"><div class="section-title"><h2>現在地</h2><span class="status-pill"><i class="dot" id="statusDot"></i><span id="statusText">順調</span></span></div><div class="dashboard-row"><div class="circle-wrap"><div class="circle" id="progressCircle"><div><strong id="overallPercent">0%</strong><span>全体進捗</span></div></div></div><div><div class="summary-list"><div class="summary-item"><span>現在フェーズ</span><strong id="currentPhaseLabel">未設定</strong></div><div class="summary-item"><span>完了フェーズ</span><strong id="doneCount">0 / 10</strong></div><div class="summary-item"><span>未完了タスク</span><strong id="openTaskCount">0件</strong></div><div class="summary-item"><span>確認・判断待ち</span><strong id="waitCount">0件</strong></div></div><div class="progress-line"><i id="overallBar"></i></div><p class="small" id="nextActionPreview" style="margin-top:12px">次に進めることを入力してください。</p></div></div></div></section>
+    <section class="card" id="roles">
+      <div class="section-title"><h2>役割分担マップ</h2><span class="small">自分 / AI / 共同判断</span></div>
+      <p class="small" style="margin-top:-6px">AIに任せていいことと、人間が判断すべきことを分けます。AIは整理・比較・言語化。自分は現場感・違和感・採用判断を握ります。</p>
+      <div class="grid three role-now" id="roleNow"></div>
+      <div class="muted-line"></div>
+      <div class="role-map" id="roleMap"></div>
+    </section>
 
-<section class="card" id="projectLibrary" style="margin-top:14px">
-  <div class="section-title">
-    <h2>案件ライブラリ</h2>
-    <span class="small">複数案件を保存・切替</span>
-  </div>
-  <p class="small" style="margin-top:-4px">
-    案件ごとに進捗データを保存できます。複数の依頼を受ける時に、案件を切り替えて使います。
-  </p>
+    <section class="card" id="phases">
+      <div class="section-title"><h2>フェーズマップ</h2><span class="small">完了条件 / 停滞理由 / 成果物</span></div>
+      <div class="phase-map" id="phaseMap"></div>
+    </section>
 
-  <div class="library-actions">
-    <button class="primary-btn" id="saveProjectBtn">この案件を保存</button>
-    <button class="ghost-btn" id="newProjectBtn">新規案件を作る</button>
-    <button class="ghost-btn" id="duplicateProjectBtn">複製して別案件にする</button>
-  </div>
+    <section class="card" id="journey">
+      <div class="section-title"><h2>状態遷移マップ</h2><span class="small">空間で人がどう変わるか</span></div>
+      <p class="small" style="margin-top:-6px">来る前から帰った後まで、利用者の状態変化と、それを支える空間要素を整理します。</p>
+      <div class="journey-flow" id="journeyFlow"></div>
+      <div class="flow-preview"><div class="small" style="margin-bottom:8px">状態の流れ</div><div class="chip-line" id="journeyPreview"></div></div>
+    </section>
 
-  <div class="library-list" id="projectLibraryList"></div>
-</section>
+    <section class="card" id="translationMap">
+      <div class="section-title"><h2>空間翻訳マップ</h2><span class="small">状態を空間要素へ接続する</span></div>
+      <p class="small" style="margin-top:-6px">生みたい状態を、光・素材・余白・距離・動線などの判断基準へつなげます。</p>
+      <div class="translation-map" id="translationRows"></div>
+      <div class="connection-preview"><div class="small" style="margin-bottom:8px">接続の見立て</div><div class="chip-line" id="translationPreview"></div></div>
+    </section>
 
-
-<section class="card" id="portfolioDashboard" style="margin-top:14px">
-  <div class="section-title">
-    <h2>案件比較ボード</h2>
-    <span class="small">複数案件の優先順位を見る</span>
-  </div>
-  <p class="small" style="margin-top:-4px">
-    保存した案件を横断して、進捗・顧客温度感・品質・停滞を比較します。どの案件から見るべきかを判断しやすくします。
-  </p>
-
-  <div class="portfolio-stats" id="portfolioStats"></div>
-  <div class="portfolio-list" id="portfolioList"></div>
-</section>
-
-
-<section class="card" id="phases"><div class="section-title"><h2>フェーズマップ</h2><span class="small">完了条件 / 停滞理由 / 成果物</span></div><div class="phase-map" id="phaseMap"></div></section>
-<section class="card" id="journey"><div class="section-title"><h2>状態遷移マップ</h2><span class="small">空間で人がどう変わるか</span></div><p class="small" style="margin-top:-4px">来る前から帰った後まで、利用者の状態変化と、それを支える空間要素を整理します。</p><div class="journey-flow" id="journeyFlow"></div><div class="journey-preview"><div class="journey-preview-title">状態の流れ</div><div class="journey-preview-line" id="journeyPreview"></div></div></section>
-<section class="card" id="translationMap"><div class="section-title"><h2>空間翻訳マップ</h2><span class="small">状態を空間要素へ接続する</span></div><p class="small" style="margin-top:-4px">生みたい状態を、光・素材・余白・距離・動線などの判断基準へつなげます。</p><div class="translation-map" id="translationRows"></div><div class="connection-preview"><div class="journey-preview-title">接続の見立て</div><div class="connection-line" id="translationPreview"></div></div></section>
-
-<section class="card" id="proposalLog">
-  <div class="section-title">
-    <h2>提案履歴</h2>
-    <span class="small">案の変化を残す</span>
-  </div>
-  <p class="small" style="margin-top:-4px">AI案・自分の案・修正案を履歴として残し、「なぜ変えたか」まで追えるようにします。</p>
-
-  <div class="proposal-form">
-    <div class="proposal-grid">
-      <div>
-        <label>案の名前</label>
-        <input id="proposalTitle" placeholder="例：Ver.1 静けさ重視案" />
+    <section class="card" id="proposalLog">
+      <div class="section-title"><h2>提案履歴</h2><span class="small">案の変化を残す</span></div>
+      <p class="small" style="margin-top:-6px">AI案・自分の案・修正案を履歴として残し、「なぜ変えたか」まで追えるようにします。</p>
+      <div class="field-grid two">
+        <div><label>案の名前</label><input id="proposalTitle" placeholder="例：Ver.1 静けさ重視案"></div>
+        <div><label>状態</label><select id="proposalStatus"><option>検討中</option><option>採用</option><option>保留</option><option>却下</option><option>修正済み</option></select></div>
       </div>
-      <div>
-        <label>状態</label>
-        <select id="proposalStatus">
-          <option value="検討中">検討中</option>
-          <option value="採用候補">採用候補</option>
-          <option value="採用">採用</option>
-          <option value="保留">保留</option>
-          <option value="不採用">不採用</option>
-        </select>
+      <div style="margin-top:10px"><label>案の内容</label><textarea id="proposalContent" placeholder="例：落ち着きを軸に、入口から奥へ向かって徐々に光を弱める。"></textarea></div>
+      <div style="margin-top:10px"><label>判断理由 / 修正理由</label><textarea id="proposalReason" placeholder="例：静かすぎる印象を避けるため、中央には少し活動感を残す。"></textarea></div>
+      <div class="btn-row" style="margin-top:10px"><button class="primary-btn" id="addProposalBtn">提案履歴を追加</button></div>
+      <div class="proposal-grid" id="proposalHistoryList" style="margin-top:12px"></div>
+    </section>
+
+    <section class="card" id="clientPulse">
+      <div class="section-title"><h2>顧客温度感</h2><span class="small">理解・納得・迷いを見える化</span></div>
+      <p class="small" style="margin-top:-6px">提案の進捗だけでなく、依頼者側の理解度・納得度・迷いも管理します。次に何を確認すべきかが見えやすくなります。</p>
+      <div id="clientPulseSliders"></div>
+      <div style="margin-top:12px"><label>次に確認すること</label><textarea id="clientNextQuestion" placeholder="例：静けさをどこまで強めるか、活気をどこに残すかを確認する"></textarea></div>
+    </section>
+
+    <section class="grid two">
+      <div class="card" id="maturity">
+        <div class="section-title"><h2>提案成熟度</h2><span class="small">弱い部分を見つける</span></div>
+        <div id="maturitySliders"></div>
       </div>
-    </div>
-    <div>
-      <label>案の内容</label>
-      <textarea id="proposalContent" placeholder="例：落ち着きを軸に、入口から奥へ向かって徐々に光を弱める。"></textarea>
-    </div>
-    <div>
-      <label>判断理由 / 修正理由</label>
-      <textarea id="proposalReason" placeholder="例：静かすぎる印象を避けるため、中央には少し活動感を残す。"></textarea>
-    </div>
-    <div class="btn-row">
-      <button class="primary-btn" id="addProposalBtn">提案履歴を追加</button>
-    </div>
-  </div>
-
-  <div class="proposal-list" id="proposalList"></div>
-</section>
-
-
-<section class="card" id="clientPulse" style="margin-top:14px">
-  <div class="section-title">
-    <h2>顧客温度感</h2>
-    <span class="small">理解・納得・迷いを見える化</span>
-  </div>
-  <p class="small" style="margin-top:-4px">提案の進捗だけでなく、依頼者側の理解度・納得度・迷いも管理します。次に何を確認すべきかが見えやすくなります。</p>
-
-  <div class="client-pulse-grid" id="clientPulseSliders"></div>
-
-  <div class="pulse-result">
-    <div class="pulse-result-main">
-      <div>
-        <div class="small">合意形成スコア</div>
-        <div class="pulse-score" id="alignmentScore">0%</div>
+      <div class="card" id="tasks">
+        <div class="section-title"><h2>次にやること</h2><span class="small">チェックリスト</span></div>
+        <div class="task-form"><input id="taskInput" placeholder="例：参考写真を5枚集める"><button class="primary-btn" id="addTaskBtn">追加</button></div>
+        <div class="task-list" id="taskList"></div>
       </div>
-      <span class="pulse-status" id="alignmentStatus">未判定</span>
-    </div>
-    <div class="progress-line"><i id="alignmentBar"></i></div>
-    <div>
-      <label>次に確認すること</label>
-      <textarea id="clientNextQuestion" placeholder="例：静けさをどこまで強めるか、活気をどこに残すかを確認する"></textarea>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="grid two"><div class="card" id="maturity"><div class="section-title"><h2>提案成熟度</h2><span class="small">弱い部分を見つける</span></div><div id="maturitySliders"></div></div><div class="card" id="tasks"><div class="section-title"><h2>次にやること</h2><span class="small">チェックリスト</span></div><div class="task-form"><input id="taskInput" placeholder="例：参考写真を5枚集める"><button class="primary-btn" id="addTaskBtn">追加</button></div><div class="task-list" id="taskList"></div></div></section>
-<section class="grid two"><div class="card" id="decisions"><div class="section-title"><h2>判断ログ</h2><span class="small">なぜそう決めたか</span></div><textarea id="decisionInput" placeholder="例：静かな雰囲気だけでなく、回遊したくなる軽さも残す方向にした。"></textarea><div class="btn-row"><button class="primary-btn" id="addDecisionBtn">判断を残す</button></div><div class="log" id="decisionLog" style="margin-top:12px"></div></div>
-
-
-<div class="card" id="qualityAudit">
-  <div class="section-title">
-    <h2>提案品質監査</h2>
-    <span class="small">公開・提出前のチェック</span>
-  </div>
-  <p class="small" style="margin-top:-4px">思想・状態設計・空間翻訳・実務性が崩れていないかを確認します。</p>
-
-  <div class="quality-result">
-    <div class="quality-main">
-      <div>
-        <div class="small">提案品質スコア</div>
-        <div class="quality-score" id="qualityScore">0%</div>
+    <section class="grid two">
+      <div class="card" id="decisions">
+        <div class="section-title"><h2>判断ログ</h2><span class="small">なぜそう決めたか</span></div>
+        <textarea id="decisionInput" placeholder="例：静かな雰囲気だけでなく、回遊したくなる軽さも残す方向にした。"></textarea>
+        <div class="btn-row" style="margin-top:10px"><button class="primary-btn" id="addDecisionBtn">判断を残す</button></div>
+        <div class="log" id="decisionLog" style="margin-top:12px"></div>
       </div>
-      <span class="quality-label" id="qualityLabel">未判定</span>
-    </div>
-    <div class="progress-line" style="margin-top:10px"><i id="qualityBar"></i></div>
-    <div class="quality-issues" id="qualityIssues"></div>
-    <div class="btn-row">
-      <button class="ghost-btn" id="copyQualityBtn">監査結果をコピー</button>
-    </div>
-  </div>
+      <div class="card" id="qualityAudit">
+        <div class="section-title"><h2>提案品質監査</h2><span class="small">公開・提出前のチェック</span></div>
+        <p class="small" style="margin-top:-6px">思想・状態設計・空間翻訳・実務性が崩れていないかを確認します。</p>
+        <div class="quality-item" style="margin-bottom:10px"><div class="slider-head"><span>提案品質スコア</span><strong id="qualityScore">0%</strong></div><div class="progress-line" style="margin-top:8px"><i id="qualityBar"></i></div><div class="hint" id="qualityLabel">未判定</div></div>
+        <div class="quality-list" id="qualityList"></div>
+        <div class="btn-row" style="margin-top:10px"><button class="ghost-btn" id="copyQualityBtn">監査結果をコピー</button></div>
+      </div>
+    </section>
 
-  <div class="quality-grid" id="qualityAuditRows"></div>
-</div>
-
-
-<section class="card" id="nextNavigator" style="margin-top:14px">
-  <div class="section-title">
-    <h2>次工程ナビゲーター</h2>
-    <span class="small">次へ進んでよいかを判定</span>
-  </div>
-  <p class="small" style="margin-top:-4px">現在フェーズの完了条件・停滞理由・顧客温度感・成熟度から、次に進むべきかを確認します。</p>
-
-  <div class="next-nav-grid">
-    <div class="readiness-card">
-      <div class="readiness-main">
+    <section class="card" id="nextNavigator">
+      <div class="section-title"><h2>次工程ナビゲーター</h2><span class="small">次へ進んでよいかを判定</span></div>
+      <p class="small" style="margin-top:-6px">現在フェーズの完了条件・停滞理由・顧客温度感・成熟度から、次に進むべきかを確認します。</p>
+      <div class="next-nav-grid">
+        <div class="quality-item">
+          <div class="slider-head"><span>次工程準備度</span><strong id="readinessScore">0%</strong></div>
+          <div class="progress-line" style="margin-top:8px"><i id="readinessBar"></i></div>
+          <span class="pill" id="readinessLabel" style="margin-top:10px">未判定</span>
+          <div class="summary-list">
+            <div class="summary-item"><span>現在フェーズ完了条件</span><strong id="currentCheckRate">0%</strong></div>
+            <div class="summary-item"><span>合意形成</span><strong id="navigatorAlignment">0%</strong></div>
+            <div class="summary-item"><span>次フェーズ</span><strong id="navigatorNextPhase">未設定</strong></div>
+          </div>
+          <button class="primary-btn" id="advancePhaseBtn" style="margin-top:10px">次フェーズへ進める</button>
+        </div>
         <div>
-          <div class="small">次工程準備度</div>
-          <div class="readiness-score" id="readinessScore">0%</div>
-        </div>
-        <span class="readiness-label" id="readinessLabel">未判定</span>
-      </div>
-      <div class="progress-line"><i id="readinessBar"></i></div>
-      <div class="summary-list" style="margin-top:12px">
-        <div class="summary-item"><span>現在フェーズ完了条件</span><strong id="currentCheckRate">0%</strong></div>
-        <div class="summary-item"><span>合意形成</span><strong id="navigatorAlignment">0%</strong></div>
-        <div class="summary-item"><span>次フェーズ</span><strong id="nextPhaseLabel">未設定</strong></div>
-      </div>
-      <div class="btn-row">
-        <button class="primary-btn" id="advancePhaseBtn">次フェーズへ進める</button>
-      </div>
-    </div>
-
-    <div>
-      <div class="section-title" style="margin-bottom:8px">
-        <h2 style="font-size:15px">不足していること</h2>
-        <span class="small">自動抽出</span>
-      </div>
-      <div class="next-list" id="navigatorIssues"></div>
-
-      <div style="margin-top:12px">
-        <div class="section-title" style="margin-bottom:8px">
-          <h2 style="font-size:15px">次にやること案</h2>
-          <span class="small">コピー可</span>
-        </div>
-        <div class="next-action-box" id="navigatorActions"></div>
-        <div class="btn-row">
-          <button class="ghost-btn" id="copyNavigatorBtn">次にやることをコピー</button>
+          <div class="section-title" style="margin-bottom:8px"><h2 style="font-size:17px">不足していること</h2><span class="small">自動抽出</span></div>
+          <div class="issue-list" id="navigatorIssues"></div>
+          <div class="section-title" style="margin:14px 0 8px"><h2 style="font-size:17px">次にやること案</h2><span class="small">コピー可</span></div>
+          <div class="export-box" id="navigatorActions"></div>
+          <div class="btn-row" style="margin-top:10px"><button class="ghost-btn" id="copyNavigatorBtn">次にやることをコピー</button></div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-
-      <div class="card" id="clientReport">
-  <div class="section-title">
-    <h2>顧客共有レポート</h2>
-    <span class="small">見せる情報だけを整える</span>
-  </div>
-  <p class="small" style="margin-top:-4px">内部メモではなく、依頼者に共有しやすい進捗文と次回アジェンダを作成します。</p>
-
-  <div class="report-mode-row">
-    <div>
-      <label>共有モード</label>
-      <select id="reportMode">
-        <option value="client">顧客向け：やわらかく共有</option>
-        <option value="internal">社内向け：状況と判断を共有</option>
-      </select>
-    </div>
-    <div>
-      <label>次回予定 / 期限</label>
-      <input id="nextMeeting" placeholder="例：6/20 午前中に方向性確認" />
-    </div>
-  </div>
-
-  <div style="margin-top:12px">
-    <label>次回打ち合わせアジェンダ</label>
-    <div class="task-form">
-      <input id="agendaInput" placeholder="例：世界観キーワードの確認" />
-      <button class="primary-btn" id="addAgendaBtn">追加</button>
-    </div>
-    <div class="agenda-list" id="agendaList"></div>
-  </div>
-
-  <div class="share-report-box">
-    <div class="section-title" style="margin-bottom:8px">
-      <h2 style="font-size:15px">共有用プレビュー</h2>
-      <span class="small">コピーして送付</span>
-    </div>
-    <div class="report-preview" id="clientReportText"></div>
-    <div class="btn-row">
-      <button class="ghost-btn" id="copyClientReportBtn">共有レポートをコピー</button>
-    </div>
-  </div>
-</div>
-
-
-      <div class="card" id="share"><div class="section-title"><h2>共有文</h2><span class="small">依頼者への説明に使う</span></div><div class="export-box" id="summaryText"></div><div class="btn-row"><button class="ghost-btn" id="copyBtn">コピー</button><button class="ghost-btn" id="downloadBtn">データ保存</button><label class="ghost-btn" for="importFile" style="cursor:pointer">データ読込</label><input type="file" id="importFile" accept=".json" class="hidden"><button class="danger-btn" id="resetBtn">リセット</button></div><p class="small">入力内容はこのスマホ・ブラウザ内に保存されます。別端末で使う場合は「データ保存」「データ読込」を使います。</p></div></section>
-</main>
-<nav class="bottom-nav">
-  <a href="#homeDashboard" data-scroll-target="homeDashboard">ホーム</a>
-  <a href="#projectLibrary" data-scroll-target="projectLibrary">案件</a>
-  <a href="#portfolioDashboard" data-scroll-target="portfolioDashboard">比較</a>
-  <a href="#phases" data-scroll-target="phases">フェーズ</a>
-  <a href="#translationMap" data-scroll-target="translationMap">翻訳</a>
-  <a href="#clientPulse" data-scroll-target="clientPulse">顧客</a>
-  <a href="#proposalLog" data-scroll-target="proposalLog">履歴</a>
-  <a href="#tasks" data-scroll-target="tasks">タスク</a>
-  <a href="#qualityAudit" data-scroll-target="qualityAudit">監査</a>
-  <a href="#nextNavigator" data-scroll-target="nextNavigator">次へ</a>
-  <a href="#clientReport" data-scroll-target="clientReport">共有</a>
-</nav>
-<script>
-const phases=[
-{id:0,name:"相談・要件整理",desc:"目的、依頼範囲、成果物、判断基準を決める",checks:["目的が整理できている","依頼範囲が決まっている","最終成果物が決まっている","判断基準が言葉になっている"],deliverable:"要件整理メモ"},
-{id:1,name:"ヒアリング",desc:"理想、違和感、利用者、背景を聞く",checks:["事業内容を聞いた","空間の悩みを聞いた","理想の雰囲気を聞いた","避けたい印象を聞いた"],deliverable:"ヒアリング記録"},
-{id:2,name:"感情・状態整理",desc:"誰に、どんな状態で過ごしてほしいかを整理する",checks:["主な利用者を整理した","生まれてほしい状態を整理した","避けたい状態を整理した","中心となる一語を仮決定した"],deliverable:"感情・状態整理シート"},
-{id:3,name:"世界観整理",desc:"言葉、印象、避けたい雰囲気を整える",checks:["参考画像を分類した","共通する印象を抽出した","NG世界観を整理した","世界観キーワードを決めた"],deliverable:"世界観キーワード"},
-{id:4,name:"空間方針設計",desc:"光、素材、余白、距離、動線の方向性を決める",checks:["空間の重心を決めた","光の方向性を決めた","素材の方向性を決めた","余白と距離感を整理した"],deliverable:"空間方針メモ"},
-{id:5,name:"レイアウト方針整理",desc:"ゾーニング、主役、回遊、滞在の考え方を整理する",checks:["主役エリアを決めた","ゾーニングを整理した","回遊動線を整理した","滞在の仕方を整理した"],deliverable:"レイアウト方針"},
-{id:6,name:"ビジュアル方針整理",desc:"参考画像、パース方針、見せ方を整える",checks:["ビジュアルトーンを整理した","見せたいカットを決めた","避けたい表現を整理した","パース・資料の方向性を決めた"],deliverable:"ビジュアルブリーフ"},
-{id:7,name:"提案資料化",desc:"第三者に伝わる資料としてまとめる",checks:["構成を決めた","文章を整えた","画像・図版を配置した","第三者が理解できる状態にした"],deliverable:"提案資料"},
-{id:8,name:"確認・修正",desc:"依頼者確認、違和感調整、表現修正を行う",checks:["依頼者に確認した","違和感を回収した","修正方針を決めた","最終版へ反映した"],deliverable:"修正版資料"},
-{id:9,name:"納品・次工程接続",desc:"納品し、施工・設計・運用に接続する",checks:["納品物を整理した","次工程への引継ぎを整理した","未決事項を明記した","今後の使い方を説明した"],deliverable:"納品一式"}
-];
-const journeyStages=["来る前","入った瞬間","滞在中","決める時","帰った後"];
-const translationTemplates=[
-  {label:"State 01",title:"落ち着く",element:"照明の明るさ・席の距離・視線の逃げ場",direction:"圧を抑え、呼吸が整う余白を残す",avoid:"暗くしすぎる / 静かさだけに寄せすぎる"},
-  {label:"State 02",title:"安心する",element:"入口からの案内・背面の守られ方・距離感",direction:"初見でも迷わず、守られている感覚をつくる",avoid:"案内不足 / 視線がぶつかる配置"},
-  {label:"State 03",title:"にぎわう",element:"人の動き・声・明るさ・中央の活動感",direction:"活気を見せながら、過密に見えない余白を残す",avoid:"雑多に見える / 回遊を妨げる"},
-  {label:"State 04",title:"想像する",element:"生活シーン・素材感・余白陳列・ストーリー",direction:"商品単体ではなく、その先の暮らしを想像させる",avoid:"商品を並べただけに見える"},
-  {label:"State 05",title:"余韻が残る",element:"帰り際の景色・光・香りの方向性・記憶に残る一場面",direction:"強く主張せず、帰ったあとに思い出せる印象を残す",avoid:"演出過多 / 印象を押しつける"}
-];
-const maturityItems=["要件整理","感情・状態","世界観","空間方針","レイアウト","ビジュアル","提案資料"];
-
-const qualityItems=[
-  {key:"purpose",label:"目的整合",hint:"依頼目的・成果物・判断基準とズレていないか"},
-  {key:"state",label:"状態設計",hint:"誰に、どんな状態で過ごしてほしいかが整理されているか"},
-  {key:"worldview",label:"世界観一貫",hint:"言葉・写真・素材・印象に一貫性があるか"},
-  {key:"translation",label:"空間翻訳",hint:"状態が、光・素材・余白・距離・動線へ落とし込まれているか"},
-  {key:"feasibility",label:"実務性",hint:"現実の寸法・運用・施工・予算と大きく矛盾していないか"},
-  {key:"client",label:"顧客理解",hint:"依頼者が理解・納得できる説明になっているか"},
-  {key:"document",label:"資料伝達",hint:"第三者が見ても内容と意図が分かる資料になっているか"},
-  {key:"handoff",label:"次工程接続",hint:"内装・施工・運用など次の工程へ渡せる状態か"}
-];
-
-const defaultState={projectId:"",projectName:"",clientName:"",currentPhase:0,projectStatus:"順調",nextAction:"",phases:phases.map((p,i)=>({id:i,status:i===0?"進行中":"未着手",checks:p.checks.map(()=>false),blocker:"",deliverable:p.deliverable||""})),maturity:Object.fromEntries(maturityItems.map(x=>[x,0])),qualityAudit:Object.fromEntries(qualityItems.map(x=>[x.key,{score:50,note:""}])),journey:journeyStages.map((stage,i)=>({stage,state:["期待・不安","安心","没入・回遊","納得","余韻・記憶"][i],space:["入口の印象・案内","視線の抜け・距離","光・素材・動線","比較しやすさ・居心地","記憶に残る一場面"][i]})),translation:translationTemplates.map(x=>({...x})),proposalHistory:[],clientPulse:{expectation:50,understanding:50,agreement:50,hesitation:30,trust:50,nextQuestion:""},clientReport:{mode:"client",nextMeeting:"",agenda:[]},tasks:[],decisions:[]};
-let state=loadState();
-function clone(o){return JSON.parse(JSON.stringify(o))} function normalize(st){st={...clone(defaultState),...st};st.phases=phases.map((p,i)=>{let old=(st.phases||[])[i]||{};return {id:i,status:old.status||(i===0?"進行中":"未着手"),checks:Array.isArray(old.checks)?p.checks.map((_,j)=>!!old.checks[j]):p.checks.map(()=>false),blocker:old.blocker||"",deliverable:old.deliverable||p.deliverable||""}});st.journey=journeyStages.map((stage,i)=>{const old=(st.journey||[])[i]||{};return {stage,state:old.state||["期待・不安","安心","没入・回遊","納得","余韻・記憶"][i],space:old.space||["入口の印象・案内","視線の抜け・距離","光・素材・動線","比較しやすさ・居心地","記憶に残る一場面"][i]}});
-st.currentPhase=Number.isFinite(Number(st.currentPhase))?Math.max(0,Math.min(phases.length-1,Number(st.currentPhase))):0;st.projectStatus=st.projectStatus||"順調";st.translation=translationTemplates.map((tpl,i)=>{const old=(st.translation||[])[i]||{};return {label:old.label||tpl.label,title:old.title||tpl.title,element:old.element||tpl.element,direction:old.direction||tpl.direction,avoid:old.avoid||tpl.avoid}});
-st.qualityAudit=Object.fromEntries(qualityItems.map(x=>{const old=(st.qualityAudit||{})[x.key]||{};return [x.key,{score:Number(old.score ?? 50),note:old.note||""}]}));st.proposalHistory=Array.isArray(st.proposalHistory)?st.proposalHistory:[];st.clientPulse={...clone(defaultState.clientPulse),...(st.clientPulse||{})};st.clientReport={...clone(defaultState.clientReport),...(st.clientReport||{})};st.clientReport.agenda=Array.isArray(st.clientReport.agenda)?st.clientReport.agenda:[];return st} function loadState(){try{return normalize(JSON.parse(localStorage.getItem("yohakuProgressAppV1")||"{}"))}catch(e){return clone(defaultState)}} function saveState(){localStorage.setItem("yohakuProgressAppV1",JSON.stringify(state));render()} function statusToProgress(s){return s==="完了"?100:s==="進行中"?50:s==="確認待ち"?60:s==="要判断"?55:0} function phaseCheckRate(p){return !p.checks||!p.checks.length?0:Math.round(p.checks.filter(Boolean).length/p.checks.length*100)} function calcOverall(){const p=state.phases.reduce((a,x)=>a+Math.max(statusToProgress(x.status),phaseCheckRate(x)),0)/phases.length;const m=Object.values(state.maturity).reduce((a,v)=>a+Number(v),0)/maturityItems.length;return Math.round(p*.65+m*.35)} function statusClass(s){return s==="完了"?"done":s==="確認待ち"?"waiting":s==="要判断"?"risk":""} function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]))}
-
-function renderHomeDashboard(){
-  if(!document.getElementById("homeDashboard"))return;
-  const cur=phases.find(p=>p.id==state.currentPhase);
-  const nav=buildNavigator();
-  const align=calcAlignment();
-  const quality=calcQualityScore();
-  const issueCount=nav.issues.filter(i=>i.title!=="次へ進める状態です").length;
-  document.getElementById("homePhase").textContent=cur?cur.name:"未設定";
-  document.getElementById("homePhaseSub").textContent=state.projectName?state.projectName:"案件名は未入力";
-  document.getElementById("homeReadiness").textContent=nav.readiness+"%";
-  document.getElementById("homeReadinessSub").textContent=readinessLabelText(nav.readiness,issueCount);
-  document.getElementById("homeAlignment").textContent=align+"%";
-  document.getElementById("homeAlignmentSub").textContent=alignmentLabel(align);
-  document.getElementById("homeQuality").textContent=quality+"%";
-  document.getElementById("homeQualitySub").textContent=qualityLabelText(quality);
-
-  const openTasks=(state.tasks||[]).filter(t=>!t.done);
-  const currentPhaseState=state.phases[Number(state.currentPhase)]||{};
-  const focus=[];
-  if(state.nextAction) focus.push({title:"次に進めること",body:state.nextAction});
-  if(openTasks.length) focus.push({title:"未完了タスク",body:openTasks.slice(0,3).map(t=>"・"+t.text).join("\n")});
-  if(currentPhaseState.blocker) focus.push({title:"停滞理由 / 判断待ち",body:currentPhaseState.blocker});
-  if(issueCount) focus.push({title:"次工程に進む前の不足",body:nav.issues.filter(i=>i.title!=="次へ進める状態です").slice(0,2).map(i=>"・"+i.title+"："+i.body).join("\n")});
-  if(!focus.length) focus.push({title:"今日の状態",body:"大きな不足はありません。案件情報・完了条件・顧客温度感を更新すると、次の判断がしやすくなります。"});
-  document.getElementById("homeFocusList").innerHTML=focus.map(x=>`<div class="home-focus-item"><strong>${esc(x.title)}</strong><br>${esc(x.body)}</div>`).join("");
-}
-
-function render(){projectName.value=state.projectName;clientName.value=state.clientName;projectStatus.value=state.projectStatus;nextAction.value=state.nextAction;currentPhase.innerHTML=phases.map(p=>`<option value="${p.id}">${p.id}. ${p.name}</option>`).join("");currentPhase.value=state.currentPhase;const overall=calcOverall();overallPercent.textContent=overall+"%";progressCircle.style.setProperty("--p",overall);overallBar.style.width=overall+"%";const cur=phases.find(p=>p.id==state.currentPhase);currentPhaseLabel.textContent=cur?cur.name:"未設定";doneCount.textContent=`${state.phases.filter(p=>p.status==="完了").length} / ${phases.length}`;waitCount.textContent=`${state.phases.filter(p=>p.status==="確認待ち"||p.status==="要判断").length}件`;openTaskCount.textContent=`${state.tasks.filter(t=>!t.done).length}件`;nextActionPreview.textContent=state.nextAction||"次に進めることを入力してください。";statusText.textContent=state.projectStatus;statusDot.className="dot"+(state.projectStatus==="順調"?" good":state.projectStatus==="確認待ち"?" wait":state.projectStatus==="要判断"||state.projectStatus==="停滞"?" risk":"");renderProjectLibrary();renderPortfolioDashboard();renderPhases();renderJourney();renderTranslationMap();renderProposalHistory();renderClientPulse();renderQualityAudit();renderNextNavigator();renderHomeDashboard();renderClientReport();renderMaturity();renderTasks();renderDecisions();renderSummary()}
-
-const libraryKey="yohakuProjectLibraryV1";
-function getProjectLibrary(){
-  try{
-    const list=JSON.parse(localStorage.getItem(libraryKey)||"[]");
-    return Array.isArray(list)?list:[];
-  }catch(e){
-    return [];
-  }
-}
-function setProjectLibrary(list){
-  localStorage.setItem(libraryKey,JSON.stringify(list));
-}
-function projectSummary(data){
-  const cur=phases.find(p=>p.id==data.currentPhase);
-  const done=(data.phases||[]).filter(p=>p.status==="完了").length;
-  return {
-    name:data.projectName||"名称未設定の案件",
-    client:data.clientName||"依頼者未設定",
-    phase:cur?cur.name:"未設定",
-    progress:calcOverallFor(data),
-    done
-  };
-}
-function calcOverallFor(data){
-  try{
-    const phaseAvg=(data.phases||[]).reduce((a,x)=>a+Math.max(statusToProgress(x.status),phaseCheckRate(x)),0)/phases.length;
-    const maturity=data.maturity||{};
-    const mVals=maturityItems.map(x=>Number(maturity[x]||0));
-    const m=mVals.reduce((a,b)=>a+b,0)/maturityItems.length;
-    return Math.round(phaseAvg*.65+m*.35);
-  }catch(e){
-    return 0;
-  }
-}
-function saveCurrentProjectToLibrary(){
-  let list=getProjectLibrary();
-  const now=new Date();
-  const id=state.projectId || String(Date.now());
-  state.projectId=id;
-  const data=JSON.parse(JSON.stringify(state));
-  const summary=projectSummary(data);
-  const item={
-    id,
-    updatedAt:`${now.getFullYear()}/${String(now.getMonth()+1).padStart(2,"0")}/${String(now.getDate()).padStart(2,"0")} ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")}`,
-    title:summary.name,
-    client:summary.client,
-    phase:summary.phase,
-    progress:summary.progress,
-    data
-  };
-  const idx=list.findIndex(x=>x.id===id);
-  if(idx>=0) list[idx]=item;
-  else list.unshift(item);
-  setProjectLibrary(list);
-  saveState();
-  alert("案件を保存しました。");
-}
-function loadProjectFromLibrary(id){
-  const list=getProjectLibrary();
-  const item=list.find(x=>x.id===id);
-  if(!item)return;
-  state=normalize(item.data||{});
-  state.projectId=id;
-  saveState();
-  alert("案件を読み込みました。");
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-function deleteProjectFromLibrary(id){
-  if(!confirm("この案件をライブラリから削除しますか？"))return;
-  let list=getProjectLibrary().filter(x=>x.id!==id);
-  setProjectLibrary(list);
-  if(state.projectId===id) state.projectId="";
-  saveState();
-}
-function duplicateCurrentProject(){
-  state.projectId="";
-  state.projectName=(state.projectName||"案件")+" コピー";
-  saveCurrentProjectToLibrary();
-}
-function createNewProject(){
-  if(!confirm("現在の入力内容を新規案件に切り替えますか？必要なら先に保存してください。"))return;
-  state=clone(defaultState);
-  saveState();
-  window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function calcAlignmentForData(data){
-  const p=(data&&data.clientPulse)||{};
-  const base=(Number(p.expectation||0)+Number(p.understanding||0)+Number(p.agreement||0)+Number(p.trust||0))/4;
-  const penalty=Number(p.hesitation||0)*0.45;
-  return Math.max(0,Math.min(100,Math.round(base-penalty)));
-}
-function calcQualityForData(data){
-  try{
-    const qa=(data&&data.qualityAudit)||{};
-    const vals=qualityItems.map(item=>Number((qa[item.key]&&qa[item.key].score) ?? 50));
-    return Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
-  }catch(e){
-    return 50;
-  }
-}
-function blockerCountForData(data){
-  return ((data&&data.phases)||[]).filter(p=>p.blocker&&String(p.blocker).trim()).length;
-}
-function openTaskCountForData(data){
-  return ((data&&data.tasks)||[]).filter(t=>!t.done).length;
-}
-function projectPriorityLabel(data){
-  const status=(data&&data.projectStatus)||"順調";
-  const align=calcAlignmentForData(data);
-  const quality=calcQualityForData(data);
-  const blockers=blockerCountForData(data);
-  const openTasks=openTaskCountForData(data);
-  if(status==="停滞"||status==="要判断"||blockers>0) return {label:"要対応", cls:"risk"};
-  if(align<60) return {label:"顧客確認", cls:"wait"};
-  if(quality<70) return {label:"品質修正", cls:"wait"};
-  if(openTasks>=5) return {label:"タスク整理", cls:"wait"};
-  return {label:"順調", cls:""};
-}
-function projectPriorityRank(data){
-  const p=projectPriorityLabel(data).label;
-  if(p==="要対応") return 1;
-  if(p==="顧客確認") return 2;
-  if(p==="品質修正") return 3;
-  if(p==="タスク整理") return 4;
-  return 5;
-}
-function renderPortfolioDashboard(){
-  const root=document.getElementById("portfolioList");
-  const stats=document.getElementById("portfolioStats");
-  if(!root||!stats)return;
-  const list=getProjectLibrary();
-  if(!list.length){
-    stats.innerHTML=`<div class="portfolio-stat"><div class="label">保存案件</div><div class="value">0</div></div>
-    <div class="portfolio-stat"><div class="label">平均進捗</div><div class="value">0%</div></div>
-    <div class="portfolio-stat"><div class="label">要対応</div><div class="value">0</div></div>
-    <div class="portfolio-stat"><div class="label">確認待ち</div><div class="value">0</div></div>`;
-    root.innerHTML=`<p class="small">まだ比較できる案件がありません。案件ライブラリで「この案件を保存」を押すと、ここに表示されます。</p>`;
-    return;
-  }
-
-  const rows=list.map(item=>{
-    const data=item.data||{};
-    return {
-      ...item,
-      progress:calcOverallFor(data),
-      alignment:calcAlignmentForData(data),
-      quality:calcQualityForData(data),
-      blockers:blockerCountForData(data),
-      openTasks:openTaskCountForData(data),
-      priority:projectPriorityLabel(data),
-      phase:(phases.find(p=>p.id==data.currentPhase)||{}).name || item.phase || "未設定",
-      client:data.clientName||item.client||"依頼者未設定",
-      title:data.projectName||item.title||"名称未設定の案件",
-      status:data.projectStatus||"順調"
-    };
-  }).sort((a,b)=>projectPriorityRank(a.data||{})-projectPriorityRank(b.data||{}) || a.progress-b.progress);
-
-  const avg=Math.round(rows.reduce((a,b)=>a+b.progress,0)/rows.length);
-  const need=rows.filter(r=>r.priority.label==="要対応").length;
-  const wait=rows.filter(r=>r.priority.label==="顧客確認"||r.priority.label==="品質修正"||r.priority.label==="タスク整理").length;
-
-  stats.innerHTML=`<div class="portfolio-stat"><div class="label">保存案件</div><div class="value">${rows.length}</div></div>
-  <div class="portfolio-stat"><div class="label">平均進捗</div><div class="value">${avg}%</div></div>
-  <div class="portfolio-stat"><div class="label">要対応</div><div class="value">${need}</div></div>
-  <div class="portfolio-stat"><div class="label">確認・修正</div><div class="value">${wait}</div></div>`;
-
-  root.innerHTML=rows.map(r=>`<div class="portfolio-item">
-    <div class="portfolio-head">
-      <div>
-        <div class="portfolio-title">${esc(r.title)}</div>
-        <div class="portfolio-meta">${esc(r.client)} / ${esc(r.phase)} / 状態：${esc(r.status)} / 更新：${esc(r.updatedAt||"")}</div>
+    <section class="card" id="clientReport">
+      <div class="section-title"><h2>顧客共有レポート</h2><span class="small">見せる情報だけを整える</span></div>
+      <p class="small" style="margin-top:-6px">内部メモではなく、依頼者に共有しやすい進捗文と次回アジェンダを作成します。</p>
+      <div class="field-grid two">
+        <div><label>共有モード</label><select id="reportMode"><option value="soft">顧客向け：やわらかく共有</option><option value="direct">社内向け：要点で共有</option><option value="proposal">提案前：丁寧に共有</option></select></div>
+        <div><label>次回予定 / 期限</label><input id="nextMeeting" placeholder="例：6/20 午前中に方向性確認"></div>
       </div>
-      <span class="portfolio-badge ${r.priority.cls}">${esc(r.priority.label)}</span>
-    </div>
-    <div class="portfolio-metrics">
-      <div class="portfolio-metric">進捗<strong>${r.progress}%</strong></div>
-      <div class="portfolio-metric">顧客温度<strong>${r.alignment}%</strong></div>
-      <div class="portfolio-metric">提案品質<strong>${r.quality}%</strong></div>
-      <div class="portfolio-metric">未完了タスク<strong>${r.openTasks}件</strong></div>
-    </div>
-    <div class="portfolio-buttons">
-      <button data-portfolio-load="${esc(r.id)}">この案件を開く</button>
-      <button data-portfolio-report="${esc(r.id)}">簡易共有文</button>
-    </div>
-  </div>`).join("");
+      <div style="margin-top:12px"><label>次回打ち合わせアジェンダ</label><div class="task-form"><input id="agendaInput" placeholder="例：世界観キーワードの確認"><button class="primary-btn" id="addAgendaBtn">追加</button></div><div class="task-list" id="agendaList"></div></div>
+      <div class="section-title" style="margin-top:16px;margin-bottom:8px"><h2 style="font-size:17px">共有用プレビュー</h2><span class="small">コピーして送付</span></div>
+      <div class="export-box" id="clientReportText"></div>
+      <div class="btn-row" style="margin-top:10px"><button class="ghost-btn" id="copyClientReportBtn">共有レポートをコピー</button></div>
+    </section>
 
-  document.querySelectorAll("[data-portfolio-load]").forEach(btn=>btn.onclick=e=>loadProjectFromLibrary(e.target.dataset.portfolioLoad));
-  document.querySelectorAll("[data-portfolio-report]").forEach(btn=>btn.onclick=async e=>{
-    const item=getProjectLibrary().find(x=>x.id===e.target.dataset.portfolioReport);
-    if(!item)return;
-    const d=item.data||{};
-    const cur=(phases.find(p=>p.id==d.currentPhase)||{}).name||"未設定";
-    const text=`【案件状況メモ】
-
-案件名：${d.projectName||item.title||"未入力"}
-依頼者：${d.clientName||item.client||"未入力"}
-現在フェーズ：${cur}
-進捗：${calcOverallFor(d)}%
-顧客温度感：${calcAlignmentForData(d)}%
-提案品質：${calcQualityForData(d)}%
-案件状態：${d.projectStatus||"順調"}
-
-次に見ること：
-${d.nextAction||"未入力"}`;
-    await navigator.clipboard.writeText(text);
-    alert("簡易共有文をコピーしました。");
-  });
-}
-
-function renderProjectLibrary(){
-  if(!document.getElementById("projectLibraryList"))return;
-  const list=getProjectLibrary();
-  if(!list.length){
-    projectLibraryList.innerHTML=`<p class="small">まだ保存された案件がありません。「この案件を保存」を押すと、ここに案件が表示されます。</p>`;
-    return;
-  }
-  projectLibraryList.innerHTML=list.map(item=>`<div class="library-item">
-    <div class="library-head">
-      <div>
-        <div class="library-title">${esc(item.title||"名称未設定の案件")}</div>
-        <div class="library-meta">${esc(item.client||"依頼者未設定")} / ${esc(item.phase||"未設定")} / 更新：${esc(item.updatedAt||"")}</div>
+    <section class="card" id="share">
+      <div class="section-title"><h2>共有文</h2><span class="small">依頼者への説明に使う</span></div>
+      <div class="export-box" id="summaryText"></div>
+      <div class="btn-row" style="margin-top:10px">
+        <button class="ghost-btn" id="copyBtn">コピー</button>
+        <button class="ghost-btn" id="downloadBtn">データ保存</button>
+        <label class="ghost-btn" for="importFile" style="cursor:pointer">データ読込</label>
+        <input type="file" id="importFile" accept=".json" class="hidden">
+        <button class="danger-btn" id="resetBtn">リセット</button>
       </div>
-      <span class="library-badge">${Number(item.progress||0)}%</span>
-    </div>
-    <div class="library-buttons">
-      <button data-library-load="${esc(item.id)}">開く</button>
-      <button data-library-duplicate="${esc(item.id)}">複製</button>
-      <button class="delete" data-library-delete="${esc(item.id)}">削除</button>
-    </div>
-  </div>`).join("");
-  document.querySelectorAll("[data-library-load]").forEach(btn=>btn.onclick=e=>loadProjectFromLibrary(e.target.dataset.libraryLoad));
-  document.querySelectorAll("[data-library-delete]").forEach(btn=>btn.onclick=e=>deleteProjectFromLibrary(e.target.dataset.libraryDelete));
-  document.querySelectorAll("[data-library-duplicate]").forEach(btn=>btn.onclick=e=>{
-    const item=getProjectLibrary().find(x=>x.id===e.target.dataset.libraryDuplicate);
-    if(!item)return;
-    state=normalize(item.data||{});
-    state.projectId="";
-    state.projectName=(state.projectName||"案件")+" コピー";
-    saveCurrentProjectToLibrary();
-  });
-}
+      <p class="hint">入力内容はこのスマホ・ブラウザ内に保存されます。別端末で使う場合は「データ保存」「データ読込」を使います。</p>
+    </section>
+  </div>
 
-function renderPhases(){phaseMap.innerHTML=state.phases.map(p=>{const meta=phases[p.id],cls=[statusClass(p.status),Number(state.currentPhase)===p.id?"current":""].join(" "),rate=phaseCheckRate(p);return `<div class="phase ${cls}"><div class="phase-num">${p.id}</div><div><div class="phase-title">${meta.name}</div><div class="phase-desc">${meta.desc}</div><div class="phase-complete-rate">完了条件 ${rate}% / 成果物：${esc(p.deliverable||meta.deliverable||"未設定")}</div><div class="progress-line"><i style="width:${Math.max(statusToProgress(p.status),rate)}%"></i></div><details class="phase-detail"><summary class="small">完了条件・停滞理由・成果物を確認する</summary><div class="check-grid">${meta.checks.map((c,idx)=>`<label class="check-item"><input type="checkbox" ${p.checks&&p.checks[idx]?"checked":""} data-phase-check="${p.id}" data-check-index="${idx}" /> <span>${esc(c)}</span></label>`).join("")}</div><div class="phase-note-grid"><div class="mini-field"><label>停滞理由 / 判断待ち</label><textarea data-phase-blocker="${p.id}" placeholder="例：参考画像が不足している、施主判断待ち">${esc(p.blocker||"")}</textarea></div><div class="mini-field"><label>このフェーズの成果物</label><input data-phase-deliverable="${p.id}" value="${esc(p.deliverable||meta.deliverable||"")}" placeholder="例：世界観キーワード" /></div></div></details></div><select data-phase-status="${p.id}">${["未着手","進行中","確認待ち","要判断","完了"].map(s=>`<option ${p.status===s?"selected":""}>${s}</option>`).join("")}</select></div>`}).join("");document.querySelectorAll("[data-phase-status]").forEach(s=>s.onchange=e=>{const id=+e.target.dataset.phaseStatus;state.phases[id].status=e.target.value;if(e.target.value==="進行中")state.currentPhase=id;saveState()});document.querySelectorAll("[data-phase-check]").forEach(c=>c.onchange=e=>{const id=+e.target.dataset.phaseCheck,idx=+e.target.dataset.checkIndex;state.phases[id].checks[idx]=e.target.checked;if(phaseCheckRate(state.phases[id])===100&&state.phases[id].status!=="完了")state.phases[id].status="確認待ち";saveState()});document.querySelectorAll("[data-phase-blocker]").forEach(a=>a.oninput=e=>{const id=+e.target.dataset.phaseBlocker;state.phases[id].blocker=e.target.value;if(e.target.value.trim()&&state.phases[id].status!=="完了")state.phases[id].status="要判断";saveState()});document.querySelectorAll("[data-phase-deliverable]").forEach(i=>i.oninput=e=>{const id=+e.target.dataset.phaseDeliverable;state.phases[id].deliverable=e.target.value;saveState()})}
-function renderJourney(){journeyFlow.innerHTML=state.journey.map((j,i)=>`<div class="journey-node"><div class="journey-node-head"><div class="journey-stage">${i+1}. ${esc(j.stage)}</div><span class="small">状態 → 空間要素</span></div><div class="journey-fields"><div><label>この段階の状態</label><input data-journey-state="${i}" value="${esc(j.state||"")}" placeholder="例：緊張、不安、期待"></div><div><label>効かせる空間要素</label><input data-journey-space="${i}" value="${esc(j.space||"")}" placeholder="例：入口の明るさ、視線の抜け"></div></div></div>${i<state.journey.length-1?`<div class="journey-arrow">↓</div>`:""}`).join("");journeyPreview.innerHTML=state.journey.map((j,i)=>`<span class="journey-chip">${esc(j.state||j.stage)}</span>${i<state.journey.length-1?`<span class="journey-connector">→</span>`:""}`).join("");document.querySelectorAll("[data-journey-state]").forEach(inp=>inp.oninput=e=>{state.journey[+e.target.dataset.journeyState].state=e.target.value;saveState()});document.querySelectorAll("[data-journey-space]").forEach(inp=>inp.oninput=e=>{state.journey[+e.target.dataset.journeySpace].space=e.target.value;saveState()})}
-function renderTranslationMap(){translationRows.innerHTML=(state.translation||[]).map((r,i)=>`<div class="translate-row"><div class="translate-head"><div><div class="translate-label">${esc(r.label||`State ${i+1}`)}</div><div class="translate-title">${esc(r.title||"")}</div></div><span class="small">状態 → 判断基準</span></div><div class="translate-fields"><div><label>効かせる空間要素</label><textarea data-translation-element="${i}" placeholder="例：光、素材、余白、距離">${esc(r.element||"")}</textarea></div><div><label>空間の方向性</label><textarea data-translation-direction="${i}" placeholder="例：圧を抑え、呼吸が整う余白を残す">${esc(r.direction||"")}</textarea></div><div><label>避けたい印象</label><input data-translation-avoid="${i}" value="${esc(r.avoid||"")}" placeholder="例：雑多、暗すぎる、演出過多"></div><div><label>状態名</label><input data-translation-title="${i}" value="${esc(r.title||"")}" placeholder="例：安心する"></div></div></div>`).join("");translationPreview.innerHTML=(state.translation||[]).map((r,i)=>`<span class="connection-chip">${esc(r.title||`State ${i+1}`)}</span><span class="journey-connector">→</span><span class="connection-chip">${esc(r.element||"空間要素")}</span>`).join("");document.querySelectorAll("[data-translation-title]").forEach(inp=>inp.oninput=e=>{state.translation[+e.target.dataset.translationTitle].title=e.target.value;saveState()});document.querySelectorAll("[data-translation-element]").forEach(inp=>inp.oninput=e=>{state.translation[+e.target.dataset.translationElement].element=e.target.value;saveState()});document.querySelectorAll("[data-translation-direction]").forEach(inp=>inp.oninput=e=>{state.translation[+e.target.dataset.translationDirection].direction=e.target.value;saveState()});document.querySelectorAll("[data-translation-avoid]").forEach(inp=>inp.oninput=e=>{state.translation[+e.target.dataset.translationAvoid].avoid=e.target.value;saveState()})}
+  <nav class="bottom-nav" aria-label="下部ナビゲーション">
+    <a href="#homeDashboard" data-nav="homeDashboard">ホーム</a>
+    <a href="#project" data-nav="project">案件</a>
+    <a href="#phases" data-nav="phases">フェーズ</a>
+    <a href="#tasks" data-nav="tasks">タスク</a>
+    <a href="#share" data-nav="share">共有</a>
+  </nav>
 
-function renderProposalHistory(){
-  const root=document.getElementById("proposalList");
-  if(!root) return;
-  if(!state.proposalHistory || !state.proposalHistory.length){
-    root.innerHTML=`<p class="small">まだ提案履歴がありません。AI案・自分の案・修正案を追加してください。</p>`;
-    return;
-  }
-  root.innerHTML=state.proposalHistory.slice().reverse().map(item=>`<div class="proposal-item">
-    <div class="proposal-head">
-      <div>
-        <div class="proposal-title">${esc(item.title||"無題の案")}</div>
-        <div class="proposal-meta">${esc(item.date||"")} / ${esc(item.phase||"フェーズ未設定")}</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:6px">
-        <span class="proposal-status">${esc(item.status||"検討中")}</span>
-        <button class="proposal-delete" data-proposal-delete="${esc(item.id)}">×</button>
-      </div>
-    </div>
-    <div class="proposal-body">案の内容：${esc(item.content||"未入力")}
-
-判断理由：${esc(item.reason||"未入力")}</div>
-  </div>`).join("");
-  document.querySelectorAll("[data-proposal-delete]").forEach(btn=>btn.onclick=e=>{
-    state.proposalHistory=state.proposalHistory.filter(x=>x.id!==e.target.dataset.proposalDelete);
-    saveState();
-  });
-}
-function addProposal(){
-  const title=(document.getElementById("proposalTitle")||{}).value?.trim();
-  const content=(document.getElementById("proposalContent")||{}).value?.trim();
-  const reason=(document.getElementById("proposalReason")||{}).value?.trim();
-  const status=(document.getElementById("proposalStatus")||{}).value || "検討中";
-  if(!title && !content && !reason) return;
-  const d=new Date();
-  const cur=phases.find(p=>p.id==state.currentPhase);
-  state.proposalHistory.push({
-    id:String(Date.now()),
-    date:`${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,"0")}/${String(d.getDate()).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`,
-    phase:cur?cur.name:"未設定",
-    title:title||`提案案 ${state.proposalHistory.length+1}`,
-    status,
-    content,
-    reason
-  });
-  document.getElementById("proposalTitle").value="";
-  document.getElementById("proposalContent").value="";
-  document.getElementById("proposalReason").value="";
-  document.getElementById("proposalStatus").value="検討中";
-  saveState();
-}
-
-
-const pulseItems=[
-  {key:"expectation",label:"期待感",hint:"提案への前向きさ・楽しみ度"},
-  {key:"understanding",label:"理解度",hint:"方向性や意図が伝わっているか"},
-  {key:"agreement",label:"納得度",hint:"この方向で進める合意の強さ"},
-  {key:"hesitation",label:"迷い",hint:"不安・保留・決めきれなさ"},
-  {key:"trust",label:"信頼感",hint:"任せてもよいと思えているか"}
-];
-function calcAlignment(){
-  const p=state.clientPulse||{};
-  const base=(Number(p.expectation||0)+Number(p.understanding||0)+Number(p.agreement||0)+Number(p.trust||0))/4;
-  const hesitationPenalty=Number(p.hesitation||0)*0.45;
-  return Math.max(0,Math.min(100,Math.round(base-hesitationPenalty)));
-}
-function alignmentLabel(score){
-  if(score>=80)return"合意形成できている";
-  if(score>=60)return"もう少し確認すれば進める";
-  if(score>=40)return"説明・整理が必要";
-  return"迷いが大きい";
-}
-function renderClientPulse(){
-  const root=document.getElementById("clientPulseSliders");
-  if(!root)return;
-  root.innerHTML=pulseItems.map(item=>{
-    const v=Number((state.clientPulse||{})[item.key]||0);
-    return `<div class="pulse-card">
-      <div class="pulse-head"><span>${item.label}</span><strong>${v}%</strong></div>
-      <input type="range" min="0" max="100" step="5" value="${v}" data-pulse="${item.key}" />
-      <div class="pulse-comment">${item.hint}</div>
-    </div>`;
-  }).join("");
-  document.querySelectorAll("[data-pulse]").forEach(input=>input.oninput=e=>{
-    state.clientPulse[e.target.dataset.pulse]=Number(e.target.value);
-    saveState();
-  });
-  const score=calcAlignment();
-  alignmentScore.textContent=score+"%";
-  alignmentStatus.textContent=alignmentLabel(score);
-  alignmentBar.style.width=score+"%";
-  clientNextQuestion.value=state.clientPulse.nextQuestion||"";
-}
-
-
-
-
-function calcQualityScore(){
-  const vals=qualityItems.map(x=>Number((state.qualityAudit&&state.qualityAudit[x.key]&&state.qualityAudit[x.key].score) ?? 50));
-  return Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
-}
-function qualityLabelText(score){
-  if(score>=85)return"提出してよい";
-  if(score>=70)return"軽微修正で提出可";
-  if(score>=55)return"要修正";
-  return"再整理が必要";
-}
-function buildQualityIssues(){
-  const issues=[];
-  qualityItems.forEach(item=>{
-    const row=(state.qualityAudit||{})[item.key]||{score:50,note:""};
-    if(Number(row.score)<70){
-      issues.push(`${item.label}：${row.score}% / ${row.note||item.hint}`);
+  <script>
+    const STORAGE_KEY="yohakuProgressAppV1";
+    const LIBRARY_KEY="yohakuProgressProjectsV2";
+    const statuses=["未着手","進行中","確認待ち","要判断","完了"];
+    const phases=[
+      {id:0,name:"相談・要件整理",desc:"目的、依頼範囲、成果物、判断基準を決める",deliverable:"要件整理メモ",checks:["依頼目的が整理できている","依頼範囲が決まっている","最終成果物が決まっている","判断基準が決まっている"],role:{human:["目的の本音を確認する","できる範囲・できない範囲を決める","最終判断基準を握る"],ai:["質問項目を作る","要件を表に整理する","抜け漏れを洗い出す"],joint:["成果物を決める","優先順位を決める","次工程へ進む条件を決める"]}},
+      {id:1,name:"ヒアリング",desc:"理想、違和感、利用者、背景を聞く",deliverable:"ヒアリング記録",checks:["理想の雰囲気を聞けている","今の違和感を聞けている","利用者像を確認できている","現場条件を聞けている"],role:{human:["相手の表情・温度感を読む","言葉になっていない違和感を掘る","現場の空気を受け取る"],ai:["質問リストを作る","回答を要約する","矛盾や未確認点を抽出する"],joint:["本当に大事な課題を選ぶ","次に確認する質問を決める"]}},
+      {id:2,name:"感情・状態整理",desc:"誰に、どんな状態で過ごしてほしいかを整理する",deliverable:"感情・状態整理シート",checks:["生みたい状態が言語化されている","避けたい印象が整理されている","主役となる利用者が明確","状態の優先順位が決まっている"],role:{human:["その空間で大切にしたい状態を決める","違和感の有無を判断する","強める感情と弱める感情を選ぶ"],ai:["状態候補を出す","似た感情を分類する","状態の流れを整理する"],joint:["中心感情を決める","避けたい印象を決める"]}},
+      {id:3,name:"世界観整理",desc:"言葉、印象、避けたい雰囲気を整える",deliverable:"世界観キーワード",checks:["世界観キーワードがある","参考画像と印象が一致している","避けたい表現が決まっている","言葉のトーンが決まっている"],role:{human:["好き嫌いではなく、事業に合うか判断する","言葉の違和感を見つける","採用する世界観を決める"],ai:["キーワード化する","参考画像を分類する","似合わない表現を抽出する"],joint:["ブランドらしい言葉へ整える","表現の方向性を決める"]}},
+      {id:4,name:"空間方針設計",desc:"光、素材、余白、距離、動線の方向性を決める",deliverable:"空間方針メモ",checks:["光の方針がある","素材の方針がある","余白と密度の方針がある","距離感・視線・動線が整理されている"],role:{human:["現場で成立するか判断する","空間の重心を決める","置かないものを決める"],ai:["状態を空間要素へ翻訳する","複数案を比較する","過不足を指摘する"],joint:["空間方針を採用案に絞る","優先順位を決める"]}},
+      {id:5,name:"レイアウト方針整理",desc:"ゾーニング、主役、回遊、滞在の考え方を整理する",deliverable:"レイアウト方針",checks:["主役エリアが決まっている","回遊の流れがある","滞在する場所がある","運用しにくい配置を避けている"],role:{human:["現地寸法・動線・運用を確認する","無理のある配置を止める","最終配置方針を判断する"],ai:["ゾーニング案を出す","動線リスクを整理する","レイアウトの比較表を作る"],joint:["主役と余白のバランスを決める","回遊と滞在の優先度を決める"]}},
+      {id:6,name:"ビジュアル方針整理",desc:"参考画像、パース方針、見せ方を整える",deliverable:"ビジュアルブリーフ",checks:["参考画像が整理されている","パースの見せ場が決まっている","素材・光・色の方向性がある","NG表現が決まっている"],role:{human:["画像の違和感を判断する","出したい空気感を選ぶ","見せ方の最終判断をする"],ai:["画像生成・比較・言語化を支援する","パース指示文を作る","NG表現を整理する"],joint:["ビジュアルブリーフを固める","採用カットを決める"]}},
+      {id:7,name:"提案資料化",desc:"第三者に伝わる資料としてまとめる",deliverable:"提案資料",checks:["目的から提案までつながっている","図や言葉で第三者に伝わる","判断理由がある","次工程に渡せる形になっている"],role:{human:["提案の芯を確認する","相手に伝える順番を決める","出す/出さない情報を判断する"],ai:["資料構成を作る","文章を整える","不足ページを指摘する"],joint:["提案書として整える","話す順番を決める"]}},
+      {id:8,name:"確認・修正",desc:"依頼者確認、違和感調整、表現修正を行う",deliverable:"修正版資料",checks:["依頼者の理解度を確認した","迷い・懸念を拾えている","修正理由を残している","再提案できる形になっている"],role:{human:["依頼者の反応を読む","譲れない軸を守る","修正を採用するか判断する"],ai:["修正点を分類する","複数の表現案を出す","矛盾をチェックする"],joint:["修正方針を決める","再提案の形に整える"]}},
+      {id:9,name:"納品・次工程接続",desc:"納品し、施工・設計・運用に接続する",deliverable:"納品一式",checks:["納品物が整理されている","次工程の相手に伝わる","残課題が明確","運用・施工への接続事項がある"],role:{human:["納品範囲を確認する","次工程の相手に注意点を伝える","引き継ぎ判断をする"],ai:["納品チェックリストを作る","残課題を整理する","共有文を作る"],joint:["次工程への接続資料を整える","今後の改善点を残す"]}}
+    ];
+    const journeyStages=["来る前","入った瞬間","滞在中","決める時","帰った後"];
+    const journeyDefaultState=["期待・不安","安心","没入・回遊","納得","余韻・記憶"];
+    const journeyDefaultSpace=["入口の印象・案内","視線の抜け・距離","光・素材・動線","比較しやすさ・居心地","記憶に残る一場面"];
+    const translationTemplates=[
+      {label:"State 01",title:"落ち着く",element:"照明の明るさ・席の距離・視線の逃げ場",direction:"圧を抑え、呼吸が整う余白を残す",avoid:"暗くしすぎる / 静かさだけに寄せすぎる"},
+      {label:"State 02",title:"安心する",element:"入口からの案内・背面の守られ方・距離感",direction:"初見でも迷わず、守られている感覚をつくる",avoid:"案内不足 / 視線がぶつかる配置"},
+      {label:"State 03",title:"にぎわう",element:"人の動き・声・明るさ・中央の活動感",direction:"活気を見せながら、過密に見えない余白を残す",avoid:"雑多に見える / 回遊を妨げる"},
+      {label:"State 04",title:"想像する",element:"生活シーン・素材感・余白陳列・ストーリー",direction:"商品単体ではなく、その先の暮らしを想像させる",avoid:"商品を並べただけに見える"},
+      {label:"State 05",title:"余韻が残る",element:"帰り際の景色・光・香りの方向性・記憶に残る一場面",direction:"強く主張せず、帰ったあとに思い出せる印象を残す",avoid:"演出過多 / 印象を押しつける"}
+    ];
+    const maturityItems=["要件整理","感情・状態","世界観","空間方針","レイアウト","ビジュアル","提案資料"];
+    const qualityItems=[
+      {key:"purpose",name:"目的整合",desc:"依頼目的・成果物・判断基準とズレていないか"},
+      {key:"state",name:"状態設計",desc:"誰に、どんな状態で過ごしてほしいかが整理されているか"},
+      {key:"world",name:"世界観一貫",desc:"言葉・写真・素材・印象に一貫性があるか"},
+      {key:"translation",name:"空間翻訳",desc:"状態が、光・素材・余白・距離・動線へ落とし込まれているか"},
+      {key:"real",name:"実務性",desc:"現実の寸法・運用・施工・予算と大きく矛盾していないか"},
+      {key:"client",name:"顧客理解",desc:"依頼者が理解・納得できる説明になっているか"},
+      {key:"document",name:"資料伝達",desc:"第三者が見ても内容と意図が分かる資料になっているか"},
+      {key:"handoff",name:"次工程接続",desc:"内装・施工・運用など次の工程へ渡せる状態か"}
+    ];
+    const clientPulseItems=[
+      {key:"expectation",name:"期待感",desc:"提案への前向きさ・楽しみ度"},
+      {key:"understanding",name:"理解度",desc:"方向性や意図が伝わっているか"},
+      {key:"agreement",name:"納得度",desc:"この方向で進める合意の強さ"},
+      {key:"hesitation",name:"迷い",desc:"不安・保留・決めきれなさ"},
+      {key:"trust",name:"信頼感",desc:"任せてもよいと思えているか"}
+    ];
+    const defaultState={projectId:"",projectName:"",clientName:"",currentPhase:0,projectStatus:"順調",nextAction:"",phases:phases.map((p,i)=>({id:i,status:i===0?"進行中":"未着手",checks:p.checks.map(()=>false),blocker:"",deliverable:p.deliverable||""})),maturity:Object.fromEntries(maturityItems.map(x=>[x,0])),qualityAudit:Object.fromEntries(qualityItems.map(x=>[x.key,{score:50,note:""}])),journey:journeyStages.map((stage,i)=>({stage,state:journeyDefaultState[i],space:journeyDefaultSpace[i]})),translation:translationTemplates.map(x=>({...x})),proposalHistory:[],clientPulse:{expectation:50,understanding:50,agreement:50,hesitation:30,trust:50,nextQuestion:""},clientReport:{mode:"soft",nextMeeting:"",agenda:[]},tasks:[],decisions:[]};
+    let state=loadState();
+    function clone(o){return JSON.parse(JSON.stringify(o))}
+    function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c]))}
+    function normalize(st){st={...clone(defaultState),...(st||{})};st.currentPhase=Number.isFinite(Number(st.currentPhase))?Math.max(0,Math.min(phases.length-1,Number(st.currentPhase))):0;st.phases=phases.map((p,i)=>{const old=(st.phases||[])[i]||{};return {id:i,status:statuses.includes(old.status)?old.status:(i===0?"進行中":"未着手"),checks:Array.isArray(old.checks)?p.checks.map((_,j)=>!!old.checks[j]):p.checks.map(()=>false),blocker:old.blocker||"",deliverable:old.deliverable||p.deliverable||""}});st.maturity={...clone(defaultState.maturity),...(st.maturity||{})};st.qualityAudit=Object.fromEntries(qualityItems.map(x=>{const old=(st.qualityAudit||{})[x.key]||{};return [x.key,{score:Number(old.score??50),note:old.note||""}]}));st.journey=journeyStages.map((stage,i)=>{const old=(st.journey||[])[i]||{};return {stage,state:old.state||journeyDefaultState[i],space:old.space||journeyDefaultSpace[i]}});st.translation=translationTemplates.map((tpl,i)=>{const old=(st.translation||[])[i]||{};return {label:old.label||tpl.label,title:old.title||tpl.title,element:old.element||tpl.element,direction:old.direction||tpl.direction,avoid:old.avoid||tpl.avoid}});st.proposalHistory=Array.isArray(st.proposalHistory)?st.proposalHistory:[];st.tasks=Array.isArray(st.tasks)?st.tasks:[];st.decisions=Array.isArray(st.decisions)?st.decisions:[];st.clientPulse={...clone(defaultState.clientPulse),...(st.clientPulse||{})};st.clientReport={...clone(defaultState.clientReport),...(st.clientReport||{})};st.clientReport.agenda=Array.isArray(st.clientReport.agenda)?st.clientReport.agenda:[];return st}
+    function loadState(){try{return normalize(JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}"))}catch(e){return clone(defaultState)}}
+    function saveState(skipRender=false){localStorage.setItem(STORAGE_KEY,JSON.stringify(state));if(!skipRender)render()}
+    function statusToProgress(s){return s==="完了"?100:s==="確認待ち"?70:s==="要判断"?50:s==="進行中"?45:0}
+    function phaseCheckRate(p){return !p.checks||!p.checks.length?0:Math.round(p.checks.filter(Boolean).length/p.checks.length*100)}
+    function phaseProgress(p){return Math.max(statusToProgress(p.status),phaseCheckRate(p))}
+    function calcOverall(){const phaseAvg=state.phases.reduce((a,p)=>a+phaseProgress(p),0)/phases.length;const maturityAvg=avg(Object.values(state.maturity));return Math.round(phaseAvg*.7+maturityAvg*.3)}
+    function avg(arr){return arr.length?Math.round(arr.reduce((a,v)=>a+Number(v||0),0)/arr.length):0}
+    function statusClass(s){return s==="完了"?"done":s==="確認待ち"?"waiting":s==="要判断"||s==="停滞"?"risk":""}
+    function statusDotClass(s){return s==="順調"?"good":s==="確認待ち"?"wait":s==="要判断"||s==="停滞"?"risk":""}
+    function roleForPhase(phaseId){if([0,1,2,3,4,5,8,9].includes(Number(phaseId)))return "共同"; if([6,7].includes(Number(phaseId)))return "AI"; return "自分"}
+    function roleClass(role){return role==="自分"?"human":role==="AI"?"ai":"joint"}
+    function roleShort(role){return role==="自分"?"人間判断":role==="AI"?"AI補助":"共同判断"}
+    function qualityLabelText(score){return score>=85?"提出しやすい":score>=70?"あと少し":score>=50?"再整理が必要":"かなり弱い"}
+    function alignmentLabel(score){return score>=75?"合意が強い":score>=55?"確認すれば進める":score>=35?"迷いが大きい":"合意形成前"}
+    function readinessLabelText(score, issueCount){if(score>=80&&issueCount===0)return"次へ進める";if(score>=65)return"確認後に進める";if(score>=40)return"まだ整理が必要";return"まだ進まない"}
+    function calcAlignment(){const p=state.clientPulse;return Math.round((Number(p.expectation)+Number(p.understanding)+Number(p.agreement)+Number(p.trust)+(100-Number(p.hesitation)))/5)}
+    function calcQualityScore(){return avg(qualityItems.map(x=>state.qualityAudit[x.key]?.score??50))}
+    function buildNavigator(){const curId=Number(state.currentPhase)||0;const curState=state.phases[curId]||state.phases[0];const checkRate=phaseCheckRate(curState);const align=calcAlignment();const maturityAvg=avg(Object.values(state.maturity));const quality=calcQualityScore();const hasBlocker=!!String(curState.blocker||"").trim();const readiness=Math.round(checkRate*.35+align*.25+maturityAvg*.2+quality*.2-(hasBlocker?15:0));const safe=Math.max(0,Math.min(100,readiness));const issues=[];if(checkRate<100)issues.push({title:"完了条件が残っています",body:phases[curId].checks.filter((_,i)=>!curState.checks[i]).slice(0,3).join(" / ")||"完了条件を確認してください"});if(hasBlocker)issues.push({title:"停滞理由・判断待ちがあります",body:curState.blocker});if(align<65)issues.push({title:"合意形成がまだ弱いです",body:`現在 ${align}% です。理解度・納得度・迷いを確認してください。`});if(quality<70)issues.push({title:"提案品質監査に弱い部分があります",body:`品質スコア ${quality}% です。監査項目を確認してください。`});if(maturityAvg<65)issues.push({title:"提案成熟度に弱い部分があります",body:`成熟度平均 ${maturityAvg}% です。低い項目を優先して整理してください。`});if(!state.nextAction.trim())issues.push({title:"次に進めることが未入力です",body:"次にやることを1つ入力してください。"});if(!issues.length)issues.push({title:"次へ進める状態です",body:"現在フェーズを完了し、次工程へ接続できます。"});return{readiness:safe,issues,checkRate,align,maturityAvg,quality,next:phases[Math.min(curId+1,phases.length-1)]}}
+    function render(){
+      projectName.value=state.projectName;clientName.value=state.clientName;projectStatus.value=state.projectStatus;nextAction.value=state.nextAction;currentPhase.innerHTML=phases.map(p=>`<option value="${p.id}">${p.id}. ${p.name}</option>`).join("");currentPhase.value=state.currentPhase;
+      const cur=phases[Number(state.currentPhase)]||phases[0];const curState=state.phases[Number(state.currentPhase)]||state.phases[0];const overall=calcOverall();const q=calcQualityScore();const nav=buildNavigator();
+      overallPercent.textContent=overall+"%";progressCircle.style.setProperty("--p",overall);overallBar.style.width=overall+"%";currentPhaseLabel.textContent=cur.name;doneCount.textContent=`${state.phases.filter(p=>p.status==="完了").length} / ${phases.length}`;openTaskCount.textContent=`${state.tasks.filter(t=>!t.done).length}件`;waitCount.textContent=`${state.phases.filter(p=>p.status==="確認待ち"||p.status==="要判断").length}件`;nextActionPreview.textContent=state.nextAction||"次に進めることを入力してください。";
+      statusPill.innerHTML=`<i class="dot ${statusDotClass(state.projectStatus)}"></i><span>${esc(state.projectStatus)}</span>`;
+      homePhase.textContent=cur.name;homePhaseSub.textContent=state.projectName?`案件：${state.projectName}`:"案件名は未入力";homeReadiness.textContent=nav.readiness+"%";homeReadinessSub.textContent=readinessLabelText(nav.readiness,nav.issues.filter(i=>i.title!=="次へ進める状態です").length);const role=roleForPhase(state.currentPhase);homeRole.textContent=roleShort(role);homeRoleSub.textContent=role==="自分"?"現場感と最終判断":role==="AI"?"整理・生成・比較を任せる":"自分の判断とAI整理を接続";homeQuality.textContent=q+"%";homeQualitySub.textContent=qualityLabelText(q);
+      renderHomeFocus(nav);renderProjectLibrary();renderRoles();renderPhases();renderJourney();renderTranslation();renderProposalHistory();renderClientPulse();renderMaturity();renderTasks();renderDecisions();renderQualityAudit();renderNextNavigator();renderClientReport();renderSummary();updateNavActive();
     }
-  });
-  if(!issues.length)issues.push("大きな不足はありません。提出・共有前の最終確認に進めます。");
-  return issues;
-}
-function renderQualityAudit(){
-  if(!document.getElementById("qualityAudit"))return;
-  const score=calcQualityScore();
-  qualityScore.textContent=score+"%";
-  qualityLabel.textContent=qualityLabelText(score);
-  qualityBar.style.width=score+"%";
-  const issues=buildQualityIssues();
-  qualityIssues.innerHTML=issues.map(x=>`<div class="quality-issue">${esc(x)}</div>`).join("");
-  qualityAuditRows.innerHTML=qualityItems.map(item=>{
-    const row=(state.qualityAudit||{})[item.key]||{score:50,note:""};
-    return `<div class="quality-item">
-      <div class="quality-head">
-        <span>${item.label}</span>
-        <strong>${Number(row.score)}%</strong>
-      </div>
-      <input type="range" min="0" max="100" step="5" value="${Number(row.score)}" data-quality-score="${item.key}" />
-      <div class="pulse-comment">${item.hint}</div>
-      <div class="quality-note">
-        <textarea data-quality-note="${item.key}" placeholder="気になる点・修正内容">${esc(row.note||"")}</textarea>
-      </div>
-    </div>`;
-  }).join("");
-  document.querySelectorAll("[data-quality-score]").forEach(input=>input.oninput=e=>{
-    const key=e.target.dataset.qualityScore;
-    state.qualityAudit[key]=state.qualityAudit[key]||{score:50,note:""};
-    state.qualityAudit[key].score=Number(e.target.value);
-    saveState();
-  });
-  document.querySelectorAll("[data-quality-note]").forEach(area=>area.oninput=e=>{
-    const key=e.target.dataset.qualityNote;
-    state.qualityAudit[key]=state.qualityAudit[key]||{score:50,note:""};
-    state.qualityAudit[key].note=e.target.value;
-    saveState();
-  });
-}
-function buildQualityText(){
-  const score=calcQualityScore();
-  const rows=qualityItems.map(item=>{
-    const row=(state.qualityAudit||{})[item.key]||{score:50,note:""};
-    return `・${item.label}：${Number(row.score)}%${row.note?` / ${row.note}`:""}`;
-  }).join("\n");
-  return `【提案品質監査】
-
-提案品質スコア：${score}%
-判定：${qualityLabelText(score)}
-
-監査項目：
-${rows}
-
-優先修正：
-${buildQualityIssues().map(x=>"・"+x).join("\n")}`;
-}
-
-function readinessLabelText(score, issueCount){
-  if(score>=82 && issueCount===0) return "次へ進める";
-  if(score>=65) return "確認後に進める";
-  if(score>=45) return "整理してから進む";
-  return "まだ進まない";
-}
-function buildNavigator(){
-  const curId=Number(state.currentPhase)||0;
-  const cur=phases[curId];
-  const curState=state.phases[curId]||{};
-  const checkRate=phaseCheckRate(curState);
-  const align=calcAlignment();
-  const maturityVals=Object.values(state.maturity||{}).map(Number);
-  const maturityAvg=maturityVals.length?Math.round(maturityVals.reduce((a,b)=>a+b,0)/maturityVals.length):0;const quality=calcQualityScore();
-  const hasBlocker=!!(curState.blocker&&curState.blocker.trim());
-  const openTasks=(state.tasks||[]).filter(t=>!t.done).length;
-  const readiness=Math.max(0,Math.min(100,Math.round(checkRate*0.38 + align*0.22 + maturityAvg*0.18 + quality*0.12 + (hasBlocker?0:10))));
-  const issues=[];
-  const actions=[];
-  if(checkRate<100){
-    const missing=(cur.checks||[]).filter((c,idx)=>!(curState.checks||[])[idx]);
-    issues.push({title:"完了条件が残っています",body:missing.slice(0,3).join(" / ") || "未完了の条件があります"});
-    actions.push("・現在フェーズの未完了条件を確認する");
-  }
-  if(hasBlocker){
-    issues.push({title:"停滞理由があります",body:curState.blocker});
-    actions.push("・停滞理由を解消するために、確認先・判断者・必要資料を決める");
-  }
-  if(align<65){
-    issues.push({title:"合意形成がまだ弱いです",body:`現在 ${align}% です。理解度・納得度・迷いを確認してください。`});
-    actions.push("・依頼者に、理解できていない点や迷っている点を確認する");
-  }
-  if(quality<70){issues.push({title:"提案品質監査に弱い部分があります",body:`品質スコア ${quality}% です。監査項目を確認してください。`});actions.push("・提案品質監査で70%未満の項目を優先修正する")}if(maturityAvg<60){
-    issues.push({title:"提案成熟度に弱い部分があります",body:`成熟度平均 ${maturityAvg}% です。低い項目を優先して整理してください。`});
-    actions.push("・提案成熟度の低い項目を1つ選び、次回までに整理する");
-  }
-  if(openTasks>3){
-    issues.push({title:"未完了タスクが多めです",body:`未完了タスクが ${openTasks} 件あります。優先順位を絞ってください。`});
-    actions.push("・未完了タスクを3つ以内に絞り、優先順位をつける");
-  }
-  if(issues.length===0){
-    issues.push({title:"次へ進める状態です",body:"大きな不足はありません。現在フェーズを完了し、次フェーズへ進めます。"});
-    actions.push("・現在フェーズを完了にして、次フェーズの最初の確認事項を入力する");
-  }
-  const next=phases[Math.min(curId+1,phases.length-1)];
-  return {readiness,checkRate,align,issues,actions,next};
-}
-function renderNextNavigator(){
-  if(!document.getElementById("nextNavigator"))return;
-  const nav=buildNavigator();
-  readinessScore.textContent=nav.readiness+"%";
-  readinessBar.style.width=nav.readiness+"%";
-  readinessLabel.textContent=readinessLabelText(nav.readiness,nav.issues.filter(i=>i.title!=="次へ進める状態です").length);
-  currentCheckRate.textContent=nav.checkRate+"%";
-  navigatorAlignment.textContent=nav.align+"%";
-  nextPhaseLabel.textContent=nav.next?nav.next.name:"完了";
-  navigatorIssues.innerHTML=nav.issues.map(i=>`<div class="next-item"><strong>${esc(i.title)}</strong>${esc(i.body)}</div>`).join("");
-  navigatorActions.textContent=nav.actions.join("\n");
-}
-function advancePhase(){
-  const curId=Number(state.currentPhase)||0;
-  if(curId>=phases.length-1){alert("すでに最終フェーズです。");return;}
-  const nav=buildNavigator();
-  const ok=nav.readiness>=65 || confirm("まだ不足がありますが、次フェーズへ進めますか？");
-  if(!ok)return;
-  state.phases[curId].status="完了";
-  state.currentPhase=curId+1;
-  if(state.phases[curId+1].status==="未着手")state.phases[curId+1].status="進行中";
-  const next=phases[curId+1];
-  state.nextAction=`${next.name}の最初の整理を進める。`;
-  saveState();
-  nextNavigator.scrollIntoView({behavior:"smooth"});
-}
-
-function renderClientReport(){
-  if(!document.getElementById("clientReport")) return;
-  reportMode.value=(state.clientReport&&state.clientReport.mode)||"client";
-  nextMeeting.value=(state.clientReport&&state.clientReport.nextMeeting)||"";
-  renderAgenda();
-  clientReportText.textContent=buildClientReport();
-}
-function renderAgenda(){
-  const root=document.getElementById("agendaList");
-  if(!root) return;
-  const agenda=(state.clientReport&&state.clientReport.agenda)||[];
-  if(!agenda.length){
-    root.innerHTML=`<p class="small">まだアジェンダがありません。次回確認したいことを追加してください。</p>`;
-    return;
-  }
-  root.innerHTML=agenda.map(a=>`<div class="agenda-item ${a.done?"done":""}">
-    <input type="checkbox" ${a.done?"checked":""} data-agenda-check="${a.id}" />
-    <div class="agenda-text">${esc(a.text)}</div>
-    <button data-agenda-delete="${a.id}" aria-label="削除">×</button>
-  </div>`).join("");
-  document.querySelectorAll("[data-agenda-check]").forEach(chk=>chk.onchange=e=>{
-    const item=state.clientReport.agenda.find(x=>x.id===e.target.dataset.agendaCheck);
-    if(item)item.done=e.target.checked;
-    saveState();
-  });
-  document.querySelectorAll("[data-agenda-delete]").forEach(btn=>btn.onclick=e=>{
-    state.clientReport.agenda=state.clientReport.agenda.filter(x=>x.id!==e.target.dataset.agendaDelete);
-    saveState();
-  });
-}
-function addAgenda(){
-  const text=(agendaInput.value||"").trim();
-  if(!text)return;
-  state.clientReport.agenda.push({id:String(Date.now()),text,done:false});
-  agendaInput.value="";
-  saveState();
-}
-function buildClientReport(){
-  const current=phases.find(p=>p.id==state.currentPhase);
-  const overall=calcOverall();
-  const align=calcAlignment();
-  const agenda=((state.clientReport&&state.clientReport.agenda)||[]).filter(a=>!a.done).map(a=>"・"+a.text).join("\n") || "・未登録";
-  const proposal=(state.proposalHistory||[]).slice(-2).map(p=>"・"+(p.title||"無題の案")+"："+(p.status||"検討中")).join("\n") || "・未登録";
-  const mode=(state.clientReport&&state.clientReport.mode)||"client";
-  const next=(state.clientReport&&state.clientReport.nextMeeting)||"未定";
-  if(mode==="internal"){
-    return `【yohaku 進捗レポート / 社内共有】
-
-案件名：${state.projectName||"未入力"}
-依頼者：${state.clientName||"未入力"}
-
-現在地：${current?current.name:"未設定"}
-全体進捗：${overall}%
-案件状態：${state.projectStatus}
-合意形成：${align}%（${alignmentLabel(align)}）
-
-直近の提案状況：
-${proposal}
-
-停滞理由 / 判断待ち：
-${(state.phases[Number(state.currentPhase)]||{}).blocker||"特になし"}
-
-次回予定：
-${next}
-
-次回確認すること：
-${agenda}`;
-  }
-  return `【yohaku 進捗共有】
-
-${state.clientName?state.clientName+" 様":"ご担当者様"}
-
-現在は「${current?current.name:"未設定"}」の段階です。
-全体としては、おおよそ ${overall}% まで整理が進んでいます。
-
-現在進めていること：
-${state.nextAction||"次の整理内容を確認中です。"}
-
-次回確認したいこと：
-${agenda}
-
-次回予定：
-${next}
-
-引き続き、理想や違和感を整理しながら、空間の方向性へ落とし込んでいきます。`;
-}
-
-function renderMaturity(){maturitySliders.innerHTML=maturityItems.map(name=>{const v=Number(state.maturity[name]||0);return `<div class="slider-row"><div class="slider-head"><span>${name}</span><strong>${v}%</strong></div><input type="range" min="0" max="100" step="5" value="${v}" data-maturity="${name}"></div>`}).join("");document.querySelectorAll("[data-maturity]").forEach(inp=>inp.oninput=e=>{state.maturity[e.target.dataset.maturity]=Number(e.target.value);saveState()})}
-function renderTasks(){if(!state.tasks.length){taskList.innerHTML=`<p class="small">まだタスクがありません。次にやることを追加してください。</p>`;return}taskList.innerHTML=state.tasks.map(t=>`<div class="task ${t.done?"done":""}"><input type="checkbox" ${t.done?"checked":""} data-task-check="${t.id}"><div class="task-text">${esc(t.text)}</div><button data-task-delete="${t.id}">×</button></div>`).join("");document.querySelectorAll("[data-task-check]").forEach(chk=>chk.onchange=e=>{const t=state.tasks.find(x=>x.id===e.target.dataset.taskCheck);if(t)t.done=e.target.checked;saveState()});document.querySelectorAll("[data-task-delete]").forEach(btn=>btn.onclick=e=>{state.tasks=state.tasks.filter(t=>t.id!==e.target.dataset.taskDelete);saveState()})}
-function renderDecisions(){decisionLog.innerHTML=state.decisions.length?state.decisions.slice().reverse().map(d=>`<div class="log-item"><div class="log-date">${d.date}</div><div>${esc(d.text)}</div></div>`).join(""):`<p class="small">まだ判断ログがありません。</p>`}
-function renderSummary(){const cur=phases.find(p=>p.id==state.currentPhase),overall=calcOverall(),open=state.tasks.filter(t=>!t.done).map(t=>"・"+t.text).join("\n")||"・未登録";const curPhaseState=state.phases[Number(state.currentPhase)]||{};const blocker=curPhaseState.blocker||"特になし";const deliverable=curPhaseState.deliverable||(cur?cur.deliverable:"未設定");const journeyText=(state.journey||[]).map(j=>`・${j.stage}：${j.state||"未入力"}（${j.space||"空間要素未入力"}）`).join("\n");const translationText=(state.translation||[]).map(r=>`・${r.title||"状態未入力"} → ${r.element||"空間要素未入力"} / ${r.direction||"方向性未入力"}`).join("\n");const proposalText=(state.proposalHistory||[]).slice(-3).map(p=>`・${p.title||"無題の案"}（${p.status||"検討中"}）：${p.reason||p.content||"理由未入力"}`).join("\n")||"・未登録";const nav=buildNavigator();const qScore=calcQualityScore();const alignScore=calcAlignment();const pulse=state.clientPulse||{};const pulseText=`合意形成：${alignScore}%（${alignmentLabel(alignScore)}）\n期待感：${pulse.expectation}% / 理解度：${pulse.understanding}% / 納得度：${pulse.agreement}% / 迷い：${pulse.hesitation}% / 信頼感：${pulse.trust}%\n次に確認すること：${pulse.nextQuestion||"未入力"}`;summaryText.textContent=`【yohaku 進捗共有】\n\n案件名：${state.projectName||"未入力"}\n依頼者：${state.clientName||"未入力"}\n案件ID：${state.projectId||"未保存"}\n\n現在フェーズ：${cur?cur.name:"未設定"}\n全体進捗：${overall}%\n案件状態：${state.projectStatus}\n\n状態遷移：\n${journeyText}\n\n直近の提案履歴：\n${proposalText}\n\n顧客温度感：\n${pulseText}\n\n次工程判定：\n${readinessLabelText(nav.readiness,nav.issues.filter(i=>i.title!=="次へ進める状態です").length)}（準備度 ${nav.readiness}%）\n\n提案品質監査：\n${qScore}%（${qualityLabelText(qScore)}）\n\n次に進めること：\n${state.nextAction||"未入力"}\n\n未完了タスク：\n${open}\n\n停滞理由 / 判断待ち：\n${blocker}\n\nこのフェーズの成果物：\n${deliverable}\n\n現在の見立て：\n今は「${cur?cur.name:"未設定"}」の段階です。状態の流れと空間要素を確認しながら、次工程へ進むための整理を進めます。`}
-function addTask(){const text=taskInput.value.trim();if(!text)return;state.tasks.push({id:String(Date.now()),text,done:false});taskInput.value="";saveState()} function addDecision(){const text=decisionInput.value.trim();if(!text)return;const d=new Date();state.decisions.push({date:`${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,"0")}/${String(d.getDate()).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`,text});decisionInput.value="";saveState()}
-projectName.oninput=e=>{state.projectName=e.target.value;saveState()};clientName.oninput=e=>{state.clientName=e.target.value;saveState()};currentPhase.onchange=e=>{state.currentPhase=Number(e.target.value);state.phases.forEach((p,i)=>{if(i<state.currentPhase&&p.status==="未着手")p.status="完了";if(i===state.currentPhase&&p.status==="未着手")p.status="進行中"});saveState()};projectStatus.onchange=e=>{state.projectStatus=e.target.value;saveState()};nextAction.oninput=e=>{state.nextAction=e.target.value;saveState()};addProposalBtn.onclick=addProposal;clientNextQuestion.oninput=e=>{state.clientPulse.nextQuestion=e.target.value;saveState()};reportMode.onchange=e=>{state.clientReport.mode=e.target.value;saveState()};nextMeeting.oninput=e=>{state.clientReport.nextMeeting=e.target.value;saveState()};addAgendaBtn.onclick=addAgenda;agendaInput.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addAgenda()}};copyClientReportBtn.onclick=async()=>{await navigator.clipboard.writeText(clientReportText.textContent);alert("共有レポートをコピーしました。")};advancePhaseBtn.onclick=advancePhase;copyNavigatorBtn.onclick=async()=>{await navigator.clipboard.writeText(navigatorActions.textContent);alert("次にやることをコピーしました。")};copyQualityBtn.onclick=async()=>{await navigator.clipboard.writeText(buildQualityText());alert("監査結果をコピーしました。")};addTaskBtn.onclick=addTask;taskInput.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addTask()}};addDecisionBtn.onclick=addDecision;saveBtn.onclick=saveState;saveProjectBtn.onclick=saveCurrentProjectToLibrary;newProjectBtn.onclick=createNewProject;duplicateProjectBtn.onclick=duplicateCurrentProject;exportBtnTop.onclick=()=>share.scrollIntoView({behavior:"smooth"});copyBtn.onclick=async()=>{await navigator.clipboard.writeText(summaryText.textContent);alert("共有文をコピーしました。")};downloadBtn.onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`yohaku-progress-${Date.now()}.json`;a.click();URL.revokeObjectURL(a.href)};importFile.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{state=normalize(JSON.parse(r.result));saveState();alert("データを読み込みました。")}catch(err){alert("読み込みに失敗しました。")}};r.readAsText(file)};resetBtn.onclick=()=>{if(confirm("入力内容をリセットしますか？")){state=clone(defaultState);saveState()}};
-function yohakuScrollTo(id){
-  const target = document.getElementById(id);
-  if(!target) return false;
-  const top = target.getBoundingClientRect().top + window.pageYOffset - 74;
-  window.scrollTo({top, behavior:"smooth"});
-  return false;
-}
-
-document.querySelectorAll("[data-scroll-target]").forEach(link=>{
-  link.addEventListener("click", e=>{
-    e.preventDefault();
-    yohakuScrollTo(link.dataset.scrollTarget);
-  });
-});
-
-document.querySelectorAll("[data-home-scroll]").forEach(btn=>{
-  btn.addEventListener("click", e=>{
-    e.preventDefault();
-    yohakuScrollTo(btn.dataset.homeScroll);
-  });
-});
-
-render();
-</script>
+    function renderHomeFocus(nav){const items=[];const cur=phases[state.currentPhase];const role=roleForPhase(state.currentPhase);items.push(`今は「${cur.name}」の段階です。`);items.push(role==="AI"?"AIには案出し・比較・言語化を任せて、自分は違和感と採用判断を見てください。":role==="自分"?"ここは自分の現場感・目的判断が中心です。AIは補助として使ってください。":"自分の判断とAIの整理をつなぐ段階です。");items.push(nav.issues[0]?.title?`優先確認：${nav.issues[0].title}`:"次へ進める状態です。");homeFocus.innerHTML=`<strong>今日見ること</strong>${items.map(x=>`<div>・${esc(x)}</div>`).join("")}`}
+    function renderProjectLibrary(){let list=[];try{list=JSON.parse(localStorage.getItem(LIBRARY_KEY)||"[]")}catch(e){};projectList.innerHTML=list.length?list.map(p=>`<div class="quality-item"><b>${esc(p.projectName||"無題の案件")}</b><div class="small">${esc(p.clientName||"依頼者未入力")} / ${esc(phases[p.currentPhase]?.name||"未設定")} / ${p.updatedAt?new Date(p.updatedAt).toLocaleString("ja-JP"):""}</div><div class="btn-row" style="margin-top:8px"><button class="ghost-btn" data-load-project="${esc(p.projectId)}">読込</button><button class="danger-btn" data-delete-project="${esc(p.projectId)}">削除</button></div></div>`).join(""):`<p class="small">まだ保存された案件がありません。「この案件を保存」を押すと、ここに案件が表示されます。</p>`;document.querySelectorAll('[data-load-project]').forEach(b=>b.onclick=()=>loadProject(b.dataset.loadProject));document.querySelectorAll('[data-delete-project]').forEach(b=>b.onclick=()=>deleteProject(b.dataset.deleteProject))}
+    function renderRoles(){const cur=phases[state.currentPhase];roleNow.innerHTML=[['human','自分が握ること',cur.role.human],['ai','AIに任せてよいこと',cur.role.ai],['joint','共同で決めること',cur.role.joint]].map(([cls,title,arr])=>`<div class="role-card ${cls}"><h3><span class="dot ${cls}"></span> ${title}</h3><p>${arr.map(x=>`・${esc(x)}`).join('<br>')}</p></div>`).join('');roleMap.innerHTML=phases.map(p=>`<div class="role-phase"><div class="role-phase-head"><strong>${p.id}. ${esc(p.name)}</strong><span class="pill ${roleClass(roleForPhase(p.id))}">${roleShort(roleForPhase(p.id))}</span></div><div class="role-columns"><div class="role-mini human"><b>自分</b><ul>${p.role.human.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div class="role-mini ai"><b>AI</b><ul>${p.role.ai.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div class="role-mini joint"><b>共同判断</b><ul>${p.role.joint.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div></div>`).join('')}
+    function renderPhases(){phaseMap.innerHTML=state.phases.map(p=>{const meta=phases[p.id];const rate=phaseCheckRate(p);const cls=[statusClass(p.status),Number(state.currentPhase)===p.id?"current":""].join(' ');return `<div class="phase ${cls}"><div class="phase-num">${p.id}</div><div><div class="phase-title">${esc(meta.name)}</div><div class="phase-desc">${esc(meta.desc)}</div><div class="phase-status-row"><span class="pill ${roleClass(roleForPhase(p.id))}">${roleShort(roleForPhase(p.id))}</span><span class="pill">完了条件 ${rate}%</span></div><div class="phase-complete-rate">成果物：${esc(p.deliverable||meta.deliverable)}</div><div class="progress-line" style="margin-top:8px"><i style="width:${phaseProgress(p)}%"></i></div><details class="phase-detail"><summary class="small">完了条件・停滞理由・成果物を確認する</summary><div class="check-grid">${meta.checks.map((c,idx)=>`<label class="check-item"><input type="checkbox" ${p.checks[idx]?"checked":""} data-phase-check="${p.id}" data-check-index="${idx}"><span>${esc(c)}</span></label>`).join('')}</div><div class="phase-note-grid"><div class="mini-field"><label>停滞理由 / 判断待ち</label><textarea data-phase-blocker="${p.id}" placeholder="例：依頼者判断待ち、現地寸法未確認">${esc(p.blocker)}</textarea></div><div class="mini-field"><label>このフェーズの成果物</label><input data-phase-deliverable="${p.id}" value="${esc(p.deliverable||meta.deliverable)}"></div></div></details></div><select data-phase-status="${p.id}">${statuses.map(s=>`<option ${p.status===s?"selected":""}>${s}</option>`).join('')}</select></div>`}).join('');document.querySelectorAll('[data-phase-status]').forEach(el=>el.onchange=e=>{const id=+e.target.dataset.phaseStatus;state.phases[id].status=e.target.value;if(e.target.value==="進行中")state.currentPhase=id;saveState()});document.querySelectorAll('[data-phase-check]').forEach(el=>el.onchange=e=>{const id=+e.target.dataset.phaseCheck,idx=+e.target.dataset.checkIndex;state.phases[id].checks[idx]=e.target.checked;if(phaseCheckRate(state.phases[id])===100&&state.phases[id].status!=="完了")state.phases[id].status="確認待ち";saveState()});document.querySelectorAll('[data-phase-blocker]').forEach(el=>el.oninput=e=>{const id=+e.target.dataset.phaseBlocker;state.phases[id].blocker=e.target.value;if(e.target.value.trim()&&state.phases[id].status!=="完了")state.phases[id].status="要判断";saveState()});document.querySelectorAll('[data-phase-deliverable]').forEach(el=>el.oninput=e=>{state.phases[+e.target.dataset.phaseDeliverable].deliverable=e.target.value;saveState()})}
+    function renderJourney(){journeyFlow.innerHTML=state.journey.map((j,i)=>`<div><div class="journey-node"><div class="journey-head"><strong>${i+1}. ${esc(j.stage)}</strong><span class="small">状態 → 空間要素</span></div><div class="journey-fields"><div><label>この段階の状態</label><input data-journey-state="${i}" value="${esc(j.state)}"></div><div><label>効かせる空間要素</label><input data-journey-space="${i}" value="${esc(j.space)}"></div></div></div>${i<state.journey.length-1?'<div class="journey-arrow">↓</div>':''}</div>`).join('');journeyPreview.innerHTML=state.journey.map((j,i)=>`<span class="chip">${esc(j.state||j.stage)}</span>${i<state.journey.length-1?'<span class="arrow">→</span>':''}`).join('');document.querySelectorAll('[data-journey-state]').forEach(el=>el.oninput=e=>{state.journey[+e.target.dataset.journeyState].state=e.target.value;saveState()});document.querySelectorAll('[data-journey-space]').forEach(el=>el.oninput=e=>{state.journey[+e.target.dataset.journeySpace].space=e.target.value;saveState()})}
+    function renderTranslation(){translationRows.innerHTML=state.translation.map((r,i)=>`<div class="translate-row"><div class="translate-head"><div><div class="translate-label">${esc(r.label)}</div><div class="translate-title">${esc(r.title)}</div></div><span class="small">状態 → 判断基準</span></div><div class="translate-fields"><div><label>効かせる空間要素</label><textarea data-trans-el="${i}">${esc(r.element)}</textarea></div><div><label>空間の方向性</label><textarea data-trans-dir="${i}">${esc(r.direction)}</textarea></div><div><label>避けたい印象</label><input data-trans-avoid="${i}" value="${esc(r.avoid)}"></div><div><label>状態名</label><input data-trans-title="${i}" value="${esc(r.title)}"></div></div></div>`).join('');translationPreview.innerHTML=state.translation.map((r,i)=>`<span class="chip">${esc(r.title)}</span><span class="arrow">→</span><span class="chip">${esc(r.element).slice(0,38)}</span>`).join('');document.querySelectorAll('[data-trans-el]').forEach(el=>el.oninput=e=>{state.translation[+e.target.dataset.transEl].element=e.target.value;saveState()});document.querySelectorAll('[data-trans-dir]').forEach(el=>el.oninput=e=>{state.translation[+e.target.dataset.transDir].direction=e.target.value;saveState()});document.querySelectorAll('[data-trans-avoid]').forEach(el=>el.oninput=e=>{state.translation[+e.target.dataset.transAvoid].avoid=e.target.value;saveState()});document.querySelectorAll('[data-trans-title]').forEach(el=>el.oninput=e=>{state.translation[+e.target.dataset.transTitle].title=e.target.value;saveState()})}
+    function renderProposalHistory(){proposalHistoryList.innerHTML=state.proposalHistory.length?state.proposalHistory.slice().reverse().map((p,idx)=>`<div class="proposal-item"><div class="proposal-title-row"><div><div class="proposal-title">${esc(p.title||"無題の案")}</div><div class="proposal-meta">${esc(p.status)} / ${new Date(p.date).toLocaleString("ja-JP")}</div></div><button class="plain-x" data-del-proposal="${state.proposalHistory.length-1-idx}">×</button></div><div style="margin-top:8px">${esc(p.content||"")}</div>${p.reason?`<div class="focus-box"><strong>判断理由 / 修正理由</strong>${esc(p.reason)}</div>`:""}</div>`).join(''):`<p class="small">まだ提案履歴がありません。AI案・自分の案・修正案を追加してください。</p>`;document.querySelectorAll('[data-del-proposal]').forEach(b=>b.onclick=()=>{state.proposalHistory.splice(+b.dataset.delProposal,1);saveState()})}
+    function renderClientPulse(){clientPulseSliders.innerHTML=clientPulseItems.map(x=>`<div class="slider-card"><div class="slider-head"><span>${x.name}</span><strong id="pulseVal-${x.key}">${state.clientPulse[x.key]}%</strong></div><input type="range" min="0" max="100" value="${state.clientPulse[x.key]}" data-pulse="${x.key}"><div class="small">${x.desc}</div></div>`).join('');clientNextQuestion.value=state.clientPulse.nextQuestion||"";document.querySelectorAll('[data-pulse]').forEach(el=>el.oninput=e=>{state.clientPulse[e.target.dataset.pulse]=Number(e.target.value);saveState()})}
+    function renderMaturity(){maturitySliders.innerHTML=maturityItems.map(x=>`<div class="slider-card"><div class="slider-head"><span>${x}</span><strong>${state.maturity[x]}%</strong></div><input type="range" min="0" max="100" value="${state.maturity[x]}" data-maturity="${x}"></div>`).join('');document.querySelectorAll('[data-maturity]').forEach(el=>el.oninput=e=>{state.maturity[e.target.dataset.maturity]=Number(e.target.value);saveState()})}
+    function renderTasks(){taskList.innerHTML=state.tasks.length?state.tasks.map((t,i)=>`<div class="task ${t.done?"done":""}"><input type="checkbox" ${t.done?"checked":""} data-task-check="${i}"><div class="task-text">${esc(t.text)}</div><button data-task-del="${i}">×</button></div>`).join(''):`<p class="small">まだタスクがありません。次にやることを追加してください。</p>`;document.querySelectorAll('[data-task-check]').forEach(el=>el.onchange=e=>{state.tasks[+e.target.dataset.taskCheck].done=e.target.checked;saveState()});document.querySelectorAll('[data-task-del]').forEach(b=>b.onclick=()=>{state.tasks.splice(+b.dataset.taskDel,1);saveState()})}
+    function renderDecisions(){decisionLog.innerHTML=state.decisions.length?state.decisions.slice().reverse().map((d,idx)=>`<div class="log-item"><div class="log-date">${new Date(d.date).toLocaleString("ja-JP")} <button class="plain-x" data-decision-del="${state.decisions.length-1-idx}">×</button></div>${esc(d.text)}</div>`).join(''):`<p class="small">まだ判断ログがありません。</p>`;document.querySelectorAll('[data-decision-del]').forEach(b=>b.onclick=()=>{state.decisions.splice(+b.dataset.decisionDel,1);saveState()})}
+    function renderQualityAudit(){const q=calcQualityScore();qualityScore.textContent=q+"%";qualityBar.style.width=q+"%";qualityLabel.textContent=qualityLabelText(q);qualityList.innerHTML=qualityItems.map(x=>{const item=state.qualityAudit[x.key]||{score:50,note:""};return `<div class="slider-card"><div class="slider-head"><span>${x.name}</span><strong>${item.score}%</strong></div><input type="range" min="0" max="100" value="${item.score}" data-quality="${x.key}"><div class="small">${x.desc}</div><textarea data-quality-note="${x.key}" placeholder="気になる点・修正内容">${esc(item.note)}</textarea></div>`}).join('');document.querySelectorAll('[data-quality]').forEach(el=>el.oninput=e=>{state.qualityAudit[e.target.dataset.quality].score=Number(e.target.value);saveState()});document.querySelectorAll('[data-quality-note]').forEach(el=>el.oninput=e=>{state.qualityAudit[e.target.dataset.qualityNote].note=e.target.value;saveState()})}
+    function renderNextNavigator(){const nav=buildNavigator();readinessScore.textContent=nav.readiness+"%";readinessBar.style.width=nav.readiness+"%";readinessLabel.textContent=readinessLabelText(nav.readiness,nav.issues.filter(i=>i.title!=="次へ進める状態です").length);currentCheckRate.textContent=nav.checkRate+"%";navigatorAlignment.textContent=nav.align+"%";navigatorNextPhase.textContent=nav.next.name;navigatorIssues.innerHTML=nav.issues.map(i=>`<div class="issue-item"><b>${esc(i.title)}</b>${esc(i.body)}</div>`).join('');navigatorActions.textContent=buildNextActions(nav)}
+    function buildNextActions(nav){return nav.issues.filter(i=>i.title!=="次へ進める状態です").length?`・現在フェーズの未完了条件を確認する\n・依頼者に、理解できていない点や迷っている点を確認する\n・提案品質監査で70%未満の項目を優先修正する\n・自分が判断すること / AIに整理させることを分ける\n・提案成熟度の低い項目を1つ選び、次回までに整理する`:`・現在フェーズを完了にする\n・次フェーズ「${nav.next.name}」へ進む\n・今回の判断理由を判断ログに残す\n・依頼者向け共有文を送る`}
+    function renderClientReport(){reportMode.value=state.clientReport.mode||"soft";nextMeeting.value=state.clientReport.nextMeeting||"";agendaList.innerHTML=state.clientReport.agenda.length?state.clientReport.agenda.map((a,i)=>`<div class="task"><span class="dot joint" style="margin-top:7px"></span><div class="task-text">${esc(a)}</div><button data-agenda-del="${i}">×</button></div>`).join(''):`<p class="small">まだアジェンダがありません。次回確認したいことを追加してください。</p>`;document.querySelectorAll('[data-agenda-del]').forEach(b=>b.onclick=()=>{state.clientReport.agenda.splice(+b.dataset.agendaDel,1);saveState()});clientReportText.textContent=buildClientReport()}
+    function buildClientReport(){const cur=phases[state.currentPhase];const nav=buildNavigator();const mode=state.clientReport.mode;const agenda=state.clientReport.agenda.length?state.clientReport.agenda.map(x=>`・${x}`).join('\n'):"・未登録";if(mode==="direct")return `【yohaku 進捗共有】\n\n案件：${state.projectName||"未入力"}\n依頼者：${state.clientName||"未入力"}\n現在フェーズ：${cur.name}\n全体進捗：${calcOverall()}%\n次工程準備度：${nav.readiness}%（${readinessLabelText(nav.readiness,nav.issues.length)}）\n\n次に進めること：\n${state.nextAction||"未入力"}\n\n確認事項：\n${nav.issues.map(i=>`・${i.title}：${i.body}`).join('\n')}\n\n次回予定：${state.clientReport.nextMeeting||"未定"}\n\n次回アジェンダ：\n${agenda}`;return `【yohaku 進捗共有】\n\nご担当者様\n\n現在は「${cur.name}」の段階です。\n全体としては、おおよそ ${calcOverall()}% まで整理が進んでいます。\n\n現在進めていること：\n${state.nextAction||"次の整理内容を確認中です。"}\n\n次回確認したいこと：\n${agenda}\n\n次回予定：\n${state.clientReport.nextMeeting||"未定"}\n\n引き続き、理想や違和感を整理しながら、空間の方向性へ落とし込んでいきます。`}
+    function renderSummary(){const cur=phases[state.currentPhase];const curState=state.phases[state.currentPhase];const nav=buildNavigator();const role=roleForPhase(state.currentPhase);const open=state.tasks.filter(t=>!t.done).map(t=>`・${t.text}`).join('\n')||"・未登録";const journeyText=state.journey.map(j=>`・${j.stage}：${j.state}（${j.space}）`).join('\n');const proposalText=state.proposalHistory.slice(-3).map(p=>`・${p.title||"無題の案"}（${p.status}）：${p.reason||p.content||"理由未入力"}`).join('\n')||"・未登録";const roleText=`自分：${cur.role.human.join(' / ')}\nAI：${cur.role.ai.join(' / ')}\n共同判断：${cur.role.joint.join(' / ')}`;summaryText.textContent=`【yohaku 進捗共有】\n\n案件名：${state.projectName||"未入力"}\n依頼者：${state.clientName||"未入力"}\n案件ID：${state.projectId||"未保存"}\n\n現在フェーズ：${cur.name}\n全体進捗：${calcOverall()}%\n案件状態：${state.projectStatus}\n担当の重心：${roleShort(role)}\n\n役割分担：\n${roleText}\n\n状態遷移：\n${journeyText}\n\n直近の提案履歴：\n${proposalText}\n\n顧客温度感：\n合意形成：${calcAlignment()}%（${alignmentLabel(calcAlignment())}）\n期待感：${state.clientPulse.expectation}% / 理解度：${state.clientPulse.understanding}% / 納得度：${state.clientPulse.agreement}% / 迷い：${state.clientPulse.hesitation}% / 信頼感：${state.clientPulse.trust}%\n次に確認すること：${state.clientPulse.nextQuestion||"未入力"}\n\n次工程判定：\n${readinessLabelText(nav.readiness,nav.issues.length)}（準備度 ${nav.readiness}%）\n\n提案品質監査：\n${calcQualityScore()}%（${qualityLabelText(calcQualityScore())}）\n\n次に進めること：\n${state.nextAction||"未入力"}\n\n未完了タスク：\n${open}\n\n停滞理由 / 判断待ち：\n${curState.blocker||"特になし"}\n\nこのフェーズの成果物：\n${curState.deliverable||cur.deliverable}\n\n現在の見立て：\n今は「${cur.name}」の段階です。AIに任せる整理と、自分が握る判断を分けながら、次工程へ進むための整理を進めます。`}
+    function buildQualityText(){return `【提案品質監査】\n提案品質スコア：${calcQualityScore()}%（${qualityLabelText(calcQualityScore())}）\n\n`+qualityItems.map(x=>{const q=state.qualityAudit[x.key];return `・${x.name}：${q.score}%\n  ${x.desc}\n  気になる点：${q.note||"未入力"}`}).join('\n')}
+    function addTask(){const text=taskInput.value.trim();if(!text)return;state.tasks.push({text,done:false,date:new Date().toISOString()});taskInput.value="";saveState()}
+    function addDecision(){const text=decisionInput.value.trim();if(!text)return;state.decisions.push({text,date:new Date().toISOString()});decisionInput.value="";saveState()}
+    function addProposal(){const title=proposalTitle.value.trim(),content=proposalContent.value.trim(),reason=proposalReason.value.trim();if(!title&&!content&&!reason)return;state.proposalHistory.push({title,content,reason,status:proposalStatus.value,date:new Date().toISOString()});proposalTitle.value="";proposalContent.value="";proposalReason.value="";saveState()}
+    function addAgenda(){const text=agendaInput.value.trim();if(!text)return;state.clientReport.agenda.push(text);agendaInput.value="";saveState()}
+    function saveCurrentProjectToLibrary(){let list=[];try{list=JSON.parse(localStorage.getItem(LIBRARY_KEY)||"[]")}catch(e){};if(!state.projectId)state.projectId=`proj-${Date.now()}`;const data={...clone(state),updatedAt:new Date().toISOString()};const idx=list.findIndex(p=>p.projectId===state.projectId);if(idx>=0)list[idx]=data;else list.unshift(data);localStorage.setItem(LIBRARY_KEY,JSON.stringify(list));saveState();alert("この案件を保存しました。")}
+    function loadProject(id){let list=[];try{list=JSON.parse(localStorage.getItem(LIBRARY_KEY)||"[]")}catch(e){};const found=list.find(p=>p.projectId===id);if(!found)return;state=normalize(found);saveState();window.scrollTo({top:0,behavior:"smooth"})}
+    function deleteProject(id){if(!confirm("この保存案件を削除しますか？"))return;let list=[];try{list=JSON.parse(localStorage.getItem(LIBRARY_KEY)||"[]")}catch(e){};localStorage.setItem(LIBRARY_KEY,JSON.stringify(list.filter(p=>p.projectId!==id)));renderProjectLibrary()}
+    function createNewProject(){if(!confirm("現在の入力を一旦保存してから、新規案件を作りますか？"))return;saveCurrentProjectToLibrary();state=clone(defaultState);saveState();window.scrollTo({top:0,behavior:"smooth"})}
+    function duplicateCurrentProject(){const base=state.projectName||"未入力案件";state.projectId=`proj-${Date.now()}`;state.projectName=base+" コピー";saveCurrentProjectToLibrary();render()}
+    function advancePhase(){const curId=Number(state.currentPhase);if(curId>=phases.length-1){alert("すでに最終フェーズです。");return}const nav=buildNavigator();if(nav.readiness<65&&!confirm("まだ準備度が低めです。それでも次フェーズへ進みますか？"))return;state.phases[curId].status="完了";state.currentPhase=curId+1;if(state.phases[curId+1].status==="未着手")state.phases[curId+1].status="進行中";state.decisions.push({text:`${phases[curId].name}を完了し、${phases[curId+1].name}へ進めた。`,date:new Date().toISOString()});saveState();document.getElementById('currentStatus').scrollIntoView({behavior:'smooth',block:'start'})}
+    projectName.oninput=e=>{state.projectName=e.target.value;saveState()};clientName.oninput=e=>{state.clientName=e.target.value;saveState()};projectStatus.onchange=e=>{state.projectStatus=e.target.value;saveState()};nextAction.oninput=e=>{state.nextAction=e.target.value;saveState()};currentPhase.onchange=e=>{state.currentPhase=Number(e.target.value);state.phases.forEach((p,i)=>{if(i<state.currentPhase&&p.status==="未着手")p.status="完了";if(i===state.currentPhase&&p.status==="未着手")p.status="進行中"});saveState()};
+    saveBtn.onclick=()=>{saveState();alert("保存しました。")};shareTopBtn.onclick=()=>document.getElementById('share').scrollIntoView({behavior:'smooth'});saveProjectBtn.onclick=saveCurrentProjectToLibrary;newProjectBtn.onclick=createNewProject;duplicateProjectBtn.onclick=duplicateCurrentProject;addTaskBtn.onclick=addTask;taskInput.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addTask()}};addDecisionBtn.onclick=addDecision;addProposalBtn.onclick=addProposal;clientNextQuestion.oninput=e=>{state.clientPulse.nextQuestion=e.target.value;saveState()};reportMode.onchange=e=>{state.clientReport.mode=e.target.value;saveState()};nextMeeting.oninput=e=>{state.clientReport.nextMeeting=e.target.value;saveState()};addAgendaBtn.onclick=addAgenda;agendaInput.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addAgenda()}};advancePhaseBtn.onclick=advancePhase;copyNavigatorBtn.onclick=async()=>{await navigator.clipboard.writeText(navigatorActions.textContent);alert("次にやることをコピーしました。")};copyQualityBtn.onclick=async()=>{await navigator.clipboard.writeText(buildQualityText());alert("監査結果をコピーしました。")};copyClientReportBtn.onclick=async()=>{await navigator.clipboard.writeText(clientReportText.textContent);alert("共有レポートをコピーしました。")};copyBtn.onclick=async()=>{await navigator.clipboard.writeText(summaryText.textContent);alert("共有文をコピーしました。")};downloadBtn.onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`yohaku-progress-${Date.now()}.json`;a.click();URL.revokeObjectURL(a.href)};importFile.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{state=normalize(JSON.parse(r.result));saveState();alert("データを読み込みました。")}catch(err){alert("読み込みに失敗しました。")}};r.readAsText(file)};resetBtn.onclick=()=>{if(confirm("入力内容をリセットしますか？")){state=clone(defaultState);saveState()}};
+    document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>document.getElementById(b.dataset.jump).scrollIntoView({behavior:'smooth',block:'start'}));
+    document.querySelectorAll('.bottom-nav a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href')).scrollIntoView({behavior:'smooth',block:'start'});setTimeout(updateNavActive,220)}));
+    function updateNavActive(){const ids=['homeDashboard','project','phases','tasks','share'];let active=ids[0];for(const id of ids){const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<160)active=id}document.querySelectorAll('.bottom-nav a').forEach(a=>a.classList.toggle('active',a.dataset.nav===active))}
+    window.addEventListener('scroll',()=>{requestAnimationFrame(updateNavActive)});
+    render();
+  </script>
 </body>
 </html>
