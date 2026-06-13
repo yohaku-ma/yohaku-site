@@ -1325,11 +1325,60 @@
 <!-- yohaku Progress App v10: project library / multi project management -->
 <!-- yohaku Progress App v10.1: project library anchor fix -->
 <!-- yohaku Progress App v11: home dashboard / hierarchy organization -->
+<!-- yohaku Progress App v11.1: home section and navigation fix -->
 </head>
 <body>
 <header class="topbar"><div class="topbar-inner"><div class="brand"><div class="mark">y</div><div><div class="brand-title">yohaku Progress</div><div class="brand-sub">空間提案の現在地を可視化する</div></div></div><div class="mini-actions"><button class="ghost-btn" id="saveBtn">保存</button><button class="primary-btn" id="exportBtnTop">共有文</button></div></div></header>
 <main class="app">
 <section class="hero" id="top"><div class="eyebrow">Project map</div><h1>今どこにいるかを、<br>見えるようにする。</h1><p class="lead">依頼ごとに、現在フェーズ・全体進捗・次にやること・判断待ちを整理する、yohaku用の進捗管理アプリです。</p></section>
+
+<section class="card" id="homeDashboard" style="margin-top:14px">
+  <div class="section-title">
+    <h2>ホーム</h2>
+    <span class="small">毎回ここを見る</span>
+  </div>
+  <div class="home-overview">
+    <div class="home-cards">
+      <div class="home-card">
+        <div class="home-label">現在フェーズ</div>
+        <div class="home-value" id="homePhase">未設定</div>
+        <div class="home-sub" id="homePhaseSub">案件情報を入力してください</div>
+      </div>
+      <div class="home-card">
+        <div class="home-label">次工程判定</div>
+        <div class="home-value" id="homeReadiness">0%</div>
+        <div class="home-sub" id="homeReadinessSub">未判定</div>
+      </div>
+      <div class="home-card">
+        <div class="home-label">顧客温度感</div>
+        <div class="home-value" id="homeAlignment">0%</div>
+        <div class="home-sub" id="homeAlignmentSub">未判定</div>
+      </div>
+      <div class="home-card">
+        <div class="home-label">提案品質</div>
+        <div class="home-value" id="homeQuality">0%</div>
+        <div class="home-sub" id="homeQualitySub">未判定</div>
+      </div>
+    </div>
+
+    <div class="home-focus">
+      <div class="home-focus-title">
+        <strong>今日見ること</strong>
+        <span class="small">自動整理</span>
+      </div>
+      <div class="home-focus-list" id="homeFocusList"></div>
+    </div>
+
+    <div class="home-quick">
+      <button class="primary" data-home-scroll="nextNavigator">次へ判定</button>
+      <button data-home-scroll="projectLibrary">案件管理</button>
+      <button data-home-scroll="clientPulse">顧客確認</button>
+      <button data-home-scroll="tasks">タスク</button>
+      <button data-home-scroll="clientReport">共有</button>
+    </div>
+  </div>
+</section>
+
 <section class="grid two" id="project"><div class="card"><div class="section-title"><h2>案件情報</h2><span class="small">自動保存</span></div><div class="field-grid two"><div><label>案件名</label><input id="projectName" placeholder="例：〇〇カフェ 空間方向性整理"></div><div><label>依頼者 / 店舗名</label><input id="clientName" placeholder="例：〇〇様"></div><div><label>現在フェーズ</label><select id="currentPhase"></select></div><div><label>案件状態</label><select id="projectStatus"><option>順調</option><option>確認待ち</option><option>要判断</option><option>停滞</option></select></div></div><div style="margin-top:12px"><label>次に進めること</label><textarea id="nextAction" placeholder="例：参考写真を分類し、避けたい印象を3つ整理する"></textarea></div></div>
 <div class="card"><div class="section-title"><h2>現在地</h2><span class="status-pill"><i class="dot" id="statusDot"></i><span id="statusText">順調</span></span></div><div class="dashboard-row"><div class="circle-wrap"><div class="circle" id="progressCircle"><div><strong id="overallPercent">0%</strong><span>全体進捗</span></div></div></div><div><div class="summary-list"><div class="summary-item"><span>現在フェーズ</span><strong id="currentPhaseLabel">未設定</strong></div><div class="summary-item"><span>完了フェーズ</span><strong id="doneCount">0 / 10</strong></div><div class="summary-item"><span>未完了タスク</span><strong id="openTaskCount">0件</strong></div><div class="summary-item"><span>確認・判断待ち</span><strong id="waitCount">0件</strong></div></div><div class="progress-line"><i id="overallBar"></i></div><p class="small" id="nextActionPreview" style="margin-top:12px">次に進めることを入力してください。</p></div></div></div></section>
 
@@ -2084,7 +2133,30 @@ function renderTasks(){if(!state.tasks.length){taskList.innerHTML=`<p class="sma
 function renderDecisions(){decisionLog.innerHTML=state.decisions.length?state.decisions.slice().reverse().map(d=>`<div class="log-item"><div class="log-date">${d.date}</div><div>${esc(d.text)}</div></div>`).join(""):`<p class="small">まだ判断ログがありません。</p>`}
 function renderSummary(){const cur=phases.find(p=>p.id==state.currentPhase),overall=calcOverall(),open=state.tasks.filter(t=>!t.done).map(t=>"・"+t.text).join("\n")||"・未登録";const curPhaseState=state.phases[Number(state.currentPhase)]||{};const blocker=curPhaseState.blocker||"特になし";const deliverable=curPhaseState.deliverable||(cur?cur.deliverable:"未設定");const journeyText=(state.journey||[]).map(j=>`・${j.stage}：${j.state||"未入力"}（${j.space||"空間要素未入力"}）`).join("\n");const translationText=(state.translation||[]).map(r=>`・${r.title||"状態未入力"} → ${r.element||"空間要素未入力"} / ${r.direction||"方向性未入力"}`).join("\n");const proposalText=(state.proposalHistory||[]).slice(-3).map(p=>`・${p.title||"無題の案"}（${p.status||"検討中"}）：${p.reason||p.content||"理由未入力"}`).join("\n")||"・未登録";const nav=buildNavigator();const qScore=calcQualityScore();const alignScore=calcAlignment();const pulse=state.clientPulse||{};const pulseText=`合意形成：${alignScore}%（${alignmentLabel(alignScore)}）\n期待感：${pulse.expectation}% / 理解度：${pulse.understanding}% / 納得度：${pulse.agreement}% / 迷い：${pulse.hesitation}% / 信頼感：${pulse.trust}%\n次に確認すること：${pulse.nextQuestion||"未入力"}`;summaryText.textContent=`【yohaku 進捗共有】\n\n案件名：${state.projectName||"未入力"}\n依頼者：${state.clientName||"未入力"}\n案件ID：${state.projectId||"未保存"}\n\n現在フェーズ：${cur?cur.name:"未設定"}\n全体進捗：${overall}%\n案件状態：${state.projectStatus}\n\n状態遷移：\n${journeyText}\n\n直近の提案履歴：\n${proposalText}\n\n顧客温度感：\n${pulseText}\n\n次工程判定：\n${readinessLabelText(nav.readiness,nav.issues.filter(i=>i.title!=="次へ進める状態です").length)}（準備度 ${nav.readiness}%）\n\n提案品質監査：\n${qScore}%（${qualityLabelText(qScore)}）\n\n次に進めること：\n${state.nextAction||"未入力"}\n\n未完了タスク：\n${open}\n\n停滞理由 / 判断待ち：\n${blocker}\n\nこのフェーズの成果物：\n${deliverable}\n\n現在の見立て：\n今は「${cur?cur.name:"未設定"}」の段階です。状態の流れと空間要素を確認しながら、次工程へ進むための整理を進めます。`}
 function addTask(){const text=taskInput.value.trim();if(!text)return;state.tasks.push({id:String(Date.now()),text,done:false});taskInput.value="";saveState()} function addDecision(){const text=decisionInput.value.trim();if(!text)return;const d=new Date();state.decisions.push({date:`${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,"0")}/${String(d.getDate()).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`,text});decisionInput.value="";saveState()}
-projectName.oninput=e=>{state.projectName=e.target.value;saveState()};clientName.oninput=e=>{state.clientName=e.target.value;saveState()};currentPhase.onchange=e=>{state.currentPhase=Number(e.target.value);state.phases.forEach((p,i)=>{if(i<state.currentPhase&&p.status==="未着手")p.status="完了";if(i===state.currentPhase&&p.status==="未着手")p.status="進行中"});saveState()};projectStatus.onchange=e=>{state.projectStatus=e.target.value;saveState()};nextAction.oninput=e=>{state.nextAction=e.target.value;saveState()};addProposalBtn.onclick=addProposal;clientNextQuestion.oninput=e=>{state.clientPulse.nextQuestion=e.target.value;saveState()};reportMode.onchange=e=>{state.clientReport.mode=e.target.value;saveState()};nextMeeting.oninput=e=>{state.clientReport.nextMeeting=e.target.value;saveState()};addAgendaBtn.onclick=addAgenda;agendaInput.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addAgenda()}};copyClientReportBtn.onclick=async()=>{await navigator.clipboard.writeText(clientReportText.textContent);alert("共有レポートをコピーしました。")};advancePhaseBtn.onclick=advancePhase;copyNavigatorBtn.onclick=async()=>{await navigator.clipboard.writeText(navigatorActions.textContent);alert("次にやることをコピーしました。")};copyQualityBtn.onclick=async()=>{await navigator.clipboard.writeText(buildQualityText());alert("監査結果をコピーしました。")};addTaskBtn.onclick=addTask;taskInput.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addTask()}};addDecisionBtn.onclick=addDecision;saveBtn.onclick=saveState;saveProjectBtn.onclick=saveCurrentProjectToLibrary;newProjectBtn.onclick=createNewProject;duplicateProjectBtn.onclick=duplicateCurrentProject;exportBtnTop.onclick=()=>share.scrollIntoView({behavior:"smooth"});copyBtn.onclick=async()=>{await navigator.clipboard.writeText(summaryText.textContent);alert("共有文をコピーしました。")};downloadBtn.onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`yohaku-progress-${Date.now()}.json`;a.click();URL.revokeObjectURL(a.href)};importFile.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{state=normalize(JSON.parse(r.result));saveState();alert("データを読み込みました。")}catch(err){alert("読み込みに失敗しました。")}};r.readAsText(file)};resetBtn.onclick=()=>{if(confirm("入力内容をリセットしますか？")){state=clone(defaultState);saveState()}};render();
+projectName.oninput=e=>{state.projectName=e.target.value;saveState()};clientName.oninput=e=>{state.clientName=e.target.value;saveState()};currentPhase.onchange=e=>{state.currentPhase=Number(e.target.value);state.phases.forEach((p,i)=>{if(i<state.currentPhase&&p.status==="未着手")p.status="完了";if(i===state.currentPhase&&p.status==="未着手")p.status="進行中"});saveState()};projectStatus.onchange=e=>{state.projectStatus=e.target.value;saveState()};nextAction.oninput=e=>{state.nextAction=e.target.value;saveState()};addProposalBtn.onclick=addProposal;clientNextQuestion.oninput=e=>{state.clientPulse.nextQuestion=e.target.value;saveState()};reportMode.onchange=e=>{state.clientReport.mode=e.target.value;saveState()};nextMeeting.oninput=e=>{state.clientReport.nextMeeting=e.target.value;saveState()};addAgendaBtn.onclick=addAgenda;agendaInput.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addAgenda()}};copyClientReportBtn.onclick=async()=>{await navigator.clipboard.writeText(clientReportText.textContent);alert("共有レポートをコピーしました。")};advancePhaseBtn.onclick=advancePhase;copyNavigatorBtn.onclick=async()=>{await navigator.clipboard.writeText(navigatorActions.textContent);alert("次にやることをコピーしました。")};copyQualityBtn.onclick=async()=>{await navigator.clipboard.writeText(buildQualityText());alert("監査結果をコピーしました。")};addTaskBtn.onclick=addTask;taskInput.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();addTask()}};addDecisionBtn.onclick=addDecision;saveBtn.onclick=saveState;saveProjectBtn.onclick=saveCurrentProjectToLibrary;newProjectBtn.onclick=createNewProject;duplicateProjectBtn.onclick=duplicateCurrentProject;exportBtnTop.onclick=()=>share.scrollIntoView({behavior:"smooth"});copyBtn.onclick=async()=>{await navigator.clipboard.writeText(summaryText.textContent);alert("共有文をコピーしました。")};downloadBtn.onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=`yohaku-progress-${Date.now()}.json`;a.click();URL.revokeObjectURL(a.href)};importFile.onchange=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=()=>{try{state=normalize(JSON.parse(r.result));saveState();alert("データを読み込みました。")}catch(err){alert("読み込みに失敗しました。")}};r.readAsText(file)};resetBtn.onclick=()=>{if(confirm("入力内容をリセットしますか？")){state=clone(defaultState);saveState()}};
+function yohakuScrollTo(id){
+  const target = document.getElementById(id);
+  if(!target) return false;
+  const top = target.getBoundingClientRect().top + window.pageYOffset - 74;
+  window.scrollTo({top, behavior:"smooth"});
+  return false;
+}
+
+document.querySelectorAll("[data-scroll-target]").forEach(link=>{
+  link.addEventListener("click", e=>{
+    e.preventDefault();
+    yohakuScrollTo(link.dataset.scrollTarget);
+  });
+});
+
+document.querySelectorAll("[data-home-scroll]").forEach(btn=>{
+  btn.addEventListener("click", e=>{
+    e.preventDefault();
+    yohakuScrollTo(btn.dataset.homeScroll);
+  });
+});
+
+render();
 </script>
 </body>
 </html>
