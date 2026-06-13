@@ -18,6 +18,118 @@
 
 
 
+
+.portfolio-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:12px;
+}
+@media (min-width:760px){
+  .portfolio-stats{grid-template-columns:repeat(4,1fr)}
+}
+.portfolio-stat{
+  border:1px solid var(--line);
+  background:#fffdf8;
+  border-radius:18px;
+  padding:13px;
+}
+.portfolio-stat .label{
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.portfolio-stat .value{
+  font-size:22px;
+  line-height:1;
+  font-weight:560;
+}
+.portfolio-list{
+  display:grid;
+  gap:9px;
+}
+.portfolio-item{
+  border:1px solid var(--line);
+  background:#fffdf8;
+  border-radius:18px;
+  padding:12px;
+}
+.portfolio-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+.portfolio-title{
+  font-size:14px;
+  font-weight:560;
+  line-height:1.45;
+}
+.portfolio-meta{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.55;
+  margin-top:3px;
+}
+.portfolio-badge{
+  display:inline-flex;
+  border-radius:999px;
+  padding:5px 9px;
+  border:1px solid var(--line);
+  background:#f7efe4;
+  font-size:11px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+.portfolio-badge.risk{
+  background:#fff3ef;
+  border-color:#e2c4bd;
+  color:var(--risk);
+}
+.portfolio-badge.wait{
+  background:#fff8ed;
+  border-color:#ead6b8;
+  color:var(--wait);
+}
+.portfolio-metrics{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:10px;
+}
+@media (min-width:760px){
+  .portfolio-metrics{grid-template-columns:repeat(4,1fr)}
+}
+.portfolio-metric{
+  border:1px solid rgba(228,217,201,.85);
+  border-radius:14px;
+  padding:8px;
+  font-size:11px;
+  color:var(--muted);
+  background:#fffaf1;
+}
+.portfolio-metric strong{
+  display:block;
+  font-size:15px;
+  color:var(--ink);
+  margin-top:2px;
+}
+.portfolio-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:10px;
+}
+.portfolio-buttons button{
+  border:1px solid var(--line);
+  background:#fffaf1;
+  color:var(--ink);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:11px;
+  cursor:pointer;
+}
+
 .home-overview{
   display:grid;
   gap:12px;
@@ -253,6 +365,118 @@
 @media (min-width:760px){
   
 
+
+
+.portfolio-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:12px;
+}
+@media (min-width:760px){
+  .portfolio-stats{grid-template-columns:repeat(4,1fr)}
+}
+.portfolio-stat{
+  border:1px solid var(--line);
+  background:#fffdf8;
+  border-radius:18px;
+  padding:13px;
+}
+.portfolio-stat .label{
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.portfolio-stat .value{
+  font-size:22px;
+  line-height:1;
+  font-weight:560;
+}
+.portfolio-list{
+  display:grid;
+  gap:9px;
+}
+.portfolio-item{
+  border:1px solid var(--line);
+  background:#fffdf8;
+  border-radius:18px;
+  padding:12px;
+}
+.portfolio-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+.portfolio-title{
+  font-size:14px;
+  font-weight:560;
+  line-height:1.45;
+}
+.portfolio-meta{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.55;
+  margin-top:3px;
+}
+.portfolio-badge{
+  display:inline-flex;
+  border-radius:999px;
+  padding:5px 9px;
+  border:1px solid var(--line);
+  background:#f7efe4;
+  font-size:11px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+.portfolio-badge.risk{
+  background:#fff3ef;
+  border-color:#e2c4bd;
+  color:var(--risk);
+}
+.portfolio-badge.wait{
+  background:#fff8ed;
+  border-color:#ead6b8;
+  color:var(--wait);
+}
+.portfolio-metrics{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:10px;
+}
+@media (min-width:760px){
+  .portfolio-metrics{grid-template-columns:repeat(4,1fr)}
+}
+.portfolio-metric{
+  border:1px solid rgba(228,217,201,.85);
+  border-radius:14px;
+  padding:8px;
+  font-size:11px;
+  color:var(--muted);
+  background:#fffaf1;
+}
+.portfolio-metric strong{
+  display:block;
+  font-size:15px;
+  color:var(--ink);
+  margin-top:2px;
+}
+.portfolio-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:10px;
+}
+.portfolio-buttons button{
+  border:1px solid var(--line);
+  background:#fffaf1;
+  color:var(--ink);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:11px;
+  cursor:pointer;
+}
 
 .home-overview{
   display:grid;
@@ -610,6 +834,118 @@
 
 
 
+
+.portfolio-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:12px;
+}
+@media (min-width:760px){
+  .portfolio-stats{grid-template-columns:repeat(4,1fr)}
+}
+.portfolio-stat{
+  border:1px solid var(--line);
+  background:#fffdf8;
+  border-radius:18px;
+  padding:13px;
+}
+.portfolio-stat .label{
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.portfolio-stat .value{
+  font-size:22px;
+  line-height:1;
+  font-weight:560;
+}
+.portfolio-list{
+  display:grid;
+  gap:9px;
+}
+.portfolio-item{
+  border:1px solid var(--line);
+  background:#fffdf8;
+  border-radius:18px;
+  padding:12px;
+}
+.portfolio-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+.portfolio-title{
+  font-size:14px;
+  font-weight:560;
+  line-height:1.45;
+}
+.portfolio-meta{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.55;
+  margin-top:3px;
+}
+.portfolio-badge{
+  display:inline-flex;
+  border-radius:999px;
+  padding:5px 9px;
+  border:1px solid var(--line);
+  background:#f7efe4;
+  font-size:11px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+.portfolio-badge.risk{
+  background:#fff3ef;
+  border-color:#e2c4bd;
+  color:var(--risk);
+}
+.portfolio-badge.wait{
+  background:#fff8ed;
+  border-color:#ead6b8;
+  color:var(--wait);
+}
+.portfolio-metrics{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:10px;
+}
+@media (min-width:760px){
+  .portfolio-metrics{grid-template-columns:repeat(4,1fr)}
+}
+.portfolio-metric{
+  border:1px solid rgba(228,217,201,.85);
+  border-radius:14px;
+  padding:8px;
+  font-size:11px;
+  color:var(--muted);
+  background:#fffaf1;
+}
+.portfolio-metric strong{
+  display:block;
+  font-size:15px;
+  color:var(--ink);
+  margin-top:2px;
+}
+.portfolio-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:10px;
+}
+.portfolio-buttons button{
+  border:1px solid var(--line);
+  background:#fffaf1;
+  color:var(--ink);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:11px;
+  cursor:pointer;
+}
+
 .home-overview{
   display:grid;
   gap:12px;
@@ -845,6 +1181,118 @@
 @media (min-width:760px){
   
 
+
+
+.portfolio-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:12px;
+}
+@media (min-width:760px){
+  .portfolio-stats{grid-template-columns:repeat(4,1fr)}
+}
+.portfolio-stat{
+  border:1px solid var(--line);
+  background:#fffdf8;
+  border-radius:18px;
+  padding:13px;
+}
+.portfolio-stat .label{
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+.portfolio-stat .value{
+  font-size:22px;
+  line-height:1;
+  font-weight:560;
+}
+.portfolio-list{
+  display:grid;
+  gap:9px;
+}
+.portfolio-item{
+  border:1px solid var(--line);
+  background:#fffdf8;
+  border-radius:18px;
+  padding:12px;
+}
+.portfolio-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-start;
+}
+.portfolio-title{
+  font-size:14px;
+  font-weight:560;
+  line-height:1.45;
+}
+.portfolio-meta{
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.55;
+  margin-top:3px;
+}
+.portfolio-badge{
+  display:inline-flex;
+  border-radius:999px;
+  padding:5px 9px;
+  border:1px solid var(--line);
+  background:#f7efe4;
+  font-size:11px;
+  color:var(--muted);
+  white-space:nowrap;
+}
+.portfolio-badge.risk{
+  background:#fff3ef;
+  border-color:#e2c4bd;
+  color:var(--risk);
+}
+.portfolio-badge.wait{
+  background:#fff8ed;
+  border-color:#ead6b8;
+  color:var(--wait);
+}
+.portfolio-metrics{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+  margin-top:10px;
+}
+@media (min-width:760px){
+  .portfolio-metrics{grid-template-columns:repeat(4,1fr)}
+}
+.portfolio-metric{
+  border:1px solid rgba(228,217,201,.85);
+  border-radius:14px;
+  padding:8px;
+  font-size:11px;
+  color:var(--muted);
+  background:#fffaf1;
+}
+.portfolio-metric strong{
+  display:block;
+  font-size:15px;
+  color:var(--ink);
+  margin-top:2px;
+}
+.portfolio-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:10px;
+}
+.portfolio-buttons button{
+  border:1px solid var(--line);
+  background:#fffaf1;
+  color:var(--ink);
+  border-radius:999px;
+  padding:7px 10px;
+  font-size:11px;
+  cursor:pointer;
+}
 
 .home-overview{
   display:grid;
@@ -1326,6 +1774,7 @@
 <!-- yohaku Progress App v10.1: project library anchor fix -->
 <!-- yohaku Progress App v11: home dashboard / hierarchy organization -->
 <!-- yohaku Progress App v11.1: home section and navigation fix -->
+<!-- yohaku Progress App v12: portfolio comparison board -->
 </head>
 <body>
 <header class="topbar"><div class="topbar-inner"><div class="brand"><div class="mark">y</div><div><div class="brand-title">yohaku Progress</div><div class="brand-sub">空間提案の現在地を可視化する</div></div></div><div class="mini-actions"><button class="ghost-btn" id="saveBtn">保存</button><button class="primary-btn" id="exportBtnTop">共有文</button></div></div></header>
@@ -1372,6 +1821,7 @@
     <div class="home-quick">
       <button class="primary" data-home-scroll="nextNavigator">次へ判定</button>
       <button data-home-scroll="projectLibrary">案件管理</button>
+      <button data-home-scroll="portfolioDashboard">案件比較</button>
       <button data-home-scroll="clientPulse">顧客確認</button>
       <button data-home-scroll="tasks">タスク</button>
       <button data-home-scroll="clientReport">共有</button>
@@ -1399,6 +1849,21 @@
 
   <div class="library-list" id="projectLibraryList"></div>
 </section>
+
+
+<section class="card" id="portfolioDashboard" style="margin-top:14px">
+  <div class="section-title">
+    <h2>案件比較ボード</h2>
+    <span class="small">複数案件の優先順位を見る</span>
+  </div>
+  <p class="small" style="margin-top:-4px">
+    保存した案件を横断して、進捗・顧客温度感・品質・停滞を比較します。どの案件から見るべきかを判断しやすくします。
+  </p>
+
+  <div class="portfolio-stats" id="portfolioStats"></div>
+  <div class="portfolio-list" id="portfolioList"></div>
+</section>
+
 
 <section class="card" id="phases"><div class="section-title"><h2>フェーズマップ</h2><span class="small">完了条件 / 停滞理由 / 成果物</span></div><div class="phase-map" id="phaseMap"></div></section>
 <section class="card" id="journey"><div class="section-title"><h2>状態遷移マップ</h2><span class="small">空間で人がどう変わるか</span></div><p class="small" style="margin-top:-4px">来る前から帰った後まで、利用者の状態変化と、それを支える空間要素を整理します。</p><div class="journey-flow" id="journeyFlow"></div><div class="journey-preview"><div class="journey-preview-title">状態の流れ</div><div class="journey-preview-line" id="journeyPreview"></div></div></section>
@@ -1597,6 +2062,7 @@
 <nav class="bottom-nav">
   <a href="#homeDashboard" data-scroll-target="homeDashboard">ホーム</a>
   <a href="#projectLibrary" data-scroll-target="projectLibrary">案件</a>
+  <a href="#portfolioDashboard" data-scroll-target="portfolioDashboard">比較</a>
   <a href="#phases" data-scroll-target="phases">フェーズ</a>
   <a href="#translationMap" data-scroll-target="translationMap">翻訳</a>
   <a href="#clientPulse" data-scroll-target="clientPulse">顧客</a>
@@ -1673,7 +2139,7 @@ function renderHomeDashboard(){
   document.getElementById("homeFocusList").innerHTML=focus.map(x=>`<div class="home-focus-item"><strong>${esc(x.title)}</strong><br>${esc(x.body)}</div>`).join("");
 }
 
-function render(){projectName.value=state.projectName;clientName.value=state.clientName;projectStatus.value=state.projectStatus;nextAction.value=state.nextAction;currentPhase.innerHTML=phases.map(p=>`<option value="${p.id}">${p.id}. ${p.name}</option>`).join("");currentPhase.value=state.currentPhase;const overall=calcOverall();overallPercent.textContent=overall+"%";progressCircle.style.setProperty("--p",overall);overallBar.style.width=overall+"%";const cur=phases.find(p=>p.id==state.currentPhase);currentPhaseLabel.textContent=cur?cur.name:"未設定";doneCount.textContent=`${state.phases.filter(p=>p.status==="完了").length} / ${phases.length}`;waitCount.textContent=`${state.phases.filter(p=>p.status==="確認待ち"||p.status==="要判断").length}件`;openTaskCount.textContent=`${state.tasks.filter(t=>!t.done).length}件`;nextActionPreview.textContent=state.nextAction||"次に進めることを入力してください。";statusText.textContent=state.projectStatus;statusDot.className="dot"+(state.projectStatus==="順調"?" good":state.projectStatus==="確認待ち"?" wait":state.projectStatus==="要判断"||state.projectStatus==="停滞"?" risk":"");renderProjectLibrary();renderPhases();renderJourney();renderTranslationMap();renderProposalHistory();renderClientPulse();renderQualityAudit();renderNextNavigator();renderHomeDashboard();renderClientReport();renderMaturity();renderTasks();renderDecisions();renderSummary()}
+function render(){projectName.value=state.projectName;clientName.value=state.clientName;projectStatus.value=state.projectStatus;nextAction.value=state.nextAction;currentPhase.innerHTML=phases.map(p=>`<option value="${p.id}">${p.id}. ${p.name}</option>`).join("");currentPhase.value=state.currentPhase;const overall=calcOverall();overallPercent.textContent=overall+"%";progressCircle.style.setProperty("--p",overall);overallBar.style.width=overall+"%";const cur=phases.find(p=>p.id==state.currentPhase);currentPhaseLabel.textContent=cur?cur.name:"未設定";doneCount.textContent=`${state.phases.filter(p=>p.status==="完了").length} / ${phases.length}`;waitCount.textContent=`${state.phases.filter(p=>p.status==="確認待ち"||p.status==="要判断").length}件`;openTaskCount.textContent=`${state.tasks.filter(t=>!t.done).length}件`;nextActionPreview.textContent=state.nextAction||"次に進めることを入力してください。";statusText.textContent=state.projectStatus;statusDot.className="dot"+(state.projectStatus==="順調"?" good":state.projectStatus==="確認待ち"?" wait":state.projectStatus==="要判断"||state.projectStatus==="停滞"?" risk":"");renderProjectLibrary();renderPortfolioDashboard();renderPhases();renderJourney();renderTranslationMap();renderProposalHistory();renderClientPulse();renderQualityAudit();renderNextNavigator();renderHomeDashboard();renderClientReport();renderMaturity();renderTasks();renderDecisions();renderSummary()}
 
 const libraryKey="yohakuProjectLibraryV1";
 function getProjectLibrary(){
@@ -1760,6 +2226,131 @@ function createNewProject(){
   saveState();
   window.scrollTo({top:0,behavior:"smooth"});
 }
+
+function calcAlignmentForData(data){
+  const p=(data&&data.clientPulse)||{};
+  const base=(Number(p.expectation||0)+Number(p.understanding||0)+Number(p.agreement||0)+Number(p.trust||0))/4;
+  const penalty=Number(p.hesitation||0)*0.45;
+  return Math.max(0,Math.min(100,Math.round(base-penalty)));
+}
+function calcQualityForData(data){
+  try{
+    const qa=(data&&data.qualityAudit)||{};
+    const vals=qualityItems.map(item=>Number((qa[item.key]&&qa[item.key].score) ?? 50));
+    return Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
+  }catch(e){
+    return 50;
+  }
+}
+function blockerCountForData(data){
+  return ((data&&data.phases)||[]).filter(p=>p.blocker&&String(p.blocker).trim()).length;
+}
+function openTaskCountForData(data){
+  return ((data&&data.tasks)||[]).filter(t=>!t.done).length;
+}
+function projectPriorityLabel(data){
+  const status=(data&&data.projectStatus)||"順調";
+  const align=calcAlignmentForData(data);
+  const quality=calcQualityForData(data);
+  const blockers=blockerCountForData(data);
+  const openTasks=openTaskCountForData(data);
+  if(status==="停滞"||status==="要判断"||blockers>0) return {label:"要対応", cls:"risk"};
+  if(align<60) return {label:"顧客確認", cls:"wait"};
+  if(quality<70) return {label:"品質修正", cls:"wait"};
+  if(openTasks>=5) return {label:"タスク整理", cls:"wait"};
+  return {label:"順調", cls:""};
+}
+function projectPriorityRank(data){
+  const p=projectPriorityLabel(data).label;
+  if(p==="要対応") return 1;
+  if(p==="顧客確認") return 2;
+  if(p==="品質修正") return 3;
+  if(p==="タスク整理") return 4;
+  return 5;
+}
+function renderPortfolioDashboard(){
+  const root=document.getElementById("portfolioList");
+  const stats=document.getElementById("portfolioStats");
+  if(!root||!stats)return;
+  const list=getProjectLibrary();
+  if(!list.length){
+    stats.innerHTML=`<div class="portfolio-stat"><div class="label">保存案件</div><div class="value">0</div></div>
+    <div class="portfolio-stat"><div class="label">平均進捗</div><div class="value">0%</div></div>
+    <div class="portfolio-stat"><div class="label">要対応</div><div class="value">0</div></div>
+    <div class="portfolio-stat"><div class="label">確認待ち</div><div class="value">0</div></div>`;
+    root.innerHTML=`<p class="small">まだ比較できる案件がありません。案件ライブラリで「この案件を保存」を押すと、ここに表示されます。</p>`;
+    return;
+  }
+
+  const rows=list.map(item=>{
+    const data=item.data||{};
+    return {
+      ...item,
+      progress:calcOverallFor(data),
+      alignment:calcAlignmentForData(data),
+      quality:calcQualityForData(data),
+      blockers:blockerCountForData(data),
+      openTasks:openTaskCountForData(data),
+      priority:projectPriorityLabel(data),
+      phase:(phases.find(p=>p.id==data.currentPhase)||{}).name || item.phase || "未設定",
+      client:data.clientName||item.client||"依頼者未設定",
+      title:data.projectName||item.title||"名称未設定の案件",
+      status:data.projectStatus||"順調"
+    };
+  }).sort((a,b)=>projectPriorityRank(a.data||{})-projectPriorityRank(b.data||{}) || a.progress-b.progress);
+
+  const avg=Math.round(rows.reduce((a,b)=>a+b.progress,0)/rows.length);
+  const need=rows.filter(r=>r.priority.label==="要対応").length;
+  const wait=rows.filter(r=>r.priority.label==="顧客確認"||r.priority.label==="品質修正"||r.priority.label==="タスク整理").length;
+
+  stats.innerHTML=`<div class="portfolio-stat"><div class="label">保存案件</div><div class="value">${rows.length}</div></div>
+  <div class="portfolio-stat"><div class="label">平均進捗</div><div class="value">${avg}%</div></div>
+  <div class="portfolio-stat"><div class="label">要対応</div><div class="value">${need}</div></div>
+  <div class="portfolio-stat"><div class="label">確認・修正</div><div class="value">${wait}</div></div>`;
+
+  root.innerHTML=rows.map(r=>`<div class="portfolio-item">
+    <div class="portfolio-head">
+      <div>
+        <div class="portfolio-title">${esc(r.title)}</div>
+        <div class="portfolio-meta">${esc(r.client)} / ${esc(r.phase)} / 状態：${esc(r.status)} / 更新：${esc(r.updatedAt||"")}</div>
+      </div>
+      <span class="portfolio-badge ${r.priority.cls}">${esc(r.priority.label)}</span>
+    </div>
+    <div class="portfolio-metrics">
+      <div class="portfolio-metric">進捗<strong>${r.progress}%</strong></div>
+      <div class="portfolio-metric">顧客温度<strong>${r.alignment}%</strong></div>
+      <div class="portfolio-metric">提案品質<strong>${r.quality}%</strong></div>
+      <div class="portfolio-metric">未完了タスク<strong>${r.openTasks}件</strong></div>
+    </div>
+    <div class="portfolio-buttons">
+      <button data-portfolio-load="${esc(r.id)}">この案件を開く</button>
+      <button data-portfolio-report="${esc(r.id)}">簡易共有文</button>
+    </div>
+  </div>`).join("");
+
+  document.querySelectorAll("[data-portfolio-load]").forEach(btn=>btn.onclick=e=>loadProjectFromLibrary(e.target.dataset.portfolioLoad));
+  document.querySelectorAll("[data-portfolio-report]").forEach(btn=>btn.onclick=async e=>{
+    const item=getProjectLibrary().find(x=>x.id===e.target.dataset.portfolioReport);
+    if(!item)return;
+    const d=item.data||{};
+    const cur=(phases.find(p=>p.id==d.currentPhase)||{}).name||"未設定";
+    const text=`【案件状況メモ】
+
+案件名：${d.projectName||item.title||"未入力"}
+依頼者：${d.clientName||item.client||"未入力"}
+現在フェーズ：${cur}
+進捗：${calcOverallFor(d)}%
+顧客温度感：${calcAlignmentForData(d)}%
+提案品質：${calcQualityForData(d)}%
+案件状態：${d.projectStatus||"順調"}
+
+次に見ること：
+${d.nextAction||"未入力"}`;
+    await navigator.clipboard.writeText(text);
+    alert("簡易共有文をコピーしました。");
+  });
+}
+
 function renderProjectLibrary(){
   if(!document.getElementById("projectLibraryList"))return;
   const list=getProjectLibrary();
