@@ -975,6 +975,7 @@
 <!-- yohaku Progress App v8: next phase navigator -->
 <!-- yohaku Progress App v9: proposal quality audit -->
 <!-- yohaku Progress App v10: project library / multi project management -->
+<!-- yohaku Progress App v10.1: project library anchor fix -->
 </head>
 <body>
 <header class="topbar"><div class="topbar-inner"><div class="brand"><div class="mark">y</div><div><div class="brand-title">yohaku Progress</div><div class="brand-sub">空間提案の現在地を可視化する</div></div></div><div class="mini-actions"><button class="ghost-btn" id="saveBtn">保存</button><button class="primary-btn" id="exportBtnTop">共有文</button></div></div></header>
@@ -982,6 +983,25 @@
 <section class="hero" id="top"><div class="eyebrow">Project map</div><h1>今どこにいるかを、<br>見えるようにする。</h1><p class="lead">依頼ごとに、現在フェーズ・全体進捗・次にやること・判断待ちを整理する、yohaku用の進捗管理アプリです。</p></section>
 <section class="grid two" id="project"><div class="card"><div class="section-title"><h2>案件情報</h2><span class="small">自動保存</span></div><div class="field-grid two"><div><label>案件名</label><input id="projectName" placeholder="例：〇〇カフェ 空間方向性整理"></div><div><label>依頼者 / 店舗名</label><input id="clientName" placeholder="例：〇〇様"></div><div><label>現在フェーズ</label><select id="currentPhase"></select></div><div><label>案件状態</label><select id="projectStatus"><option>順調</option><option>確認待ち</option><option>要判断</option><option>停滞</option></select></div></div><div style="margin-top:12px"><label>次に進めること</label><textarea id="nextAction" placeholder="例：参考写真を分類し、避けたい印象を3つ整理する"></textarea></div></div>
 <div class="card"><div class="section-title"><h2>現在地</h2><span class="status-pill"><i class="dot" id="statusDot"></i><span id="statusText">順調</span></span></div><div class="dashboard-row"><div class="circle-wrap"><div class="circle" id="progressCircle"><div><strong id="overallPercent">0%</strong><span>全体進捗</span></div></div></div><div><div class="summary-list"><div class="summary-item"><span>現在フェーズ</span><strong id="currentPhaseLabel">未設定</strong></div><div class="summary-item"><span>完了フェーズ</span><strong id="doneCount">0 / 10</strong></div><div class="summary-item"><span>未完了タスク</span><strong id="openTaskCount">0件</strong></div><div class="summary-item"><span>確認・判断待ち</span><strong id="waitCount">0件</strong></div></div><div class="progress-line"><i id="overallBar"></i></div><p class="small" id="nextActionPreview" style="margin-top:12px">次に進めることを入力してください。</p></div></div></div></section>
+
+<section class="card" id="projectLibrary" style="margin-top:14px">
+  <div class="section-title">
+    <h2>案件ライブラリ</h2>
+    <span class="small">複数案件を保存・切替</span>
+  </div>
+  <p class="small" style="margin-top:-4px">
+    案件ごとに進捗データを保存できます。複数の依頼を受ける時に、案件を切り替えて使います。
+  </p>
+
+  <div class="library-actions">
+    <button class="primary-btn" id="saveProjectBtn">この案件を保存</button>
+    <button class="ghost-btn" id="newProjectBtn">新規案件を作る</button>
+    <button class="ghost-btn" id="duplicateProjectBtn">複製して別案件にする</button>
+  </div>
+
+  <div class="library-list" id="projectLibraryList"></div>
+</section>
+
 <section class="card" id="phases"><div class="section-title"><h2>フェーズマップ</h2><span class="small">完了条件 / 停滞理由 / 成果物</span></div><div class="phase-map" id="phaseMap"></div></section>
 <section class="card" id="journey"><div class="section-title"><h2>状態遷移マップ</h2><span class="small">空間で人がどう変わるか</span></div><p class="small" style="margin-top:-4px">来る前から帰った後まで、利用者の状態変化と、それを支える空間要素を整理します。</p><div class="journey-flow" id="journeyFlow"></div><div class="journey-preview"><div class="journey-preview-title">状態の流れ</div><div class="journey-preview-line" id="journeyPreview"></div></div></section>
 <section class="card" id="translationMap"><div class="section-title"><h2>空間翻訳マップ</h2><span class="small">状態を空間要素へ接続する</span></div><p class="small" style="margin-top:-4px">生みたい状態を、光・素材・余白・距離・動線などの判断基準へつなげます。</p><div class="translation-map" id="translationRows"></div><div class="connection-preview"><div class="journey-preview-title">接続の見立て</div><div class="connection-line" id="translationPreview"></div></div></section>
@@ -1176,7 +1196,7 @@
 
       <div class="card" id="share"><div class="section-title"><h2>共有文</h2><span class="small">依頼者への説明に使う</span></div><div class="export-box" id="summaryText"></div><div class="btn-row"><button class="ghost-btn" id="copyBtn">コピー</button><button class="ghost-btn" id="downloadBtn">データ保存</button><label class="ghost-btn" for="importFile" style="cursor:pointer">データ読込</label><input type="file" id="importFile" accept=".json" class="hidden"><button class="danger-btn" id="resetBtn">リセット</button></div><p class="small">入力内容はこのスマホ・ブラウザ内に保存されます。別端末で使う場合は「データ保存」「データ読込」を使います。</p></div></section>
 </main>
-<nav class="bottom-nav"><a href="#project">現在地</a><a href="#projectLibrary">案件</a><a href="#phases">フェーズ</a><a href="#journey">遷移</a><a href="#translationMap">翻訳</a><a href="#proposalLog">履歴</a><a href="#clientPulse">顧客</a><a href="#tasks">タスク</a><a href="#qualityAudit">監査</a><a href="#nextNavigator">次へ</a><a href="#clientReport">共有</a></nav>
+<nav class="bottom-nav"><a href="#project">現在地</a><a href="#projectLibrary" data-scroll-target="projectLibrary">案件</a><a href="#phases">フェーズ</a><a href="#journey">遷移</a><a href="#translationMap">翻訳</a><a href="#proposalLog">履歴</a><a href="#clientPulse">顧客</a><a href="#tasks">タスク</a><a href="#qualityAudit">監査</a><a href="#nextNavigator">次へ</a><a href="#clientReport">共有</a></nav>
 <script>
 const phases=[
 {id:0,name:"相談・要件整理",desc:"目的、依頼範囲、成果物、判断基準を決める",checks:["目的が整理できている","依頼範囲が決まっている","最終成果物が決まっている","判断基準が言葉になっている"],deliverable:"要件整理メモ"},
